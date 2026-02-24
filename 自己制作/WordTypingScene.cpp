@@ -95,6 +95,9 @@ WordTypingScene::WordTypingScene()
 	charIndex = 0;
 	score = 0;
 	miss = 0;
+	combo = 0;
+	maxCombo = 0;
+	missFlag = false;
 	memset(keyNow, 0, sizeof(keyNow));
 	memset(keyOld, 0, sizeof(keyOld));
 }
@@ -114,7 +117,7 @@ void WordTypingScene::Update()
 	if (IsTimeUp())
 	{
 		GameManager::GetInstance().ChangeScene(
-			new ResultScene(score, miss)
+			new ResultScene(score, miss,maxCombo)
 		);
 		return;
 	}
@@ -157,6 +160,13 @@ void WordTypingScene::CheckTyping()
 				// 単語終了チェック
 				if (currentWord.input[charIndex] == '\0')
 				{
+					if (!missFlag)
+					{
+						combo++;
+						if (combo > maxCombo) {
+							maxCombo = combo;
+						}
+					}
 					score++;
 					NextWord();
 				}
@@ -165,6 +175,8 @@ void WordTypingScene::CheckTyping()
 			{
 				// ====== ミス ======
 				miss++;
+				combo = 0;
+				missFlag = true;
 			}
 			break; // 1入力で終了
 		}
@@ -182,12 +194,13 @@ void WordTypingScene::NextWord()
 	if (wordIndex >= wordCount)
 	{
 		GameManager::GetInstance().ChangeScene(
-			new ResultScene(score, miss)
+			new ResultScene(score, miss, maxCombo)
 		);
 		return;
 	}
 	currentWord = wordList[order[wordIndex]];
 	charIndex = 0;
+	missFlag = false;
 }
 
 //制限時間を過ぎたかを判定
@@ -208,7 +221,7 @@ void WordTypingScene::Draw()
 	//タイピングする文字の表示
 	SetFontSize(22);
 	DrawFormatString(250, 200, GetColor(230, 230, 230), TEXT("Word:%s"), currentWord.display);
-	DrawFormatString(220, 220, GetColor(230, 230, 230), TEXT("%s"), currentWord.input);
+	DrawFormatString(300, 220, GetColor(230, 230, 230), TEXT("%s"), currentWord.input);
 
 	//======タイピングしている文字の表示======
 	DrawString(220, 260, TEXT("Typed : "),GetColor(230, 230, 230));
@@ -222,6 +235,7 @@ void WordTypingScene::Draw()
 	DrawFormatString(100, 140, GetColor(255, 255, 255), TEXT("スコア:%d"), score);             //スコアの表示
 	DrawFormatString(100, 160, GetColor(255, 255, 255), TEXT("ミス:%d"), miss);                //タイピングミス数の表示
 	DrawFormatString(100, 180, GetColor(255, 255, 255), TEXT("残り時間:%d"), timeLimit / 60);  //制限時間を表示
+	DrawFormatString(100, 200, GetColor(255, 255, 255), TEXT("コンボ：%d"), combo);            //コンボ表示
 
 	//======難易度の表示======
 	Difficulty d = GameManager::GetInstance().GetDifficulty();
@@ -230,7 +244,7 @@ void WordTypingScene::Draw()
 	if (d == NORMAL) diffText = TEXT("ふつう");
 	if (d == HARD)   diffText = TEXT("むずかしい");
 
-	DrawFormatString(90, 200, GetColor(255, 255, 255),TEXT(" %s"), diffText);
+	DrawFormatString(90, 220, GetColor(255, 255, 255),TEXT(" %s"), diffText);
 	//=======================
 
 	//======キーボード表示======

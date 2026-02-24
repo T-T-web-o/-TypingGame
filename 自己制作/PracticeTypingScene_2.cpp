@@ -58,6 +58,10 @@ PracticeTypingScene_2::PracticeTypingScene_2()
    charIndex = 0;
    memset(keyNow, 0, sizeof(keyNow));
    memset(keyOld, 0, sizeof(keyOld));
+
+   combo = 0;
+   maxCombo = 0;
+   missFlag = false;
 }
 
 PracticeTypingScene_2::~PracticeTypingScene_2()
@@ -71,7 +75,7 @@ void PracticeTypingScene_2::Update()
 	// Tabキーが押されたら結果画面へ遷移
 	if (CheckHitKey(KEY_INPUT_TAB))
 	{
-		GameManager::GetInstance().ChangeScene(new ResultScene(score, miss));
+		GameManager::GetInstance().ChangeScene(new ResultScene(score, miss,maxCombo));
 		return;
 	}
 
@@ -102,9 +106,15 @@ void PracticeTypingScene_2::Update()
 				// 単語終了チェック
 				if (currentWord.input[charIndex] == '\0')
 				{
+					if (!missFlag){
+						combo++;
+						if (combo > maxCombo) {
+							maxCombo = combo;
+						}
+					}
 					score++;
 					kanaIndex++;
-					
+					missFlag = false;
 					if (kanaIndex >= sizeof(practiceKana) / sizeof(practiceKana[0]))
 					{
 						kanaIndex = 0; // 最初に戻す
@@ -117,6 +127,8 @@ void PracticeTypingScene_2::Update()
 			else
 			{
 				miss++;
+				combo = 0;
+				missFlag = true;
 			}
 			break;
 	   }
@@ -150,8 +162,11 @@ void PracticeTypingScene_2::Draw()
 	//タイピングミス数の表示
 	DrawFormatString(100, 160, GetColor(255, 255, 255), TEXT("ミス:%d"), miss);
 
+	//コンボ表示
+	DrawFormatString(100, 180, GetColor(255, 255, 255), TEXT("コンボ：%d"), combo);
+
 	//リザルト画面へ移行表示 
-	DrawString(440, 320, TEXT("Tabでリザルト"), GetColor(230, 230, 230));
+	DrawString(440, 320, TEXT("Tabで終了"), GetColor(230, 230, 230));
 
 	//======キーボード表示======
 	if (currentWord.input[charIndex] != '\0')

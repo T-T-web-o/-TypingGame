@@ -5,10 +5,11 @@
 
 // リザルトシーンのコンストラクタ
 // ゲーム終了時のスコアとミス数を受け取り、結果として保持する
-ResultScene::ResultScene(int score ,int miss)
+ResultScene::ResultScene(int score ,int miss ,int maxCombo)
 {
 	finalScore = score;
 	finalMiss = miss;
+	MaxCombo = maxCombo;
 
 	//画面サイズ取得
 	GetDrawScreenSize(&screenW, &screenH);
@@ -42,11 +43,14 @@ void ResultScene::Draw()
 	DrawString(270, 170, TEXT("リザルト"), GetColor(230, 230, 230));
 
 	// スコア表示
-	DrawFormatString(250, 220, GetColor(230, 230, 230), TEXT("スコア:%d"), finalScore);
+	DrawFormatString(250, 220, GetColor(230, 230, 230), TEXT("スコア: %d"), finalScore);
 
 	//ミス数表示
-	DrawFormatString(250, 260, GetColor(230, 230, 230),TEXT("ミス: %d"), finalMiss);
+	DrawFormatString(250, 250, GetColor(230, 230, 230),TEXT("ミス: %d"), finalMiss);
+
+	//最大コンボ数表示
+	DrawFormatString(250, 280, GetColor(230, 230, 230), TEXT("最大コンボ数: %d"), MaxCombo);
 
 	// 操作案内表示
-	DrawString(250, 300, TEXT("Spaceでタイトル"), GetColor(230, 230, 230));
+	DrawString(250, 310, TEXT("Spaceでタイトル"), GetColor(230, 230, 230));
 }

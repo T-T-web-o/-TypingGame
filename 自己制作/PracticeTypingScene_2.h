@@ -25,13 +25,18 @@ private:
 	char keyNow[256];        //現在フレームのキー情報
 	char keyOld[256];        //前フレームのキー情報
 
-	//背景画像
+	//====== 背景画像 ======
 	int gameImage;
 	int screenW;
 	int screenH;
 
 	//====== 音======
 	int typeSE;
+
+	//====== コンボ管理 ======
+	int combo;        // 現在コンボ
+	int maxCombo;     // 最大コンボ
+	bool missFlag = false; // この単語でミスしたか
 
 	Keyboard keyboard;
 

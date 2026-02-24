@@ -8,15 +8,18 @@ private:
 	//ゲーム終了時の最終スコアを保存する変数
 	int finalScore;
 
-	//// ゲーム中のミス回数を保存する変数
+	// ゲーム中のミス回数を保存する変数
 	int finalMiss;
+
+	//ゲーム終了時の最大コンボ数
+	int MaxCombo;
 
 	int resultImage; //背景画像ハンドル
 	int screenW;
 	int screenH;
 public:
 	// ゲーム終了時にスコアとミス回数を受け取って初期化する
-	ResultScene(int score ,int miss);
+	ResultScene(int score ,int miss, int maxCombo);
 
 	//デストラクタ
 	~ResultScene();

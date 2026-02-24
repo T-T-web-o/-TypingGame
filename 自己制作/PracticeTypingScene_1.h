@@ -25,6 +25,9 @@ private:
 	//キーボード音
 	int typeSE;
 
+	int combo;        // 現在コンボ
+	int maxCombo;     // 最大コンボ
+
 public:
 	PracticeTypingScene_1();
 	~PracticeTypingScene_1();
