@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include "ResultScene.h"
 #include "KeyTable.h"
+#include "CountDown.h"
 
 WordData_2 practiceKana[] = {
 
@@ -47,8 +48,6 @@ PracticeTypingScene_2::PracticeTypingScene_2()
    //タイピング音読み込み
    typeSE = LoadSoundMem(TEXT("Resource/type.mp3"));
 
-   
-
    kanaIndex = 0;
    currentWord = practiceKana[kanaIndex];
 
@@ -83,6 +82,22 @@ void PracticeTypingScene_2::Update()
 	// keyNow に「押されている / 押されていない」を格納する
 	GetHitKeyStateAll(keyNow);
 
+	//カウントダウンが終わったらゲームスタート
+	countdown.Update();
+
+	if (!countdown.IsFinished())
+	{
+		return;
+	}
+
+	TypingUpdate();
+
+	memcpy(keyOld, keyNow, sizeof(keyNow));
+}
+
+//ゲーム本編のタイピング処理
+void PracticeTypingScene_2::TypingUpdate()
+{
 	// 今入力すべき正解文字
 	char correctKana = currentWord.input[charIndex];
 
@@ -90,9 +105,9 @@ void PracticeTypingScene_2::Update()
 	for (int i = 0; i < 26; i++)
 	{
 		// 押された瞬間のみ反応
-	   if (keyNow[keyTable[i]] && !keyOld[keyTable[i]])
-	   {
-		   // 押されたキーを文字に変換
+		if (keyNow[keyTable[i]] && !keyOld[keyTable[i]])
+		{
+			// 押されたキーを文字に変換
 			char inputChar = 'a' + i;
 
 			// タイピング音
@@ -106,7 +121,7 @@ void PracticeTypingScene_2::Update()
 				// 単語終了チェック
 				if (currentWord.input[charIndex] == '\0')
 				{
-					if (!missFlag){
+					if (!missFlag) {
 						combo++;
 						if (combo > maxCombo) {
 							maxCombo = combo;
@@ -131,9 +146,8 @@ void PracticeTypingScene_2::Update()
 				missFlag = true;
 			}
 			break;
-	   }
+		}
 	}
-	memcpy(keyOld, keyNow, sizeof(keyNow));
 }
 
 void PracticeTypingScene_2::Draw()
@@ -141,19 +155,37 @@ void PracticeTypingScene_2::Draw()
 	//背景画像を画面全体に表示
 	DrawExtendGraph(0, 0, screenW, screenH, gameImage, TRUE);
 
+	countdown.Draw(400, 200);
+
+	// まだ開始していないならここで終了
+	if (!countdown.IsFinished())
+	{
+		return;
+	}
+
 	//タイピングする文字の表示
 	SetFontSize(40);
 	DrawFormatString(220, 170, GetColor(230, 230, 230), TEXT("Word:%s"), currentWord.display);
-	SetFontSize(30);
-	DrawFormatString(335, 220, GetColor(230, 230, 230), TEXT("%s"), currentWord.input);
 
-	//======タイピングしている文字の表示======
-	DrawString(220, 260, TEXT("Typed : "), GetColor(230, 230, 230));
-	for (int i = 0; i < charIndex; i++)
+	SetFontSize(30);
+	//入力済みの文字を緑色で表示
+	for (int i = 0; currentWord.input[i] != '\0'; i++)
 	{
-		DrawFormatString(340 + (i * 15), 260, GetColor(230, 230, 230), TEXT("%c"), currentWord.input[i]);
+		int color;
+
+		if (i < charIndex)
+		{
+			//入力済み（緑）
+			color = GetColor(100, 255, 100);
+		}
+		else
+		{
+			// まだ（白）
+			color = GetColor(255, 255, 255);
+		}
+
+		DrawFormatString(270 + i * 15, 260, color, TEXT("%c"), currentWord.input[i]);
 	}
-	//========================================
 
 	SetFontSize(16);
 	//スコアの表示

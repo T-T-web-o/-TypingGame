@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Keyboard.h"
+#include "CountDown.h"
 
 struct WordData_2
 {
@@ -11,11 +12,15 @@ struct WordData_2
 class PracticeTypingScene_2:public Scene
 {
 private:
+	
 	WordData_2 currentWord;    //現在の単語
 	WordData_2* wordList;      //単語リスト
 
 	int kanaIndex;           //現在どの文字なのかを保存する変数
 	int charIndex;           //単語を何文字目まで入力したかを保存する変数
+
+	//====== 内部処理 =====
+	void TypingUpdate();
 
 	//====== スコア管理 ======
 	int score;               //スコア
@@ -39,6 +44,8 @@ private:
 	bool missFlag = false; // この単語でミスしたか
 
 	Keyboard keyboard;
+
+	CountDown countdown;
 
 public:
 	PracticeTypingScene_2();

@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "ResultScene.h"
 #include "KeyTable.h"
+#include "CountDown.h"
 #include <cstdlib>
 #include <cstring>
 
@@ -124,6 +125,14 @@ void WordTypingScene::Update()
 	//キー入力状態を更新
 	UpdateInput();
 
+	//カウントダウンが終わったらゲームスタート
+	countdown.Update();
+
+	if (!countdown.IsFinished())
+	{
+		return;
+	}
+
 	//タイピングの正誤判定
 	CheckTyping();
 }
@@ -216,20 +225,38 @@ void WordTypingScene::Draw()
 	SetFontSize(16);
 	DrawExtendGraph(0, 0, screenW, screenH, otherGameImage, TRUE);
 
+	countdown.Draw(400, 200);
+
+	// まだ開始していないならここで終了
+	if (!countdown.IsFinished())
+	{
+		return;
+	}
+
 	DrawString(250, 120, TEXT("タイムアタック"), GetColor(255, 255, 255));
 
 	//タイピングする文字の表示
 	SetFontSize(22);
 	DrawFormatString(250, 200, GetColor(230, 230, 230), TEXT("Word:%s"), currentWord.display);
-	DrawFormatString(300, 220, GetColor(230, 230, 230), TEXT("%s"), currentWord.input);
 
-	//======タイピングしている文字の表示======
-	DrawString(220, 260, TEXT("Typed : "),GetColor(230, 230, 230));
-	for (int i = 0; i < charIndex; i++)
+	//入力済みの文字を緑色で表示
+	for (int i = 0; currentWord.input[i] != '\0'; i++)
 	{
-		DrawFormatString(320+(i*15), 260, GetColor(230, 230, 230), TEXT("%c"), currentWord.input [i]);
+		int color;
+
+		if (i < charIndex)
+		{
+			//入力済み（緑）
+			color = GetColor(100, 255, 100);
+		}
+		else
+		{
+			// まだ（白）
+			color = GetColor(255, 255, 255);
+		}
+
+		DrawFormatString(270+ i * 15,260,color,TEXT("%c"),currentWord.input[i]);
 	}
-	//========================================
 
 	SetFontSize(16);
 	DrawFormatString(100, 140, GetColor(255, 255, 255), TEXT("スコア:%d"), score);             //スコアの表示

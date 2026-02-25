@@ -2,6 +2,7 @@
 #include <tchar.h>
 #include "Scene.h"
 #include "Keyboard.h"
+#include "CountDown.h"
 
 static const int MAX_WORDS = 30;
 
@@ -56,6 +57,8 @@ private:
 	int diffColor;         //“ïˆÕ“x‚ğ•\¦‚·‚éF
 
 	Keyboard keyboard;
+
+	CountDown countdown;
 public:
 	WordTypingScene();
 

@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CountDown.h" />
     <ClInclude Include="Difficulty.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="PracticeTypingScene_1.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CountDown.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="PracticeTypingScene_1.cpp" />
     <ClCompile Include="Keyboard.cpp" />
