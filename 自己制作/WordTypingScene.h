@@ -47,9 +47,13 @@ private:
 	int typeSE; 
 
 	//====== コンボ管理 ======
-	int combo;        // 現在コンボ
-	int maxCombo;     // 最大コンボ
-	bool missFlag = false; // この単語でミスしたか
+	int combo;              // 現在コンボ
+	int maxCombo;           // 最大コンボ
+	bool missFlag = false;  // この単語でミスしたか
+
+	//難易度ごとの表示管理
+	const TCHAR* diffText; //かんたん・ふつう・むずかしい
+	int diffColor;         //難易度を表示する色
 
 	Keyboard keyboard;
 public:

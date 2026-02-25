@@ -235,16 +235,26 @@ void WordTypingScene::Draw()
 	DrawFormatString(100, 140, GetColor(255, 255, 255), TEXT("スコア:%d"), score);             //スコアの表示
 	DrawFormatString(100, 160, GetColor(255, 255, 255), TEXT("ミス:%d"), miss);                //タイピングミス数の表示
 	DrawFormatString(100, 180, GetColor(255, 255, 255), TEXT("残り時間:%d"), timeLimit / 60);  //制限時間を表示
-	DrawFormatString(100, 200, GetColor(255, 255, 255), TEXT("コンボ：%d"), combo);            //コンボ表示
+	DrawFormatString(100, 200, GetColor(255, 255, 0), TEXT("コンボ：%d"), combo);              //コンボ表示
 
 	//======難易度の表示======
 	Difficulty d = GameManager::GetInstance().GetDifficulty();
 
-	const TCHAR* diffText = TEXT("かんたん");
-	if (d == NORMAL) diffText = TEXT("ふつう");
-	if (d == HARD)   diffText = TEXT("むずかしい");
-
-	DrawFormatString(90, 220, GetColor(255, 255, 255),TEXT(" %s"), diffText);
+	//難易度ごとに表示する内容を変更
+	diffText = TEXT("かんたん");
+	diffColor = GetColor(100, 200, 255);
+	if (d == NORMAL) 
+	{
+		diffText = TEXT("ふつう");
+		diffColor = GetColor(255, 255, 100);
+	}
+	if (d == HARD)
+	{
+		diffText = TEXT("むずかしい");
+		diffColor = GetColor(255, 100, 100);
+	}
+	
+	DrawFormatString(400, 140,diffColor,TEXT("難易度: %s"), diffText);
 	//=======================
 
 	//======キーボード表示======

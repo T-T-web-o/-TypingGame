@@ -167,11 +167,11 @@ void SelectScene::Draw()
         DrawString(220, 270, TEXT("単語タイピング"), GetColor(230, 230, 230));
         if (cursor == 0)
         {
-            DrawString(200, 230, TEXT("→"), GetColor(255, 0, 0));
+            DrawString(200, 230, TEXT("→"), GetColor(255, 255, 255));
         }
         else if (cursor == 1)
         {
-            DrawString(200, 270, TEXT("→"), GetColor(255, 0, 0));
+            DrawString(200, 270, TEXT("→"), GetColor(255, 255, 255));
         }
     }
     //====== モード選択表示 ======
@@ -182,11 +182,11 @@ void SelectScene::Draw()
 
         if (cursor == 0)
         {
-            DrawString(180, 230, TEXT("→"), GetColor(255, 0, 0));
+            DrawString(180, 230, TEXT("→"), GetColor(255, 255, 255));
         }
         else if (cursor == 1)
         {
-            DrawString(180, 280, TEXT("→"), GetColor(255, 0, 0));
+            DrawString(180, 280, TEXT("→"), GetColor(255, 255, 255));
         }
 
         SetFontSize(18);
@@ -202,15 +202,15 @@ void SelectScene::Draw()
 
         if (cursor == 0)
         {
-            DrawString(230, 220, TEXT("→"), GetColor(255, 0, 0));
+            DrawString(230, 220, TEXT("→"), GetColor(255, 255, 255));
         }
         else if (cursor == 1)
         {
-            DrawString(230, 260, TEXT("→"), GetColor(255, 0, 0));
+            DrawString(230, 260, TEXT("→"), GetColor(255, 255, 255));
         }
         else if (cursor == 2)
         {
-            DrawString(230, 300, TEXT("→"), GetColor(255, 0, 0));
+            DrawString(230, 300, TEXT("→"), GetColor(255, 255, 255));
         }
     }
 

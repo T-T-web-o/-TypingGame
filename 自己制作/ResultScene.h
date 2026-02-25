@@ -1,5 +1,7 @@
 #pragma once
 #include "Scene.h"
+#include <tchar.h>
+
 
 // リザルト画面用のシーン
 class ResultScene:public Scene
@@ -17,6 +19,10 @@ private:
 	int resultImage; //背景画像ハンドル
 	int screenW;
 	int screenH;
+
+	//ランク
+	const TCHAR* rank;
+	int rankColor;
 public:
 	// ゲーム終了時にスコアとミス回数を受け取って初期化する
 	ResultScene(int score ,int miss, int maxCombo);

@@ -16,8 +16,41 @@ ResultScene::ResultScene(int score ,int miss ,int maxCombo)
 
 	//背景画像読み込み
 	resultImage = LoadGraph(TEXT("Resource/result.png"));
+
+	// スコアごとのランク付け
+	if (miss == 0 && score == 30)
+	{
+		rank = TEXT("SS");
+		rankColor = GetColor(0, 0, 0);       // 黒
+	}
+	else if (score == 30)
+	{
+		rank = TEXT("S");
+		rankColor = GetColor(0, 0, 255);     // 青
+	}
+	else if (score >= 25)
+	{
+		rank = TEXT("A");
+		rankColor = GetColor(255, 255, 0);   // 黄
+	}
+	else if (score >= 20)
+	{
+		rank = TEXT("B");
+		rankColor = GetColor(255, 0, 0);     // 赤
+	}
+	else if (score >= 15)
+	{
+		rank = TEXT("C");
+		rankColor = GetColor(0, 255, 0);     // 緑
+	}
+	else
+	{
+		rank = TEXT("D");
+		rankColor = GetColor(0, 255, 255);   // 水色
+	}
 }
 
+//デストラクタでメモリ上から削除する
 ResultScene::~ResultScene()
 {
 	DeleteGraph(resultImage);
@@ -36,12 +69,15 @@ void ResultScene::Update()
 // リザルトシーンの描画処理
 void ResultScene::Draw()
 {
+	
 	//背景画像を画面全体に表示
 	DrawExtendGraph(0, 0, screenW, screenH,resultImage, TRUE);
 
+	SetFontSize(21);
 	// リザルトタイトル表示
 	DrawString(270, 170, TEXT("リザルト"), GetColor(230, 230, 230));
 
+	SetFontSize(18);
 	// スコア表示
 	DrawFormatString(250, 220, GetColor(230, 230, 230), TEXT("スコア: %d"), finalScore);
 
@@ -51,6 +87,11 @@ void ResultScene::Draw()
 	//最大コンボ数表示
 	DrawFormatString(250, 280, GetColor(230, 230, 230), TEXT("最大コンボ数: %d"), MaxCombo);
 
+	SetFontSize(16);
 	// 操作案内表示
-	DrawString(250, 310, TEXT("Spaceでタイトル"), GetColor(230, 230, 230));
+	DrawString(380, 340, TEXT("Spaceでタイトル"), GetColor(230, 230, 230));
+
+	//ランク表示
+	SetFontSize(23);
+	DrawFormatString(250, 310, rankColor, TEXT("ランク: %s"), rank);
 }
