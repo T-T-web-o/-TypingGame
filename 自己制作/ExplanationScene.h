@@ -7,6 +7,11 @@ private:
 	int otherGameImage;
 	int screenW;
 	int screenH;
+
+	//“ü—ÍŠÇ—
+	bool prevSpace;
+	bool nowSpace;
+
 public:
 	ExplanationScene();
 	~ExplanationScene();

@@ -24,8 +24,6 @@ SelectScene::~SelectScene()
     DeleteGraph(selectImage);
 }
 
-bool SelectScene::prevSpace = false;
-
 
 // セレクトシーンの更新処理
 void SelectScene::Update()
@@ -99,9 +97,6 @@ void SelectScene::Update()
                 GameManager::GetInstance().ChangeScene(new PracticeTypingScene_2());
             }
         }
-        prevSpace = nowSpace;
-        prevUp = nowUp;
-        prevDown = nowDown;
     }
 
     // ====== 難易度選択フェーズ ======

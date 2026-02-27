@@ -10,6 +10,8 @@ ExplanationScene::ExplanationScene()
 
 	//背景画像読み込み
 	otherGameImage = LoadGraph(TEXT("Resource/game.png"));
+
+	prevSpace = false;
 }
 
 ExplanationScene::~ExplanationScene()
@@ -19,11 +21,15 @@ ExplanationScene::~ExplanationScene()
 
 void ExplanationScene::Update()
 {
-	if (CheckHitKey(KEY_INPUT_SPACE))
+	nowSpace = CheckHitKey(KEY_INPUT_SPACE);
+
+	if (nowSpace && !prevSpace)
 	{
 		// ゲーム選択シーンに切り替え
 		GameManager::GetInstance().ChangeScene(new SelectScene());
 	}
+
+	prevSpace = nowSpace;
 }
 
 void ExplanationScene::Draw()

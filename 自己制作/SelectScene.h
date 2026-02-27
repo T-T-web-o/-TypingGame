@@ -25,7 +25,7 @@ private:
 	int maxcursor;
 
 	//“ü—ÍŠÇ—
-	static bool prevSpace;
+    bool prevSpace;
 	bool nowSpace;
 	bool prevUp;
 	bool nowUp;
