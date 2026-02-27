@@ -39,8 +39,8 @@ private:
 	int typeSE;
 
 	//====== コンボ管理 ======
-	int combo;        // 現在コンボ
-	int maxCombo;     // 最大コンボ
+	int combo;             // 現在コンボ
+	int maxCombo;          // 最大コンボ
 	bool missFlag = false; // この単語でミスしたか
 
 	Keyboard keyboard;
@@ -51,6 +51,7 @@ public:
 	PracticeTypingScene_2();
 
 	~PracticeTypingScene_2();
+
 	// 毎フレーム呼ばれる更新処理
 	void Update()override;
 

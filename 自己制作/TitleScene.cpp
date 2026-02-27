@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "PracticeTypingScene_1.h"
 #include "SelectScene.h"
+#include "ExplanationScene.h"
 
 TitleScene::TitleScene()
 {
@@ -26,7 +27,7 @@ void TitleScene::Update()
 	if (CheckHitKey(KEY_INPUT_RETURN))
 	{
 		// ゲーム選択シーンに切り替え
-		GameManager::GetInstance().ChangeScene(new SelectScene());
+		GameManager::GetInstance().ChangeScene(new ExplanationScene());
 	}
 }
 

@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="CountDown.h" />
     <ClInclude Include="Difficulty.h" />
+    <ClInclude Include="ExplanationScene.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="PracticeTypingScene_1.h" />
     <ClInclude Include="Keyboard.h" />
@@ -144,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CountDown.cpp" />
+    <ClCompile Include="ExplanationScene.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="PracticeTypingScene_1.cpp" />
     <ClCompile Include="Keyboard.cpp" />

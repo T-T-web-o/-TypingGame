@@ -8,9 +8,11 @@ private:
 		COUNTDOWN,    // 3,2,1
 		END
 	};
+
 	//Œ»İ‚Ìó‹µ
 	GameState state;
 	int countdownTimer;
+
 public:
 	CountDown();
 
