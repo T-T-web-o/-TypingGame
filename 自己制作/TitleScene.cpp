@@ -23,12 +23,14 @@ TitleScene::~TitleScene()
 // Enterキーが押されたらゲーム選択画面へ遷移する
 void TitleScene::Update()
 {
+	nowEnter = (CheckHitKey(KEY_INPUT_RETURN));
 	// Enterキーが押されたか判定
-	if (CheckHitKey(KEY_INPUT_RETURN))
+	if (nowEnter && !prevEnter)
 	{
 		// ゲーム選択シーンに切り替え
 		GameManager::GetInstance().ChangeScene(new ExplanationScene());
 	}
+	prevEnter = nowEnter;
 }
 
 // タイトル画面の描画処理

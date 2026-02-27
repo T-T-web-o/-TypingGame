@@ -9,6 +9,11 @@ private:
 	int titleImage;  //タイトル画像
 	int screenW;
 	int screenH;
+
+	//入力管理
+	bool prevEnter;
+	bool nowEnter;
+
 public:
 	//コンストラクタ
 	TitleScene();

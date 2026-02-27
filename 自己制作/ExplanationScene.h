@@ -9,8 +9,8 @@ private:
 	int screenH;
 
 	//“ü—ÍŠÇ—
-	bool prevSpace;
-	bool nowSpace;
+	bool prevEnter;
+	bool nowEnter;
 
 public:
 	ExplanationScene();
