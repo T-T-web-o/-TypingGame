@@ -15,7 +15,7 @@ ResultScene::ResultScene(int score ,int miss ,int maxCombo)
 	GetDrawScreenSize(&screenW, &screenH);
 
 	//背景画像読み込み
-	resultImage = LoadGraph(TEXT("Resource/result.png"));
+	resultImage = LoadGraph(TEXT("Resource/blackboard.png"));
 
 	// スコアごとのランク付け
 	if (miss == 0 && score == 30)

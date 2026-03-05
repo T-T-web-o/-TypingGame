@@ -9,12 +9,12 @@ ExplanationScene::ExplanationScene()
 	GetDrawScreenSize(&screenW, &screenH);
 
 	//背景画像読み込み
-	otherGameImage = LoadGraph(TEXT("Resource/game.png"));
+	ExplanationImage = LoadGraph(TEXT("Resource/blackboard.png"));
 }
 
 ExplanationScene::~ExplanationScene()
 {
-	DeleteGraph(otherGameImage);
+	DeleteGraph(ExplanationImage);
 }
 
 void ExplanationScene::Update()
@@ -34,7 +34,7 @@ void ExplanationScene::Draw()
 {
 	//背景画像を画面全体に表示
 	SetFontSize(20);
-	DrawExtendGraph(0, 0, screenW, screenH, otherGameImage, TRUE);
+	DrawExtendGraph(0, 0, screenW, screenH, ExplanationImage, TRUE);
 
 	DrawString(260, 120, TEXT("ゲーム説明"), GetColor(255, 255, 255));
 
@@ -49,4 +49,5 @@ void ExplanationScene::Draw()
 	DrawString(120, 250, TEXT("一文字タイピング練習"), GetColor(255, 255, 255));
 	DrawString(120, 270, TEXT("アルファベットタイピング練習"), GetColor(255, 255, 255));
 	DrawString(120, 290, TEXT("単語タイピング"), GetColor(255, 255, 255));
+
 }

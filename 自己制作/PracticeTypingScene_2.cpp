@@ -43,7 +43,7 @@ PracticeTypingScene_2::PracticeTypingScene_2()
    GetDrawScreenSize(&screenW, &screenH);
 
    //背景画像読み込み
-   gameImage = LoadGraph(TEXT("Resource/game.png"));
+   gameImage = LoadGraph(TEXT("Resource/blackboard.png"));
 
    //タイピング音読み込み
    typeSE = LoadSoundMem(TEXT("Resource/type.mp3"));
@@ -187,25 +187,26 @@ void PracticeTypingScene_2::Draw()
 		DrawFormatString(270 + i * 15, 260, color, TEXT("%c"), currentWord.input[i]);
 	}
 
-	SetFontSize(16);
+	SetFontSize(23);
 	//スコアの表示
-	DrawFormatString(100, 140, GetColor(255, 255, 255), TEXT("スコア:%d"), score);
+	DrawFormatString(10, 10, GetColor(255, 255, 255), TEXT("スコア:%d"), score);
 
 	//タイピングミス数の表示
-	DrawFormatString(100, 160, GetColor(255, 255, 255), TEXT("ミス:%d"), miss);
+	DrawFormatString(10, 40, GetColor(255, 255, 255), TEXT("ミス:%d"), miss);
 
 	//コンボ表示
-	DrawFormatString(100, 180, GetColor(255, 255, 255), TEXT("コンボ：%d"), combo);
+	DrawFormatString(10, 70, GetColor(255, 255, 255), TEXT("コンボ：%d"), combo);
 
+	SetFontSize(16);
 	//リザルト画面へ移行表示 
-	DrawString(440, 320, TEXT("Tabで終了"), GetColor(230, 230, 230));
+	DrawString(550, 430, TEXT("Tabで終了"), GetColor(230, 230, 230));
 
 	//======キーボード表示======
 	if (currentWord.input[charIndex] != '\0')
 	{
 		TCHAR target = currentWord.input[charIndex];
 		target = toupper(target);
-		keyboard.Draw(target, 100, 350);
+		keyboard.Draw(target, 100, 300);
 	}
 	//==========================
 }

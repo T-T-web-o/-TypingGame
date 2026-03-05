@@ -12,7 +12,7 @@ PracticeTypingScene_1::PracticeTypingScene_1()
     GetDrawScreenSize(&screenW, &screenH);
 
     //背景画像読み込み
-    gameImage = LoadGraph(TEXT("Resource/game.png"));
+    gameImage = LoadGraph(TEXT("Resource/blackboard.png"));
 
     //タイピング音読み込み
     typeSE = LoadSoundMem(TEXT("Resource/type.mp3"));
@@ -94,19 +94,20 @@ void PracticeTypingScene_1::Draw()
     SetFontSize(30);
 	DrawFormatString(300, 200, GetColor(230, 230, 230),TEXT("%c"), target);
 
-    SetFontSize(16);
+    SetFontSize(23);
     //スコアの表示
-    DrawFormatString(100, 140, GetColor(230, 230, 230), TEXT("スコア:%d"), score);          
+    DrawFormatString(10, 10, GetColor(230, 230, 230), TEXT("スコア:%d"), score);          
 
     //タイピングミス数の表示
-    DrawFormatString(100, 160, GetColor(230, 230, 230), TEXT("ミス:%d"), miss);            
+    DrawFormatString(10, 40, GetColor(230, 230, 230), TEXT("ミス:%d"), miss);            
 
     //コンボ表示
-    DrawFormatString(100, 180, GetColor(230, 230, 230), TEXT("コンボ：%d"), combo);
+    DrawFormatString(10, 70, GetColor(230, 230, 230), TEXT("コンボ：%d"), combo);
 
+    SetFontSize(16);
     //リザルト画面へ移行表示 
-    DrawString(380, 320, TEXT("Tabで終了"), GetColor(230, 230, 230));
+    DrawString(550, 430, TEXT("Tabで終了"), GetColor(230, 230, 230));
 
-    keyboard.Draw(target, 100, 350);
+    keyboard.Draw(target, 100, 300);
 }
 

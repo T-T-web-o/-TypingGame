@@ -44,7 +44,7 @@ WordTypingScene::WordTypingScene()
 	GetDrawScreenSize(&screenW, &screenH);
 
 	//背景画像読み込み
-	otherGameImage = LoadGraph(TEXT("Resource/game.png"));
+	otherGameImage = LoadGraph(TEXT("Resource/blackboard.png"));
 
 	//タイピング音読み込み
 	typeSE = LoadSoundMem(TEXT("Resource/type.mp3"));
@@ -233,7 +233,7 @@ void WordTypingScene::Draw()
 		return;
 	}
 
-	DrawString(250, 120, TEXT("タイムアタック"), GetColor(255, 255, 255));
+	DrawString(250, 10, TEXT("タイムアタック"), GetColor(255, 255, 255));
 
 	//タイピングする文字の表示
 	SetFontSize(22);
@@ -259,10 +259,10 @@ void WordTypingScene::Draw()
 	}
 
 	SetFontSize(16);
-	DrawFormatString(100, 140, GetColor(255, 255, 255), TEXT("スコア:%d"), score);             //スコアの表示
-	DrawFormatString(100, 160, GetColor(255, 255, 255), TEXT("ミス:%d"), miss);                //タイピングミス数の表示
-	DrawFormatString(100, 180, GetColor(255, 255, 255), TEXT("残り時間:%d"), timeLimit / 60);  //制限時間を表示
-	DrawFormatString(100, 200, GetColor(255, 255, 0), TEXT("コンボ：%d"), combo);              //コンボ表示
+	DrawFormatString(10, 10, GetColor(230, 230, 230), TEXT("スコア:%d"), score);             //スコアの表示
+	DrawFormatString(10, 40, GetColor(230, 230, 230), TEXT("ミス:%d"), miss);                //タイピングミス数の表示
+	DrawFormatString(10, 70, GetColor(230, 230, 230), TEXT("残り時間:%d"), timeLimit / 60);  //制限時間を表示
+	DrawFormatString(10, 100, GetColor(230, 230, 0), TEXT("コンボ：%d"), combo);              //コンボ表示
 
 	//======難易度の表示======
 	Difficulty d = GameManager::GetInstance().GetDifficulty();
@@ -281,7 +281,7 @@ void WordTypingScene::Draw()
 		diffColor = GetColor(255, 100, 100);
 	}
 	
-	DrawFormatString(400, 140,diffColor,TEXT("難易度: %s"), diffText);
+	DrawFormatString(400, 100,diffColor,TEXT("難易度: %s"), diffText);
 	//=======================
 
 	//======キーボード表示======
@@ -289,7 +289,7 @@ void WordTypingScene::Draw()
 	{
 		TCHAR target = currentWord.input[charIndex];
 		target = toupper(target);
-		keyboard.Draw(target, 100, 350);
+		keyboard.Draw(target, 100, 300);
 	}
 	//==========================
 }

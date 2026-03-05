@@ -11,7 +11,7 @@ TitleScene::TitleScene()
 	GetDrawScreenSize(&screenW, &screenH);
 
 	//タイトル画像読み込み
-	titleImage = LoadGraph(TEXT("Resource/title.png"));
+	titleImage = LoadGraph(TEXT("Resource/Title.png"));
 }
 
 TitleScene::~TitleScene()
@@ -39,13 +39,8 @@ void TitleScene::Draw()
 	//背景画像を画面全体に表示
 	DrawExtendGraph(0, 0,screenW, screenH,titleImage,TRUE);
 
-	///タイトル表示 
-	SetFontSize(45);
-	DrawString(130, 220, TEXT("タイピングゲーム"), GetColor(230, 230, 230));
-
-	
-	SetFontSize(18);
-	DrawString(380, 340, TEXT("Enterでスタート"), GetColor(230, 230, 230));
+	SetFontSize(23);
+	DrawString(430, 420, TEXT("Enterでスタート"), GetColor(230, 230, 230));
 }
 
 
