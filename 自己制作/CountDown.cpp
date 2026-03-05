@@ -30,7 +30,6 @@ void CountDown::Update()
 		}
 		return;
 	}
-
 }
 
 void CountDown::Draw(int x, int y)

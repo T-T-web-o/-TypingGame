@@ -269,16 +269,16 @@ void WordTypingScene::Draw()
 
 	//難易度ごとに表示する内容を変更
 	diffText = TEXT("かんたん");
-	diffColor = GetColor(100, 200, 255);
+	diffColor = GetColor(100, 200, 255);       //[かんたん]   水色
 	if (d == NORMAL) 
 	{
 		diffText = TEXT("ふつう");
-		diffColor = GetColor(255, 255, 100);
+		diffColor = GetColor(255, 255, 100);   //[ふつう]     黄色
 	}
 	if (d == HARD)
 	{
 		diffText = TEXT("むずかしい");
-		diffColor = GetColor(255, 100, 100);
+		diffColor = GetColor(255, 100, 100);   //[むずかしい] 赤色
 	}
 	
 	DrawFormatString(400, 100,diffColor,TEXT("難易度: %s"), diffText);

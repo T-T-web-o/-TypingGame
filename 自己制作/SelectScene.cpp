@@ -121,19 +121,19 @@ void SelectScene::Update()
         //スペースキーで選択
         if (nowSpace && !prevSpace)
         {
-            //0:EASY
+            //0:かんたん
             if (cursor == 0)
             {
                 GameManager::GetInstance().SetDifficulty(EASY);
                 GameManager::GetInstance().ChangeScene(new WordTypingScene());
             }
-            //1:NORMAL
+            //1:ふつう
             else if (cursor == 1)
             {
                 GameManager::GetInstance().SetDifficulty(NORMAL);
                 GameManager::GetInstance().ChangeScene(new WordTypingScene());
             }
-            //2:HARD
+            //2:むずかしい
             else if (cursor == 2)
             {
                 GameManager::GetInstance().SetDifficulty(HARD);
@@ -153,8 +153,8 @@ void SelectScene::Draw()
     DrawExtendGraph(0,0,screenW, screenH,selectImage,TRUE);
 
     ///タイトル表示
-    SetFontSize(50);
-    DrawString(200, 30, TEXT("ゲーム選択"), GetColor(230, 230, 230));
+    SetFontSize(60);
+    DrawString(180, 30, TEXT("ゲーム選択"), GetColor(230, 230, 230));
 
     //====== ゲーム選択表示 ======
     if (state == SELECT_GAME)
@@ -187,25 +187,26 @@ void SelectScene::Draw()
             DrawString(80, 280, TEXT("→"), GetColor(230, 230, 230));
         }
     }
-
+    
+    SetFontSize(50);
     //====== 難易度選択表示 ======
     if (state==SELECT_DIFFICULTY)
     {
-        DrawString(200, 200, TEXT(" かんたん"), GetColor(230, 230, 230));
-        DrawString(200, 250, TEXT(" ふつう"), GetColor(230, 230, 230));
-        DrawString(200, 300, TEXT(" むずかしい"), GetColor(230, 230, 230));
+        DrawString(180, 150, TEXT(" かんたん"), GetColor(100, 200, 255));
+        DrawString(180, 250, TEXT(" ふつう"), GetColor(255, 255, 100));
+        DrawString(180, 350, TEXT(" むずかしい"), GetColor(255, 100, 100));
 
         if (cursor == 0)
         {
-            DrawString(180, 200, TEXT("→"), GetColor(230, 230, 230));
+            DrawString(160, 150, TEXT("→"), GetColor(230, 230, 230));
         }
         else if (cursor == 1)
         {
-            DrawString(180, 250, TEXT("→"), GetColor(230, 230, 230));
+            DrawString(160, 250, TEXT("→"), GetColor(230, 230, 230));
         }
         else if (cursor == 2)
         {
-            DrawString(180, 300, TEXT("→"), GetColor(230, 230, 230));
+            DrawString(160, 350, TEXT("→"), GetColor(230, 230, 230));
         }
     }
 
