@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ChalkEffect.h" />
     <ClInclude Include="CountDown.h" />
     <ClInclude Include="Difficulty.h" />
     <ClInclude Include="ExplanationScene.h" />
@@ -145,6 +146,7 @@
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChalkEffect.cpp" />
     <ClCompile Include="CountDown.cpp" />
     <ClCompile Include="ExplanationScene.cpp" />
     <ClCompile Include="GameManager.cpp" />

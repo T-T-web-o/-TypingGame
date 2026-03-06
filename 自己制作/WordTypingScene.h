@@ -4,6 +4,7 @@
 #include "Keyboard.h"
 #include "CountDown.h"
 #include "Scoreboard.h"
+#include "ChalkEffect.h"
 
 static const int MAX_WORDS = 30;
 
@@ -62,6 +63,8 @@ private:
 	CountDown countdown;
 
 	Scoreboard scoreboard;
+
+	ChalkEffect chalk;
 public:
 	WordTypingScene();
 

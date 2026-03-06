@@ -3,6 +3,7 @@
 #include "ResultScene.h"
 #include "KeyTable.h"
 #include "Scoreboard.h"
+#include "ChalkEffect.h"
 #include <cstdlib>
 
 //コンストラクタ
@@ -31,6 +32,7 @@ PracticeTypingScene_1::PracticeTypingScene_1()
     memset(keyOld, 0, sizeof(keyOld));
 }
 
+//デストラクタ
 PracticeTypingScene_1::~PracticeTypingScene_1()
 {
     DeleteGraph(gameImage);
@@ -39,6 +41,9 @@ PracticeTypingScene_1::~PracticeTypingScene_1()
 
 void PracticeTypingScene_1::Update()
 {
+    //チョークエフェクト
+    chalk.Update();
+
     // Tabキーが押されたら結果画面へ遷移
     if (CheckHitKey(KEY_INPUT_TAB))
     {
@@ -64,6 +69,7 @@ void PracticeTypingScene_1::Update()
             //正解だったら
             if (i == correctIndex)
             {   
+                chalk.Spawn(300, 200);
                 score++;
                 combo++;
                 if (combo > maxCombo) {
@@ -111,5 +117,7 @@ void PracticeTypingScene_1::Draw()
     scoreboard.Draw(480, 10);
 
     keyboard.Draw(target, 100, 300);
+
+    chalk.Draw();
 }
 

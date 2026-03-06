@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Keyboard.h"
 #include "Scoreboard.h"
+#include "ChalkEffect.h"
 
 // 1文字タイピングゲーム用のシーン
 class PracticeTypingScene_1 :public Scene
@@ -21,12 +22,15 @@ private:
 	char keyNow[256];        //現在フレームのキー情報
 	char keyOld[256];        //前フレームのキー情報
 
-	//キーボード表示
+	//キーボード
 	Keyboard keyboard;
 
-	//スコアボード表示
+	//スコアボード
 	Scoreboard scoreboard;
 	
+	//チョークエフェクト
+	ChalkEffect chalk;
+
 	//キーボード音
 	int typeSE;
 
@@ -38,5 +42,6 @@ public:
 	~PracticeTypingScene_1();
 	void Update()override;// 毎フレーム呼ばれる更新処理
 	void Draw()override;  // 画面描画処理
+
 };
 
