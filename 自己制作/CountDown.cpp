@@ -38,7 +38,7 @@ void CountDown::Draw(int x, int y)
 	if (state == WAIT_START)
 	{
 		DrawString(230, 170, TEXT(" タイピングゲーム"), GetColor(230, 230, 230));
-		DrawString(240, 240, TEXT("RETURNキーでスタート"), GetColor(255, 255, 255));
+		DrawString(240, 240, TEXT("ENTERキーでスタート"), GetColor(255, 255, 255));
 		return;
 	}
 

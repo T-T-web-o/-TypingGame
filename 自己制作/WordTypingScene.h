@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Keyboard.h"
 #include "CountDown.h"
+#include "Scoreboard.h"
 
 static const int MAX_WORDS = 30;
 
@@ -59,6 +60,8 @@ private:
 	Keyboard keyboard;
 
 	CountDown countdown;
+
+	Scoreboard scoreboard;
 public:
 	WordTypingScene();
 

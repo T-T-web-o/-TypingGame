@@ -137,6 +137,7 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="KeyTable.h" />
     <ClInclude Include="PracticeTypingScene_2.h" />
+    <ClInclude Include="Scoreboard.h" />
     <ClInclude Include="WordTypingScene.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="Scene.h" />
@@ -152,6 +153,7 @@
     <ClCompile Include="KeyTable.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PracticeTypingScene_2.cpp" />
+    <ClCompile Include="Scoreboard.cpp" />
     <ClCompile Include="WordTypingScene.cpp" />
     <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="SelectScene.cpp" />

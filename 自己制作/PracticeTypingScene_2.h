@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Keyboard.h"
 #include "CountDown.h"
+#include "Scoreboard.h"
 
 struct WordData_2
 {
@@ -46,6 +47,8 @@ private:
 	Keyboard keyboard;
 
 	CountDown countdown;
+
+	Scoreboard scoreboard;
 
 public:
 	PracticeTypingScene_2();

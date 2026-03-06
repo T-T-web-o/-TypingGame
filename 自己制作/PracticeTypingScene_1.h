@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "Scene.h"
 #include "Keyboard.h"
+#include "Scoreboard.h"
 
 // 1文字タイピングゲーム用のシーン
 class PracticeTypingScene_1 :public Scene
@@ -20,8 +21,12 @@ private:
 	char keyNow[256];        //現在フレームのキー情報
 	char keyOld[256];        //前フレームのキー情報
 
+	//キーボード表示
 	Keyboard keyboard;
 
+	//スコアボード表示
+	Scoreboard scoreboard;
+	
 	//キーボード音
 	int typeSE;
 

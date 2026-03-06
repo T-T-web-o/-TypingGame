@@ -2,8 +2,8 @@
 #include "GameManager.h"
 #include "ResultScene.h"
 #include "KeyTable.h"
+#include "Scoreboard.h"
 #include <cstdlib>
-
 
 //コンストラクタ
 PracticeTypingScene_1::PracticeTypingScene_1()
@@ -91,22 +91,24 @@ void PracticeTypingScene_1::Draw()
     DrawExtendGraph(0, 0, screenW, screenH, gameImage, TRUE);
 
     // 現在入力すべき文字を画面中央に表示
-    SetFontSize(30);
-	DrawFormatString(300, 200, GetColor(230, 230, 230),TEXT("%c"), target);
+    SetFontSize(50);
+	DrawFormatString(300, 200, GetColor(240, 240, 240),TEXT("%c"), target);
 
     SetFontSize(23);
     //スコアの表示
-    DrawFormatString(10, 10, GetColor(230, 230, 230), TEXT("スコア:%d"), score);          
+    DrawFormatString(10, 10, GetColor(240, 240, 240), TEXT("スコア:%d"), score);
 
     //タイピングミス数の表示
-    DrawFormatString(10, 40, GetColor(230, 230, 230), TEXT("ミス:%d"), miss);            
+    DrawFormatString(10, 40, GetColor(240, 240, 240), TEXT("ミス:%d"), miss);
 
     //コンボ表示
-    DrawFormatString(10, 70, GetColor(230, 230, 230), TEXT("コンボ：%d"), combo);
+    DrawFormatString(10, 70, GetColor(240, 240, 240), TEXT("コンボ：%d"), combo);
 
     SetFontSize(16);
     //リザルト画面へ移行表示 
-    DrawString(550, 430, TEXT("Tabで終了"), GetColor(230, 230, 230));
+    DrawString(550, 430, TEXT("Tabで終了"), GetColor(240, 240, 240));
+
+    scoreboard.Draw(480, 10);
 
     keyboard.Draw(target, 100, 300);
 }

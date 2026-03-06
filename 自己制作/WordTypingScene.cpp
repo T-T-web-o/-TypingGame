@@ -4,6 +4,7 @@
 #include "ResultScene.h"
 #include "KeyTable.h"
 #include "CountDown.h"
+#include "Scoreboard.h"
 #include <cstdlib>
 #include <cstring>
 
@@ -232,12 +233,12 @@ void WordTypingScene::Draw()
 	{
 		return;
 	}
-
-	DrawString(250, 10, TEXT("タイムアタック"), GetColor(255, 255, 255));
+	SetFontSize(40);
+	DrawString(190, 10, TEXT("タイムアタック"), GetColor(255, 255, 255));
 
 	//タイピングする文字の表示
-	SetFontSize(22);
-	DrawFormatString(250, 200, GetColor(230, 230, 230), TEXT("Word:%s"), currentWord.display);
+	SetFontSize(30);
+	DrawFormatString(250, 150, GetColor(230, 230, 230), TEXT("Word:%s"), currentWord.display);
 
 	//入力済みの文字を緑色で表示
 	for (int i = 0; currentWord.input[i] != '\0'; i++)
@@ -255,14 +256,14 @@ void WordTypingScene::Draw()
 			color = GetColor(255, 255, 255);
 		}
 
-		DrawFormatString(270+ i * 15,260,color,TEXT("%c"),currentWord.input[i]);
+		DrawFormatString(270+ i * 15,190,color,TEXT("%c"),currentWord.input[i]);
 	}
 
 	SetFontSize(16);
 	DrawFormatString(10, 10, GetColor(230, 230, 230), TEXT("スコア:%d"), score);             //スコアの表示
 	DrawFormatString(10, 40, GetColor(230, 230, 230), TEXT("ミス:%d"), miss);                //タイピングミス数の表示
 	DrawFormatString(10, 70, GetColor(230, 230, 230), TEXT("残り時間:%d"), timeLimit / 60);  //制限時間を表示
-	DrawFormatString(10, 100, GetColor(230, 230, 0), TEXT("コンボ：%d"), combo);              //コンボ表示
+	DrawFormatString(10, 100, GetColor(230, 230, 0), TEXT("コンボ：%d"), combo);             //コンボ表示
 
 	//======難易度の表示======
 	Difficulty d = GameManager::GetInstance().GetDifficulty();
@@ -281,7 +282,7 @@ void WordTypingScene::Draw()
 		diffColor = GetColor(255, 100, 100);   //[むずかしい] 赤色
 	}
 	
-	DrawFormatString(400, 100,diffColor,TEXT("難易度: %s"), diffText);
+	DrawFormatString(250, 70,diffColor,TEXT("難易度: %s"), diffText);
 	//=======================
 
 	//======キーボード表示======
@@ -292,4 +293,7 @@ void WordTypingScene::Draw()
 		keyboard.Draw(target, 100, 300);
 	}
 	//==========================
+
+	//スコアボード表示
+    scoreboard.Draw(480, 10);
 }

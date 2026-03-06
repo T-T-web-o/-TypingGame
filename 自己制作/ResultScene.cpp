@@ -73,25 +73,25 @@ void ResultScene::Draw()
 	//背景画像を画面全体に表示
 	DrawExtendGraph(0, 0, screenW, screenH,resultImage, TRUE);
 
-	SetFontSize(21);
+	SetFontSize(50);
 	// リザルトタイトル表示
-	DrawString(270, 170, TEXT("リザルト"), GetColor(230, 230, 230));
+	DrawString(220, 10, TEXT("リザルト"), GetColor(230, 230, 230));
 
-	SetFontSize(18);
+	SetFontSize(30);
 	// スコア表示
-	DrawFormatString(250, 220, GetColor(230, 230, 230), TEXT("スコア: %d"), finalScore);
+	DrawFormatString(200, 100, GetColor(230, 230, 230), TEXT("スコア: %d"), finalScore);
 
 	//ミス数表示
-	DrawFormatString(250, 250, GetColor(230, 230, 230),TEXT("ミス: %d"), finalMiss);
+	DrawFormatString(200, 170, GetColor(230, 230, 230),TEXT("ミス: %d"), finalMiss);
 
 	//最大コンボ数表示
-	DrawFormatString(250, 280, GetColor(230, 230, 230), TEXT("最大コンボ数: %d"), MaxCombo);
+	DrawFormatString(200, 240, GetColor(230, 230, 230), TEXT("最大コンボ数: %d"), MaxCombo);
 
 	SetFontSize(16);
 	// 操作案内表示
-	DrawString(380, 340, TEXT("Spaceでタイトル"), GetColor(230, 230, 230));
+	DrawString(430, 420, TEXT("Spaceでタイトル"), GetColor(230, 230, 230));
 
 	//ランク表示
-	SetFontSize(23);
-	DrawFormatString(250, 310, rankColor, TEXT("ランク: %s"), rank);
+	SetFontSize(40);
+	DrawFormatString(200, 310, rankColor, TEXT("ランク: %s"), rank);
 }
