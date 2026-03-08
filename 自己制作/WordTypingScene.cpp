@@ -4,6 +4,8 @@
 #include "ResultScene.h"
 #include "KeyTable.h"
 #include "CountDown.h"
+#include "Scoreboard.h"
+#include "ChalkEffect.h"
 #include <cstdlib>
 #include <cstring>
 
@@ -30,12 +32,14 @@ WordData normalWords[] = {
 
 //難易度[むずかしい]の単語リスト
 WordData hardWords[] = {
-	{ TEXT("情報"), TEXT("jouhou") },{ TEXT("経済"), TEXT("keizai") },{ TEXT("研究"), TEXT("kenkyuu") },{ TEXT("環境"), TEXT("kankyou") },{ TEXT("国際"), TEXT("kokusai") },
-	{ TEXT("歴史"), TEXT("rekishi") },{ TEXT("文化"), TEXT("bunka") },{ TEXT("産業"), TEXT("sangyou") },{ TEXT("法律"), TEXT("houritsu") },{ TEXT("戦略"), TEXT("senryaku") },
-	{ TEXT("成長"), TEXT("seichou") },{ TEXT("競争"), TEXT("kyousou") },{ TEXT("責任"), TEXT("sekinin") },{ TEXT("対策"), TEXT("taisaku") },{ TEXT("発展"), TEXT("hatten") },
-	{ TEXT("効率"), TEXT("kouritsu") },{ TEXT("開発"), TEXT("kaihatsu") },{ TEXT("生産"), TEXT("seisan") },{ TEXT("経営"), TEXT("keiei") },{ TEXT("企業"), TEXT("kigyou") },
-	{ TEXT("拡大"), TEXT("kakudai") },{ TEXT("革命"), TEXT("kakumei") },{ TEXT("創造"), TEXT("souzou") },{ TEXT("技術"), TEXT("gijutsu") },{ TEXT("電力"), TEXT("denryoku") },
-	{ TEXT("建築"), TEXT("kenchiku") },{ TEXT("挑戦"), TEXT("chousen") },{ TEXT("経験"), TEXT("keiken") },{ TEXT("計画"), TEXT("keikaku") },{ TEXT("組織"), TEXT("soshiki") }
+	{ TEXT("情報技術"), TEXT("jouhougijutsu") },{TEXT("国際社会"), TEXT("kokusaishakai") },{ TEXT("環境問題"), TEXT("kankyoumondai") },{ TEXT("経済成長"), TEXT("keizaiseichou") },
+	{ TEXT("科学技術"), TEXT("kagakugijutsu") },{ TEXT("技術革新"), TEXT("gijutsukakushin") },{ TEXT("情報社会"), TEXT("jouhoushakai") },{ TEXT("産業革命"), TEXT("sangyoukakumei") },
+	{ TEXT("経営戦略"), TEXT("keieisenryaku") },{ TEXT("企業活動"), TEXT("kigyoukatsudou") },{ TEXT("研究開発"), TEXT("kenkyuukaihatsu") },{ TEXT("国際関係"), TEXT("kokusaikankei") },
+	{ TEXT("情報通信"), TEXT("jouhoutsuushin") },{ TEXT("環境保護"), TEXT("kankyouhogo") },{ TEXT("社会問題"), TEXT("shakaimondai") },{ TEXT("教育制度"), TEXT("kyouikuseido") },
+	{ TEXT("国際交流"), TEXT("kokusaikouryuu") },{ TEXT("経済政策"), TEXT("keizaiseisaku") },{ TEXT("都市開発"), TEXT("toshikaihatsu") },{ TEXT("情報分析"), TEXT("jouhoubunseki") },
+	{ TEXT("人工知能"), TEXT("jinkouchinou") },{ TEXT("機械学習"), TEXT("kikaigakushuu") },{ TEXT("深層学習"), TEXT("shinsougakushuu") },{ TEXT("電子情報"), TEXT("denshijouhou") },
+	{ TEXT("情報処理"), TEXT("jouhoushori") },{ TEXT("計算科学"), TEXT("keisankagaku") },{ TEXT("情報管理"), TEXT("jouhoukanri") },{ TEXT("国際協力"), TEXT("kokusaikyouryoku") },
+	{ TEXT("社会発展"), TEXT("shakaihatten") },{ TEXT("産業発展"), TEXT("sangyouhatten") }
 };
 
 WordTypingScene::WordTypingScene()
@@ -44,7 +48,7 @@ WordTypingScene::WordTypingScene()
 	GetDrawScreenSize(&screenW, &screenH);
 
 	//背景画像読み込み
-	otherGameImage = LoadGraph(TEXT("Resource/game.png"));
+	otherGameImage = LoadGraph(TEXT("Resource/blackboard.png"));
 
 	//タイピング音読み込み
 	typeSE = LoadSoundMem(TEXT("Resource/type.mp3"));
@@ -69,7 +73,7 @@ WordTypingScene::WordTypingScene()
 	{
 		wordList = hardWords;
 		wordCount = _countof(hardWords);
-		timeLimit = 60 * 60;
+		timeLimit = 90 * 60;
 	}
 	
 	//単語をランダムに出すための配列を作成
@@ -98,6 +102,7 @@ WordTypingScene::WordTypingScene()
 	miss = 0;
 	combo = 0;
 	maxCombo = 0;
+	missTimer = 0;
 	missFlag = false;
 	memset(keyNow, 0, sizeof(keyNow));
 	memset(keyOld, 0, sizeof(keyOld));
@@ -111,8 +116,7 @@ WordTypingScene::~WordTypingScene()
 
 void WordTypingScene::Update()
 {
-	//制限時間を減らす
-	timeLimit--;
+	chalk.Update();
 
 	//制限時間が終わったらリザルト画面に切り替え
 	if (IsTimeUp())
@@ -133,8 +137,16 @@ void WordTypingScene::Update()
 		return;
 	}
 
+	//制限時間を減らす
+	timeLimit--;
+
 	//タイピングの正誤判定
 	CheckTyping();
+
+	if (missTimer > 0)
+	{
+		missTimer--;
+	}
 }
 
 void WordTypingScene::UpdateInput()
@@ -163,6 +175,7 @@ void WordTypingScene::CheckTyping()
 
 			if (inputChar == correctChar)
 			{
+				chalk.Spawn(230 + charIndex * 15, 210);
 				// ====== 正解 ======
 				charIndex++;
 
@@ -186,6 +199,7 @@ void WordTypingScene::CheckTyping()
 				miss++;
 				combo = 0;
 				missFlag = true;
+				missTimer = 20;
 			}
 			break; // 1入力で終了
 		}
@@ -232,13 +246,22 @@ void WordTypingScene::Draw()
 	{
 		return;
 	}
-
-	DrawString(250, 120, TEXT("タイムアタック"), GetColor(255, 255, 255));
+	SetFontSize(40);
+	DrawString(190, 10, TEXT("タイムアタック"), GetColor(255, 255, 255));
 
 	//タイピングする文字の表示
-	SetFontSize(22);
-	DrawFormatString(250, 200, GetColor(230, 230, 230), TEXT("Word:%s"), currentWord.display);
+	SetFontSize(30);
+	
+	int color = GetColor(240, 240, 240);
 
+	if (missTimer > 0)
+	{
+		color = GetColor(255, 0, 0);
+	}
+
+	DrawFormatString(200, 150, color, TEXT("Word:%s"), currentWord.display);
+
+	
 	//入力済みの文字を緑色で表示
 	for (int i = 0; currentWord.input[i] != '\0'; i++)
 	{
@@ -255,33 +278,33 @@ void WordTypingScene::Draw()
 			color = GetColor(255, 255, 255);
 		}
 
-		DrawFormatString(270+ i * 15,260,color,TEXT("%c"),currentWord.input[i]);
+		DrawFormatString(230+ i * 15,190,color,TEXT("%c"),currentWord.input[i]);
 	}
 
 	SetFontSize(16);
-	DrawFormatString(100, 140, GetColor(255, 255, 255), TEXT("スコア:%d"), score);             //スコアの表示
-	DrawFormatString(100, 160, GetColor(255, 255, 255), TEXT("ミス:%d"), miss);                //タイピングミス数の表示
-	DrawFormatString(100, 180, GetColor(255, 255, 255), TEXT("残り時間:%d"), timeLimit / 60);  //制限時間を表示
-	DrawFormatString(100, 200, GetColor(255, 255, 0), TEXT("コンボ：%d"), combo);              //コンボ表示
+	DrawFormatString(10, 10, GetColor(230, 230, 230), TEXT("スコア:%d"), score);             //スコアの表示
+	DrawFormatString(10, 40, GetColor(230, 230, 230), TEXT("ミス:%d"), miss);                //タイピングミス数の表示
+	DrawFormatString(10, 70, GetColor(230, 230, 230), TEXT("残り時間:%d"), timeLimit / 60);  //制限時間を表示
+	DrawFormatString(10, 100, GetColor(230, 230, 0), TEXT("コンボ：%d"), combo);             //コンボ表示
 
 	//======難易度の表示======
 	Difficulty d = GameManager::GetInstance().GetDifficulty();
 
 	//難易度ごとに表示する内容を変更
 	diffText = TEXT("かんたん");
-	diffColor = GetColor(100, 200, 255);
+	diffColor = GetColor(100, 200, 255);       //[かんたん]   水色
 	if (d == NORMAL) 
 	{
 		diffText = TEXT("ふつう");
-		diffColor = GetColor(255, 255, 100);
+		diffColor = GetColor(255, 255, 100);   //[ふつう]     黄色
 	}
 	if (d == HARD)
 	{
 		diffText = TEXT("むずかしい");
-		diffColor = GetColor(255, 100, 100);
+		diffColor = GetColor(255, 100, 100);   //[むずかしい] 赤色
 	}
 	
-	DrawFormatString(400, 140,diffColor,TEXT("難易度: %s"), diffText);
+	DrawFormatString(250, 70,diffColor,TEXT("難易度: %s"), diffText);
 	//=======================
 
 	//======キーボード表示======
@@ -289,7 +312,13 @@ void WordTypingScene::Draw()
 	{
 		TCHAR target = currentWord.input[charIndex];
 		target = toupper(target);
-		keyboard.Draw(target, 100, 350);
+		keyboard.Draw(target, 100, 300);
 	}
 	//==========================
+
+	//スコアボード表示
+    scoreboard.Draw(480, 10);
+
+	//チョークエフェクト表示
+	chalk.Draw();
 }

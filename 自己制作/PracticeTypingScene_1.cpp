@@ -2,8 +2,9 @@
 #include "GameManager.h"
 #include "ResultScene.h"
 #include "KeyTable.h"
+#include "Scoreboard.h"
+#include "ChalkEffect.h"
 #include <cstdlib>
-
 
 //コンストラクタ
 PracticeTypingScene_1::PracticeTypingScene_1()
@@ -12,7 +13,7 @@ PracticeTypingScene_1::PracticeTypingScene_1()
     GetDrawScreenSize(&screenW, &screenH);
 
     //背景画像読み込み
-    gameImage = LoadGraph(TEXT("Resource/game.png"));
+    gameImage = LoadGraph(TEXT("Resource/blackboard.png"));
 
     //タイピング音読み込み
     typeSE = LoadSoundMem(TEXT("Resource/type.mp3"));
@@ -25,12 +26,15 @@ PracticeTypingScene_1::PracticeTypingScene_1()
 	miss = 0;
     combo = 0;
     maxCombo = 0;
+    missTimer = 0;
+    missIndex = -1;
 
     //押された瞬間のみ反応
     memset(keyNow, 0, sizeof(keyNow));
     memset(keyOld, 0, sizeof(keyOld));
 }
 
+//デストラクタ
 PracticeTypingScene_1::~PracticeTypingScene_1()
 {
     DeleteGraph(gameImage);
@@ -39,6 +43,9 @@ PracticeTypingScene_1::~PracticeTypingScene_1()
 
 void PracticeTypingScene_1::Update()
 {
+    //チョークエフェクト
+    chalk.Update();
+
     // Tabキーが押されたら結果画面へ遷移
     if (CheckHitKey(KEY_INPUT_TAB))
     {
@@ -64,6 +71,7 @@ void PracticeTypingScene_1::Update()
             //正解だったら
             if (i == correctIndex)
             {   
+                chalk.Spawn(300, 200);
                 score++;
                 combo++;
                 if (combo > maxCombo) {
@@ -77,12 +85,19 @@ void PracticeTypingScene_1::Update()
                 //ミス
                 miss++;
                 combo = 0;
+                missTimer = 20;
+                missIndex = correctIndex;
             }
             break;
         }
     }
     // 次のフレーム用に入力状態を保存
     memcpy(keyOld, keyNow, sizeof(keyNow));
+
+    if (missTimer > 0)
+    {
+        missTimer--;
+    }
 }
 
 void PracticeTypingScene_1::Draw()
@@ -91,22 +106,35 @@ void PracticeTypingScene_1::Draw()
     DrawExtendGraph(0, 0, screenW, screenH, gameImage, TRUE);
 
     // 現在入力すべき文字を画面中央に表示
-    SetFontSize(30);
-	DrawFormatString(300, 200, GetColor(230, 230, 230),TEXT("%c"), target);
+    SetFontSize(50);
+    int color = GetColor(240, 240, 240);
 
-    SetFontSize(16);
+    if (missTimer > 0)
+    {
+        color = GetColor(255, 0, 0);
+    }
+
+    DrawFormatString(300, 200, color, TEXT("%c"), target);
+	
+
+    SetFontSize(23);
     //スコアの表示
-    DrawFormatString(100, 140, GetColor(230, 230, 230), TEXT("スコア:%d"), score);          
+    DrawFormatString(10, 10, GetColor(240, 240, 240), TEXT("スコア:%d"), score);
 
     //タイピングミス数の表示
-    DrawFormatString(100, 160, GetColor(230, 230, 230), TEXT("ミス:%d"), miss);            
+    DrawFormatString(10, 40, GetColor(240, 240, 240), TEXT("ミス:%d"), miss);
 
     //コンボ表示
-    DrawFormatString(100, 180, GetColor(230, 230, 230), TEXT("コンボ：%d"), combo);
+    DrawFormatString(10, 70, GetColor(240, 240, 240), TEXT("コンボ：%d"), combo);
 
+    SetFontSize(16);
     //リザルト画面へ移行表示 
-    DrawString(380, 320, TEXT("Tabで終了"), GetColor(230, 230, 230));
+    DrawString(550, 430, TEXT("Tabで終了"), GetColor(240, 240, 240));
 
-    keyboard.Draw(target, 100, 350);
+    scoreboard.Draw(480, 10);
+
+    keyboard.Draw(target, 100, 300);
+
+    chalk.Draw();
 }
 

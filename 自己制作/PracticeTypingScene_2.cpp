@@ -3,6 +3,7 @@
 #include "ResultScene.h"
 #include "KeyTable.h"
 #include "CountDown.h"
+#include "Scoreboard.h"
 
 WordData_2 practiceKana[] = {
 
@@ -43,7 +44,7 @@ PracticeTypingScene_2::PracticeTypingScene_2()
    GetDrawScreenSize(&screenW, &screenH);
 
    //背景画像読み込み
-   gameImage = LoadGraph(TEXT("Resource/game.png"));
+   gameImage = LoadGraph(TEXT("Resource/blackboard.png"));
 
    //タイピング音読み込み
    typeSE = LoadSoundMem(TEXT("Resource/type.mp3"));
@@ -61,6 +62,9 @@ PracticeTypingScene_2::PracticeTypingScene_2()
    combo = 0;
    maxCombo = 0;
    missFlag = false;
+
+   missTimer = 0;
+   missIndex = -1;
 }
 
 PracticeTypingScene_2::~PracticeTypingScene_2()
@@ -144,9 +148,15 @@ void PracticeTypingScene_2::TypingUpdate()
 				miss++;
 				combo = 0;
 				missFlag = true;
+				missTimer = 20;
+				missIndex = correctKana;
 			}
 			break;
 		}
+	}
+	if (missTimer > 0)
+	{
+		missTimer--;
 	}
 }
 
@@ -165,7 +175,15 @@ void PracticeTypingScene_2::Draw()
 
 	//タイピングする文字の表示
 	SetFontSize(40);
-	DrawFormatString(220, 170, GetColor(230, 230, 230), TEXT("Word:%s"), currentWord.display);
+	int color = GetColor(240, 240, 240);
+
+	if (missTimer > 0)
+	{
+		color = GetColor(255, 0, 0);
+	}
+
+	DrawFormatString(220, 170, color, TEXT("Word:%s"), currentWord.display);
+	
 
 	SetFontSize(30);
 	//入力済みの文字を緑色で表示
@@ -181,31 +199,34 @@ void PracticeTypingScene_2::Draw()
 		else
 		{
 			// まだ（白）
-			color = GetColor(255, 255, 255);
+			color = GetColor(240, 240, 240);
 		}
 
 		DrawFormatString(270 + i * 15, 260, color, TEXT("%c"), currentWord.input[i]);
 	}
 
-	SetFontSize(16);
+	SetFontSize(23);
 	//スコアの表示
-	DrawFormatString(100, 140, GetColor(255, 255, 255), TEXT("スコア:%d"), score);
+	DrawFormatString(10, 10, GetColor(240, 240, 240), TEXT("スコア:%d"), score);
 
 	//タイピングミス数の表示
-	DrawFormatString(100, 160, GetColor(255, 255, 255), TEXT("ミス:%d"), miss);
+	DrawFormatString(10, 40, GetColor(240, 240, 240), TEXT("ミス:%d"), miss);
 
 	//コンボ表示
-	DrawFormatString(100, 180, GetColor(255, 255, 255), TEXT("コンボ：%d"), combo);
+	DrawFormatString(10, 70, GetColor(240, 240, 240), TEXT("コンボ：%d"), combo);
 
+	SetFontSize(16);
 	//リザルト画面へ移行表示 
-	DrawString(440, 320, TEXT("Tabで終了"), GetColor(230, 230, 230));
+	DrawString(550, 430, TEXT("Tabで終了"), GetColor(230, 230, 230));
 
-	//======キーボード表示======
+	//キーボード表示
 	if (currentWord.input[charIndex] != '\0')
 	{
 		TCHAR target = currentWord.input[charIndex];
 		target = toupper(target);
-		keyboard.Draw(target, 100, 350);
+		keyboard.Draw(target, 100, 300);
 	}
-	//==========================
+
+	//スコアボード表示
+	scoreboard.Draw(480, 10);
 }

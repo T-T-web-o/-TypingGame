@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Keyboard.h"
 #include "CountDown.h"
+#include "Scoreboard.h"
 
 struct WordData_2
 {
@@ -43,9 +44,15 @@ private:
 	int maxCombo;          // 最大コンボ
 	bool missFlag = false; // この単語でミスしたか
 
+	//====== タイプミス ======
+	int missTimer;   //ミスしたときに文字が赤くなる時間
+	int missIndex;   //ミスした文字を取得
+
 	Keyboard keyboard;
 
 	CountDown countdown;
+
+	Scoreboard scoreboard;
 
 public:
 	PracticeTypingScene_2();

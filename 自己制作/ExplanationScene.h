@@ -4,7 +4,7 @@ class ExplanationScene:public Scene
 {
 private:
 	//====== ”wŒi‰æ‘œ ======
-	int otherGameImage;
+	int ExplanationImage;
 	int screenW;
 	int screenH;
 

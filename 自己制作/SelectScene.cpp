@@ -16,7 +16,7 @@ SelectScene::SelectScene()
     GetDrawScreenSize(&screenW, &screenH);
 
     //背景画像読み込み
-    selectImage = LoadGraph(TEXT("Resource/select.png"));
+    selectImage = LoadGraph(TEXT("Resource/blackboard.png"));
 }
 
 SelectScene::~SelectScene()
@@ -121,19 +121,19 @@ void SelectScene::Update()
         //スペースキーで選択
         if (nowSpace && !prevSpace)
         {
-            //0:EASY
+            //0:かんたん
             if (cursor == 0)
             {
                 GameManager::GetInstance().SetDifficulty(EASY);
                 GameManager::GetInstance().ChangeScene(new WordTypingScene());
             }
-            //1:NORMAL
+            //1:ふつう
             else if (cursor == 1)
             {
                 GameManager::GetInstance().SetDifficulty(NORMAL);
                 GameManager::GetInstance().ChangeScene(new WordTypingScene());
             }
-            //2:HARD
+            //2:むずかしい
             else if (cursor == 2)
             {
                 GameManager::GetInstance().SetDifficulty(HARD);
@@ -152,63 +152,64 @@ void SelectScene::Draw()
     //背景画像を画面全体に表示
     DrawExtendGraph(0,0,screenW, screenH,selectImage,TRUE);
 
-    ///タイトル表示 
-    DrawString(270, 170, TEXT("ゲーム選択"), GetColor(230, 230, 230));
+    ///タイトル表示
+    SetFontSize(60);
+    DrawString(180, 30, TEXT("ゲーム選択"), GetColor(230, 230, 230));
 
     //====== ゲーム選択表示 ======
     if (state == SELECT_GAME)
     {
-        DrawString(220, 230, TEXT("タイピング練習"), GetColor(230, 230, 230));
-        DrawString(220, 270, TEXT("単語タイピング"), GetColor(230, 230, 230));
+        SetFontSize(30);
+        DrawString(220, 190, TEXT("タイピング練習"), GetColor(230, 230, 230));
+        DrawString(220, 290, TEXT("単語タイピング"), GetColor(230, 230, 230));
         if (cursor == 0)
         {
-            DrawString(200, 230, TEXT("→"), GetColor(255, 255, 255));
+            DrawString(190, 190, TEXT("→"), GetColor(230, 230, 230));
         }
         else if (cursor == 1)
         {
-            DrawString(200, 270, TEXT("→"), GetColor(255, 255, 255));
+            DrawString(190, 290, TEXT("→"), GetColor(230, 230, 230));
         }
     }
+    SetFontSize(27);
     //====== モード選択表示 ======
     if (state == SELECT_MODE)
     {
-        DrawString(200, 230, TEXT(" 1文字タイピング練習"), GetColor(230, 230, 230));
-        DrawString(200, 280, TEXT(" アルファベットタイピング練習"), GetColor(230, 230, 230));
+        DrawString(100, 190, TEXT(" 1文字タイピング練習"), GetColor(230, 230, 230));
+        DrawString(100, 280, TEXT(" アルファベットタイピング練習"), GetColor(230, 230, 230));
 
         if (cursor == 0)
         {
-            DrawString(180, 230, TEXT("→"), GetColor(255, 255, 255));
+            DrawString(80, 190, TEXT("→"), GetColor(230, 230, 230));
         }
         else if (cursor == 1)
         {
-            DrawString(180, 280, TEXT("→"), GetColor(255, 255, 255));
+            DrawString(80, 280, TEXT("→"), GetColor(230, 230, 230));
         }
-
-        SetFontSize(18);
-        DrawString(400, 340, TEXT("Spaceで選択"), GetColor(230, 230, 230));
     }
-
+    
+    SetFontSize(50);
     //====== 難易度選択表示 ======
     if (state==SELECT_DIFFICULTY)
     {
-        DrawString(250, 220, TEXT(" かんたん"), GetColor(230, 230, 230));
-        DrawString(250, 260, TEXT(" ふつう"), GetColor(230, 230, 230));
-        DrawString(250, 300, TEXT(" むずかしい"), GetColor(230, 230, 230));
+        DrawString(180, 150, TEXT(" かんたん"), GetColor(100, 200, 255));
+        DrawString(180, 250, TEXT(" ふつう"), GetColor(255, 255, 100));
+        DrawString(180, 350, TEXT(" むずかしい"), GetColor(255, 100, 100));
 
         if (cursor == 0)
         {
-            DrawString(230, 220, TEXT("→"), GetColor(255, 255, 255));
+            DrawString(160, 150, TEXT("→"), GetColor(230, 230, 230));
         }
         else if (cursor == 1)
         {
-            DrawString(230, 260, TEXT("→"), GetColor(255, 255, 255));
+            DrawString(160, 250, TEXT("→"), GetColor(230, 230, 230));
         }
         else if (cursor == 2)
         {
-            DrawString(230, 300, TEXT("→"), GetColor(255, 255, 255));
+            DrawString(160, 350, TEXT("→"), GetColor(230, 230, 230));
         }
     }
 
     SetFontSize(18);
-    DrawString(400, 340, TEXT("Spaceで選択"), GetColor(230, 230, 230));
+    DrawString(500, 400, TEXT("Spaceで選択"), GetColor(230, 230, 230));
 }

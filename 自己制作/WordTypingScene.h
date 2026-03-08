@@ -3,6 +3,8 @@
 #include "Scene.h"
 #include "Keyboard.h"
 #include "CountDown.h"
+#include "Scoreboard.h"
+#include "ChalkEffect.h"
 
 static const int MAX_WORDS = 30;
 
@@ -52,6 +54,9 @@ private:
 	int maxCombo;           // 最大コンボ
 	bool missFlag = false;  // この単語でミスしたか
 
+	//====== タイプミス ======
+	int missTimer;   //ミスしたときに文字が赤くなる時間
+
 	//難易度ごとの表示管理
 	const TCHAR* diffText; //かんたん・ふつう・むずかしい
 	int diffColor;         //難易度を表示する色
@@ -59,6 +64,10 @@ private:
 	Keyboard keyboard;
 
 	CountDown countdown;
+
+	Scoreboard scoreboard;
+
+	ChalkEffect chalk;
 public:
 	WordTypingScene();
 
