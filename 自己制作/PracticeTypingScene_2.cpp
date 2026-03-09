@@ -4,6 +4,7 @@
 #include "KeyTable.h"
 #include "CountDown.h"
 #include "Scoreboard.h"
+#include "ChalkEffect.h"
 
 WordData_2 practiceKana[] = {
 
@@ -82,6 +83,9 @@ void PracticeTypingScene_2::Update()
 		return;
 	}
 
+	//チョークエフェクト
+	chalk.Update();
+
 	// 現在フレームの全キー状態を取得
 	// keyNow に「押されている / 押されていない」を格納する
 	GetHitKeyStateAll(keyNow);
@@ -125,6 +129,8 @@ void PracticeTypingScene_2::TypingUpdate()
 				// 単語終了チェック
 				if (currentWord.input[charIndex] == '\0')
 				{
+					chalk.Spawn(270+charIndex*15, 240);
+
 					if (!missFlag) {
 						combo++;
 						if (combo > maxCombo) {
@@ -149,7 +155,7 @@ void PracticeTypingScene_2::TypingUpdate()
 				combo = 0;
 				missFlag = true;
 				missTimer = 20;
-				missIndex = correctKana;
+				missIndex=charIndex;
 			}
 			break;
 		}
@@ -175,18 +181,10 @@ void PracticeTypingScene_2::Draw()
 
 	//タイピングする文字の表示
 	SetFontSize(40);
-	int color = GetColor(240, 240, 240);
-
-	if (missTimer > 0)
-	{
-		color = GetColor(255, 0, 0);
-	}
-
-	DrawFormatString(220, 170, color, TEXT("Word:%s"), currentWord.display);
+	DrawFormatString(220, 170, GetColor(240, 240, 240), TEXT("Word:%s"), currentWord.display);
 	
-
 	SetFontSize(30);
-	//入力済みの文字を緑色で表示
+	//入力に応じて文字の色を変更して表示
 	for (int i = 0; currentWord.input[i] != '\0'; i++)
 	{
 		int color;
@@ -196,13 +194,18 @@ void PracticeTypingScene_2::Draw()
 			//入力済み（緑）
 			color = GetColor(100, 255, 100);
 		}
+		else if (i== missIndex&&missTimer>0)
+		{
+			//入力ミス（赤）
+			color = GetColor(255, 0, 0);
+		}
 		else
 		{
 			// まだ（白）
 			color = GetColor(240, 240, 240);
 		}
 
-		DrawFormatString(270 + i * 15, 260, color, TEXT("%c"), currentWord.input[i]);
+		DrawFormatString(270 + i * 15, 210, color, TEXT("%c"), currentWord.input[i]);
 	}
 
 	SetFontSize(23);
@@ -229,4 +232,6 @@ void PracticeTypingScene_2::Draw()
 
 	//スコアボード表示
 	scoreboard.Draw(480, 10);
+
+	chalk.Draw();
 }

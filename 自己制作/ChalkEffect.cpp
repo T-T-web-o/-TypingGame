@@ -18,8 +18,8 @@ void ChalkEffect::Spawn(float x, float y)
 		chalkdust[i].x = x;
 		chalkdust[i].y = y;
 
-		chalkdust[i].vx = (rand() % 7 - 3) * 0.3f;
-		chalkdust[i].vy = (rand() % 5) * 0.5f;
+		chalkdust[i].vx = (rand() % 5 - 3) * 0.3f;
+		chalkdust[i].vy = (rand() % 3) * 0.5f;
 
 		chalkdust[i].life = 30;
 	}

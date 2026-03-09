@@ -103,6 +103,7 @@ WordTypingScene::WordTypingScene()
 	combo = 0;
 	maxCombo = 0;
 	missTimer = 0;
+	missIndex = -1;
 	missFlag = false;
 	memset(keyNow, 0, sizeof(keyNow));
 	memset(keyOld, 0, sizeof(keyOld));
@@ -175,13 +176,14 @@ void WordTypingScene::CheckTyping()
 
 			if (inputChar == correctChar)
 			{
-				chalk.Spawn(230 + charIndex * 15, 210);
+				
 				// ====== 正解 ======
 				charIndex++;
 
 				// 単語終了チェック
 				if (currentWord.input[charIndex] == '\0')
 				{
+					chalk.Spawn(230 + charIndex * 15, 210);
 					if (!missFlag)
 					{
 						combo++;
@@ -200,6 +202,7 @@ void WordTypingScene::CheckTyping()
 				combo = 0;
 				missFlag = true;
 				missTimer = 20;
+				missIndex = charIndex;
 			}
 			break; // 1入力で終了
 		}
@@ -251,18 +254,10 @@ void WordTypingScene::Draw()
 
 	//タイピングする文字の表示
 	SetFontSize(30);
-	
-	int color = GetColor(240, 240, 240);
-
-	if (missTimer > 0)
-	{
-		color = GetColor(255, 0, 0);
-	}
-
-	DrawFormatString(200, 150, color, TEXT("Word:%s"), currentWord.display);
+	DrawFormatString(200, 150, GetColor(240, 240, 240), TEXT("Word:%s"), currentWord.display);
 
 	
-	//入力済みの文字を緑色で表示
+	//入力に応じて文字の色を変更して表示
 	for (int i = 0; currentWord.input[i] != '\0'; i++)
 	{
 		int color;
@@ -271,6 +266,11 @@ void WordTypingScene::Draw()
 		{
 			//入力済み（緑）
 			color = GetColor(100, 255, 100);
+		}
+		else if (i == missIndex && missTimer > 0)
+		{
+			//入力ミス　(赤)
+			color = GetColor(255, 0, 0);
 		}
 		else
 		{

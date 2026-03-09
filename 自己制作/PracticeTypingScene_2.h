@@ -3,6 +3,7 @@
 #include "Keyboard.h"
 #include "CountDown.h"
 #include "Scoreboard.h"
+#include "ChalkEffect.h"
 
 struct WordData_2
 {
@@ -53,6 +54,8 @@ private:
 	CountDown countdown;
 
 	Scoreboard scoreboard;
+
+	ChalkEffect chalk;
 
 public:
 	PracticeTypingScene_2();

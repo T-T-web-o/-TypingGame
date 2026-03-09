@@ -56,6 +56,7 @@ private:
 
 	//====== タイプミス ======
 	int missTimer;   //ミスしたときに文字が赤くなる時間
+	int missIndex;   //ミスした文字を取得
 
 	//難易度ごとの表示管理
 	const TCHAR* diffText; //かんたん・ふつう・むずかしい

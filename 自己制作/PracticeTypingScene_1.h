@@ -15,7 +15,6 @@ private:
 	
 	//タイプミス
 	int missTimer;   //ミスしたときに文字が赤くなる時間
-	int missIndex;   //ミスした文字を取得
 
 	//背景画像
 	int gameImage;

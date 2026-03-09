@@ -27,7 +27,6 @@ PracticeTypingScene_1::PracticeTypingScene_1()
     combo = 0;
     maxCombo = 0;
     missTimer = 0;
-    missIndex = -1;
 
     //押された瞬間のみ反応
     memset(keyNow, 0, sizeof(keyNow));
@@ -71,7 +70,7 @@ void PracticeTypingScene_1::Update()
             //正解だったら
             if (i == correctIndex)
             {   
-                chalk.Spawn(300, 200);
+                chalk.Spawn(320, 240);
                 score++;
                 combo++;
                 if (combo > maxCombo) {
@@ -86,7 +85,6 @@ void PracticeTypingScene_1::Update()
                 miss++;
                 combo = 0;
                 missTimer = 20;
-                missIndex = correctIndex;
             }
             break;
         }
@@ -105,12 +103,15 @@ void PracticeTypingScene_1::Draw()
     //背景画像を画面全体に表示
     DrawExtendGraph(0, 0, screenW, screenH, gameImage, TRUE);
 
-    // 現在入力すべき文字を画面中央に表示
+    // 現在入力すべき文字を画面中央に表示・入力ミスをした文字を赤く表示
     SetFontSize(50);
+
+    //通常時　（白）
     int color = GetColor(240, 240, 240);
 
     if (missTimer > 0)
     {
+        //入力ミス（赤）
         color = GetColor(255, 0, 0);
     }
 
