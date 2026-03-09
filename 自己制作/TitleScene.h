@@ -14,6 +14,8 @@ private:
 	bool prevEnter;
 	bool nowEnter;
 
+	//効果音
+	int TitleSE;
 public:
 	//コンストラクタ
 	TitleScene();

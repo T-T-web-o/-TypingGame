@@ -1,4 +1,5 @@
 #include "CountDown.h"
+#include "SoundManager.h"
 #include "DxLib.h"
 
 CountDown::CountDown()
@@ -14,6 +15,7 @@ void CountDown::Update()
 	{
 		if (CheckHitKey(KEY_INPUT_RETURN))
 		{
+			PlaySoundMem(SoundManager::titleSE, DX_PLAYTYPE_BACK);
 			state = COUNTDOWN;
 
 		}

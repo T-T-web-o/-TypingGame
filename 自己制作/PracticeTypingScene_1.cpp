@@ -1,5 +1,6 @@
 #include "PracticeTypingScene_1.h"
 #include "GameManager.h"
+#include "SoundManager.h"
 #include "ResultScene.h"
 #include "KeyTable.h"
 #include "Scoreboard.h"
@@ -14,9 +15,6 @@ PracticeTypingScene_1::PracticeTypingScene_1()
 
     //背景画像読み込み
     gameImage = LoadGraph(TEXT("Resource/blackboard.png"));
-
-    //タイピング音読み込み
-    typeSE = LoadSoundMem(TEXT("Resource/type.mp3"));
 
     // 最初に表示するターゲット文字を A～Z の中からランダムに決定
 	target = 'A' + rand() % 26;
@@ -37,7 +35,6 @@ PracticeTypingScene_1::PracticeTypingScene_1()
 PracticeTypingScene_1::~PracticeTypingScene_1()
 {
     DeleteGraph(gameImage);
-    DeleteSoundMem(typeSE);
 }
 
 void PracticeTypingScene_1::Update()
@@ -65,7 +62,7 @@ void PracticeTypingScene_1::Update()
     {
         if (keyNow[keyTable[i]] && !keyOld[keyTable[i]])
         {
-            PlaySoundMem(typeSE, DX_PLAYTYPE_BACK);
+            PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
 
             //正解だったら
             if (i == correctIndex)

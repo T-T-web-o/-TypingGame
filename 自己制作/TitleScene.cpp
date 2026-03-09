@@ -1,10 +1,12 @@
 #include "TitleScene.h"
 #include "DxLib.h"
 #include "GameManager.h"
+#include "SoundManager.h"
 #include "PracticeTypingScene_1.h"
 #include "SelectScene.h"
 #include "ExplanationScene.h"
 
+//コンストラクタ
 TitleScene::TitleScene()
 {
 	//画面サイズ取得
@@ -12,8 +14,10 @@ TitleScene::TitleScene()
 
 	//タイトル画像読み込み
 	titleImage = LoadGraph(TEXT("Resource/Title.png"));
+
 }
 
+//デストラクタ
 TitleScene::~TitleScene()
 {
 	DeleteGraph(titleImage);
@@ -27,6 +31,7 @@ void TitleScene::Update()
 	// Enterキーが押されたか判定
 	if (nowEnter && !prevEnter)
 	{
+		PlaySoundMem(SoundManager::titleSE, DX_PLAYTYPE_BACK);
 		// ゲーム選択シーンに切り替え
 		GameManager::GetInstance().ChangeScene(new ExplanationScene());
 	}

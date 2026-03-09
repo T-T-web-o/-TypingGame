@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include "GameManager.h"
+#include "SoundManager.h"
 #include <ctime>
 
 
@@ -13,6 +14,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	// 乱数の初期化（毎回違う文字を出すため）
 	srand((unsigned int)time(nullptr));
+
+	//ゲーム開始　サウンドをロード
+	SoundManager::Load();
 
 	// メインループ
 	// ProcessMessage() が 0 を返している間、ゲームを動かし続ける
@@ -30,6 +34,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		// バックバッファと画面を入れ替えて描画を反映
 		ScreenFlip();
 	}
+	//ゲーム終了　サウンドを消去
+	SoundManager::Release();
+
 	// DxLibの終了処理
 	DxLib_End();
 

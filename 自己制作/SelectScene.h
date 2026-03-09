@@ -32,6 +32,9 @@ private:
 	bool prevDown;
 	bool nowDown;
 
+	//効果音
+	int SelectSE;
+	int TitleSE;
 public:
 	// 初期状態（SELECT_GAME など）を設定するために使用
 	SelectScene();

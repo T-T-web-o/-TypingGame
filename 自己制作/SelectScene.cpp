@@ -1,5 +1,6 @@
 #include "SelectScene.h"
 #include "GameManager.h"
+#include "SoundManager.h"
 #include "PracticeTypingScene_1.h"
 #include "PracticeTypingScene_2.h"
 #include "WordTypingScene.h"
@@ -54,6 +55,8 @@ void SelectScene::Update()
         //スペースキーで選択
         if (nowSpace && !prevSpace)
         {
+            //選択SE再生
+            PlaySoundMem(SoundManager::selectSE, DX_PLAYTYPE_BACK);
             if (cursor == 0)
             {
                 state = SELECT_MODE;
@@ -88,6 +91,9 @@ void SelectScene::Update()
 
         if (nowSpace && !prevSpace)
         {
+            //選択SE再生
+            PlaySoundMem(SoundManager::selectSE, DX_PLAYTYPE_BACK);
+
             if (cursor == 0)
             {
                 GameManager::GetInstance().ChangeScene(new PracticeTypingScene_1());
@@ -121,6 +127,8 @@ void SelectScene::Update()
         //スペースキーで選択
         if (nowSpace && !prevSpace)
         {
+            //選択SE再生
+            PlaySoundMem(SoundManager::selectSE, DX_PLAYTYPE_BACK);
             //0:かんたん
             if (cursor == 0)
             {

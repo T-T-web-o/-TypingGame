@@ -1,6 +1,7 @@
 #include "WordTypingScene.h"
 #include "DxLib.h"
 #include "GameManager.h"
+#include "SoundManager.h"
 #include "ResultScene.h"
 #include "KeyTable.h"
 #include "CountDown.h"
@@ -49,9 +50,6 @@ WordTypingScene::WordTypingScene()
 
 	//背景画像読み込み
 	otherGameImage = LoadGraph(TEXT("Resource/blackboard.png"));
-
-	//タイピング音読み込み
-	typeSE = LoadSoundMem(TEXT("Resource/type.mp3"));
 
 	//選択された難易度の取得
 	Difficulty d = GameManager::GetInstance().GetDifficulty();
@@ -172,7 +170,7 @@ void WordTypingScene::CheckTyping()
 			char inputChar = 'a' + i;
 
 			// タイピング音
-			PlaySoundMem(typeSE, DX_PLAYTYPE_BACK);
+			PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
 
 			if (inputChar == correctChar)
 			{
@@ -183,7 +181,7 @@ void WordTypingScene::CheckTyping()
 				// 単語終了チェック
 				if (currentWord.input[charIndex] == '\0')
 				{
-					chalk.Spawn(230 + charIndex * 15, 210);
+					chalk.Spawn(230 + (charIndex-1) * 15, 210);
 					if (!missFlag)
 					{
 						combo++;
@@ -250,7 +248,7 @@ void WordTypingScene::Draw()
 		return;
 	}
 	SetFontSize(40);
-	DrawString(190, 10, TEXT("タイムアタック"), GetColor(255, 255, 255));
+	DrawString(170, 10, TEXT("タイムアタック"), GetColor(255, 255, 255));
 
 	//タイピングする文字の表示
 	SetFontSize(30);

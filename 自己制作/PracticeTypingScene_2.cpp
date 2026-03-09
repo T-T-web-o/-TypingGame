@@ -1,5 +1,6 @@
 #include "PracticeTypingScene_2.h"
 #include "GameManager.h"
+#include "SoundManager.h"
 #include "ResultScene.h"
 #include "KeyTable.h"
 #include "CountDown.h"
@@ -46,9 +47,6 @@ PracticeTypingScene_2::PracticeTypingScene_2()
 
    //背景画像読み込み
    gameImage = LoadGraph(TEXT("Resource/blackboard.png"));
-
-   //タイピング音読み込み
-   typeSE = LoadSoundMem(TEXT("Resource/type.mp3"));
 
    kanaIndex = 0;
    currentWord = practiceKana[kanaIndex];
@@ -119,7 +117,7 @@ void PracticeTypingScene_2::TypingUpdate()
 			char inputChar = 'a' + i;
 
 			// タイピング音
-			PlaySoundMem(typeSE, DX_PLAYTYPE_BACK);
+			PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
 
 			if (inputChar == correctKana)
 			{

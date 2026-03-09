@@ -13,7 +13,7 @@ struct ChalkDust
 class ChalkEffect
 {
 private:
-    static const int MAX_CHALKDUST = 30;
+    static const int MAX_CHALKDUST = 100;
     ChalkDust chalkdust[MAX_CHALKDUST];
 
 public:
