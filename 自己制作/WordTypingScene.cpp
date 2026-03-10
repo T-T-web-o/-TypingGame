@@ -59,19 +59,19 @@ WordTypingScene::WordTypingScene()
 	{
 		wordList = easyWords;
 		wordCount = _countof(easyWords);
-		timeLimit = 30 * 60; //60fps想定
+		timeLimit = 45 * 60; //60fps想定
 	}
 	else if (d == NORMAL)
 	{
 		wordList = normalWords;
 		wordCount = _countof(normalWords);
-		timeLimit = 45 * 60;
+		timeLimit = 60 * 60;
 	}
 	else // HARD
 	{
 		wordList = hardWords;
 		wordCount = _countof(hardWords);
-		timeLimit = 90 * 60;
+		timeLimit = 120 * 60;
 	}
 	
 	//単語をランダムに出すための配列を作成

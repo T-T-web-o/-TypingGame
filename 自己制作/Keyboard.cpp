@@ -1,90 +1,94 @@
 #include "Keyboard.h"
 
-// target で指定されたキーを赤くハイライトして描画する関数
-// startX, startY はキーボード全体の左上座標
+//============================================================
+// キーボードの描画処理
+// target で指定されたキーをハイライト表示する
+//
+// target  : 強調表示するキー
+// startX  : キーボード左上のX座標
+// startY  : キーボード左上のY座標
+//============================================================
 void Keyboard::Draw(TCHAR target, int startX, int startY)
 {
-    int keySize = 40; //一つのキーの大きさ
-    int gap = 5;      //キーとキーの間隔
+    //一つのキーのサイズ
+    const int KEY_SIZE = 40;
 
-    //===========================
-    // １行目:Q W E R T Y U I O P
-    //===========================
+    //キー同士の間隔
+    const int KEY_GAP = 5;
+
+    //------------------------------------------------------------
+    // 1行目：Q W E R T Y U I O P
+    //------------------------------------------------------------
     for (int i = 0; i < 10; i++)
     {
-        // 横位置：開始位置 + キー幅×（キーサイズ＋キー間隔）
-        int x = startX + i * (keySize + gap);
+        // 横位置
+        int x = startX + i * (KEY_SIZE + KEY_GAP);
      
-        // 縦位置：1行目なのでそのまま
+        // 縦位置
         int y = startY;
 
-        // target と同じ文字なら赤、それ以外はグレー
+        // target と同じキーなら赤でハイライト
         int color = (row1[i] == target)
-            ? GetColor(255, 120, 120)        //強調 (赤)
-            : GetColor(240, 240, 240);   //普通 (白)
+            ? GetColor(255, 120, 120)    //強調表示 (赤)
+            : GetColor(240, 240, 240);   //通常キー (白)
 
-        // キーの四角を描画（TRUE = 塗りつぶし）
-        DrawBox(x, y, x + keySize, y + keySize, color, FALSE);
-        DrawBox(x + 1, y + 1, x + keySize - 1, y + keySize - 1, color, FALSE);
-        // キーの文字を表示するための文字列を作成
+        // キー枠の描画
+        DrawBox(x, y, x + KEY_SIZE, y + KEY_SIZE, color, FALSE);
+        DrawBox(x + 1, y + 1, x + KEY_SIZE - 1, y + KEY_SIZE - 1, color, FALSE);
+
+        // キー文字を作成
         TCHAR str[2] = { row1[i], '\0' };
 
-        // キー中央あたりに文字を描画
-        DrawString(x + keySize / 2 - 5,
-            y + keySize / 2 - 5,
-            str,
-            GetColor(240, 240, 240));
+        // キー中央に文字を描画
+        DrawString(x + KEY_SIZE / 2 - 5, y + KEY_SIZE / 2 - 5,str,GetColor(240, 240, 240));
     }
 
-    //========================================
+    //------------------------------------------------------------
     // 2行目：A S D F G H J K L
-    // 少し右にずらして本物のキーボード風にする
-    //========================================
+    // 本物のキーボードに近づけるため少し右にずらす
+    //------------------------------------------------------------
     for (int i = 0; i < 9; i++)
     {
-        // +20 で右に少しずらしている
-        int x = startX + 20 + i * (keySize + gap);
+        // 横位置（+20）
+        int x = startX + 20 + i * (KEY_SIZE + KEY_GAP);
 
-        // 1段下に移動
-        int y = startY + keySize + gap;
+        // 縦位置（1段下)
+        int y = startY + KEY_SIZE + KEY_GAP;
 
         int color = (row2[i] == target)
             ? GetColor(255, 120, 120)
             : GetColor(240, 240, 240);
 
-        DrawBox(x, y, x + keySize, y + keySize, color, FALSE);
-        DrawBox(x + 1, y + 1, x + keySize - 1, y + keySize - 1, color, FALSE);
+        DrawBox(x, y, x + KEY_SIZE, y + KEY_SIZE, color, FALSE);
+        DrawBox(x + 1, y + 1, x + KEY_SIZE - 1, y + KEY_SIZE - 1, color, FALSE);
 
         TCHAR str[2] = { row2[i], '\0' };
-        DrawString(x + keySize / 2 - 5,
-            y + keySize / 2 - 5,
-            str,
-            GetColor(240, 240, 240));
+
+        DrawString(x + KEY_SIZE / 2 - 5, y + KEY_SIZE / 2 - 5,str,GetColor(240, 240, 240));
     }
 
-    //========================
+    //------------------------------------------------------------
     // 3行目：Z X C V B N M
-    // さらに右にずらす
-    //========================
+    // さらに右へずらす
+    //------------------------------------------------------------
     for (int i = 0; i < 7; i++)
     {
-        // +50 でさらに右へずらす
-        int x = startX + 50 + i * (keySize + gap);
+        // 横位置（+50）
+        int x = startX + 50 + i * (KEY_SIZE + KEY_GAP);
 
-        // 2段下へ移動
-        int y = startY + (keySize + gap) * 2;
+        // 縦位置（2段下）
+        int y = startY + (KEY_SIZE + KEY_GAP) * 2;
 
         int color = (row3[i] == target)
             ? GetColor(255, 120, 120)
             : GetColor(240, 240, 240);
 
-        DrawBox(x, y, x + keySize, y + keySize, color, FALSE);
-        DrawBox(x + 1, y + 1, x + keySize - 1, y + keySize - 1, color, FALSE);
+        DrawBox(x, y, x + KEY_SIZE, y + KEY_SIZE, color, FALSE);
+        DrawBox(x + 1, y + 1, x + KEY_SIZE - 1, y + KEY_SIZE - 1, color, FALSE);
+
         TCHAR str[2] = { row3[i], '\0' };
-        DrawString(x + keySize / 2 - 5 ,
-            y + keySize / 2 - 5,
-            str,
-            GetColor(240, 240, 240));
+
+        DrawString(x + KEY_SIZE / 2 - 5 ,y + KEY_SIZE / 2 - 5,str,GetColor(240, 240, 240));
     }
   
 }

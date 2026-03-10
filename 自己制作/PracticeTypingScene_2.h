@@ -37,9 +37,6 @@ private:
 	int screenW;
 	int screenH;
 
-	//====== 音======
-	int typeSE;
-
 	//====== コンボ管理 ======
 	int combo;             // 現在コンボ
 	int maxCombo;          // 最大コンボ

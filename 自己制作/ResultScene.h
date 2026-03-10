@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "Scoreboard.h"
 #include <tchar.h>
 
 
@@ -23,6 +24,9 @@ private:
 	//ランク
 	const TCHAR* rank;
 	int rankColor;
+
+	Scoreboard scoreboard;
+
 public:
 	// ゲーム終了時にスコアとミス回数を受け取って初期化する
 	ResultScene(int score ,int miss, int maxCombo);

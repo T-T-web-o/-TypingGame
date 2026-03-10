@@ -7,7 +7,9 @@
 #include "ChalkEffect.h"
 #include <cstdlib>
 
-//コンストラクタ
+//============================================================
+// コンストラクタ
+//============================================================
 PracticeTypingScene_1::PracticeTypingScene_1()
 {
     //画面サイズ取得
@@ -16,7 +18,7 @@ PracticeTypingScene_1::PracticeTypingScene_1()
     //背景画像読み込み
     gameImage = LoadGraph(TEXT("Resource/blackboard.png"));
 
-    // 最初に表示するターゲット文字を A～Z の中からランダムに決定
+    // 最初のターゲット文字をランダムで決定
 	target = 'A' + rand() % 26;
 
     // スコア・ミス数の初期化
@@ -24,54 +26,64 @@ PracticeTypingScene_1::PracticeTypingScene_1()
 	miss = 0;
     combo = 0;
     maxCombo = 0;
+
+    // ミスタイマー
     missTimer = 0;
 
-    //押された瞬間のみ反応
+    // キー入力状態初期化
     memset(keyNow, 0, sizeof(keyNow));
     memset(keyOld, 0, sizeof(keyOld));
 }
 
-//デストラクタ
+//============================================================
+// デストラクタ
+//============================================================
 PracticeTypingScene_1::~PracticeTypingScene_1()
 {
     DeleteGraph(gameImage);
 }
 
+//============================================================
+// 更新処理
+//============================================================
 void PracticeTypingScene_1::Update()
 {
-    //チョークエフェクト
+    // チョークエフェクト更新
     chalk.Update();
 
-    // Tabキーが押されたら結果画面へ遷移
+    // Tabキーでリザルト画面へ
     if (CheckHitKey(KEY_INPUT_TAB))
     {
         GameManager::GetInstance().ChangeScene(new ResultScene(score, miss,maxCombo));
         return;
     }
 
-    // 現在のターゲット文字を配列インデックスに変換
-    // 例：'A' → 0, 'B' → 1 ...
+    // 正解キーのインデックス
     int correctIndex = target - 'A';
 
-    // 現在フレームの全キー状態を取得
-    // keyNow に「押されている / 押されていない」を格納する
+    // 現在のキー状態取得
     GetHitKeyStateAll(keyNow);
 
-    //A～Zのどれが押されたかを判定
+    // A～Zのキー入力判定
     for (int i = 0; i < 26; i++)
     {
+        // 押された瞬間だけ判定
         if (keyNow[keyTable[i]] && !keyOld[keyTable[i]])
         {
+            // タイピング音
             PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
 
-            //正解だったら
+            //正解
             if (i == correctIndex)
             {   
+                // チョークエフェクト
                 chalk.Spawn(320, 240);
+
                 score++;
                 combo++;
+
                 if (combo > maxCombo) {
-                    maxCombo = 0;
+                    maxCombo = combo;
                 }
                 // 次のターゲット文字をランダムに生成
                 target = 'A' + rand() % 26;
@@ -86,15 +98,19 @@ void PracticeTypingScene_1::Update()
             break;
         }
     }
-    // 次のフレーム用に入力状態を保存
+    // 前フレームのキー状態保存
     memcpy(keyOld, keyNow, sizeof(keyNow));
 
+    // ミス表示タイマー
     if (missTimer > 0)
     {
         missTimer--;
     }
 }
 
+//============================================================
+// 描画処理
+//============================================================
 void PracticeTypingScene_1::Draw()
 {
     //背景画像を画面全体に表示
@@ -116,23 +132,34 @@ void PracticeTypingScene_1::Draw()
 	
 
     SetFontSize(23);
-    //スコアの表示
+    //------------------------------------------------------------
+    // スコア表示
+    //------------------------------------------------------------
     DrawFormatString(10, 10, GetColor(240, 240, 240), TEXT("スコア:%d"), score);
 
-    //タイピングミス数の表示
+    //------------------------------------------------------------
+    // タイプミス数の表示
+    //------------------------------------------------------------
     DrawFormatString(10, 40, GetColor(240, 240, 240), TEXT("ミス:%d"), miss);
 
-    //コンボ表示
+    //------------------------------------------------------------
+    // コンボ表示
+    //------------------------------------------------------------
     DrawFormatString(10, 70, GetColor(240, 240, 240), TEXT("コンボ：%d"), combo);
 
     SetFontSize(16);
-    //リザルト画面へ移行表示 
+    //------------------------------------------------------------
+    // 終了案内
+    //------------------------------------------------------------
     DrawString(550, 430, TEXT("Tabで終了"), GetColor(240, 240, 240));
 
+    // スコアボード表示
     scoreboard.Draw(480, 10);
 
+    // キーボード表示
     keyboard.Draw(target, 100, 300);
 
+    // チョーク粉エフェクト表示
     chalk.Draw();
 }
 
