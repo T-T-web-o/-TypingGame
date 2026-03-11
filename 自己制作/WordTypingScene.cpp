@@ -9,6 +9,7 @@
 #include "ChalkEffect.h"
 #include <cstdlib>
 #include <cstring>
+#include <ctime>
 
 //難易度[かんたん]の単語リスト
 WordData easyWords[] = {
@@ -326,7 +327,7 @@ void WordTypingScene::Draw()
 			color = GetColor(255, 255, 255);
 		}
 
-		DrawFormatString(230+ i * 15,190,color,TEXT("%c"),currentWord.input[i]);
+		DrawFormatString(WORD_X + i * WORD_SPACE, WORD_Y,color,TEXT("%c"),currentWord.input[i]);
 	}
 
 	SetFontSize(16);
@@ -350,6 +351,7 @@ void WordTypingScene::Draw()
 	//------------------------------------------------------------
 	DrawFormatString(10, 100, GetColor(230, 230, 0), TEXT("コンボ：%d"), combo);
 
+	
 	//------------------------------------------------------------
 	// 難易度の表示
 	//------------------------------------------------------------

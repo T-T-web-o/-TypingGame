@@ -15,7 +15,7 @@
 // 文字とキーコードを対応させることで
 // タイピング入力判定を簡単にする
 //============================================================
-int keyTable[26] = {
+const int keyTable[26] = {
    KEY_INPUT_A, KEY_INPUT_B, KEY_INPUT_C, KEY_INPUT_D, KEY_INPUT_E,
    KEY_INPUT_F, KEY_INPUT_G, KEY_INPUT_H, KEY_INPUT_I, KEY_INPUT_J,
    KEY_INPUT_K, KEY_INPUT_L, KEY_INPUT_M, KEY_INPUT_N, KEY_INPUT_O,

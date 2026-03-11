@@ -223,6 +223,7 @@ void PracticeTypingScene_2::Draw()
 	DrawFormatString(220, 170, GetColor(240, 240, 240), TEXT("Word:%s"), currentWord.display);
 	
 	SetFontSize(30);
+
 	//入力に応じて文字の色を変更して表示
 	for (int i = 0; currentWord.input[i] != '\0'; i++)
 	{
@@ -244,7 +245,7 @@ void PracticeTypingScene_2::Draw()
 			color = GetColor(240, 240, 240);
 		}
 		// ローマ字を1文字ずつ描画
-		DrawFormatString(270 + i * 15, 210, color, TEXT("%c"), currentWord.input[i]);
+		DrawFormatString(WORD_X + i * WORD_SPACE, WORD_Y, color, TEXT("%c"), currentWord.input[i]);
 	}
 
 	SetFontSize(23);
