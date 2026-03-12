@@ -24,6 +24,6 @@ public:
     // startX : 描画開始X座標
     // startY : 描画開始Y座標
     //------------------------------------------------------------
-	void Draw(TCHAR target, int startX, int startY);
+	void Draw(TCHAR target,TCHAR missKey, int startX, int startY);
 };
 

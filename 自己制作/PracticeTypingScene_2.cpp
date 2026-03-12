@@ -76,6 +76,7 @@ PracticeTypingScene_2::PracticeTypingScene_2()
    //ミス表示用
    missTimer = 0;
    missIndex = -1;
+   missKey = '\0';
 }
 
 //============================================================
@@ -126,7 +127,7 @@ void PracticeTypingScene_2::Update()
 void PracticeTypingScene_2::TypingUpdate()
 {
 	// 今入力すべき文字
-	char correctKana = currentWord.input[charIndex];
+	char correctChar = currentWord.input[charIndex];
 
 	// A～Zのキー入力判定
 	for (int i = 0; i < 26; i++)
@@ -143,7 +144,7 @@ void PracticeTypingScene_2::TypingUpdate()
 			//========================
 		    // 正解判定
 		    //========================
-			if (inputChar == correctKana)
+			if (inputChar == correctChar)
 			{
 				charIndex++;
 
@@ -188,6 +189,7 @@ void PracticeTypingScene_2::TypingUpdate()
 				missFlag = true;
 				missTimer = 20;
 				missIndex=charIndex;
+				missKey = toupper(inputChar);
 			}
 			break;
 		}
@@ -196,6 +198,11 @@ void PracticeTypingScene_2::TypingUpdate()
 	if (missTimer > 0)
 	{
 		missTimer--;
+	}
+	else
+	{
+		missIndex = -1;
+		missKey = '\0';
 	}
 }
 
@@ -220,7 +227,7 @@ void PracticeTypingScene_2::Draw()
     // タイピング文字を表示
     //------------------------------------------------------------
 	SetFontSize(40);
-	DrawFormatString(220, 170, GetColor(240, 240, 240), TEXT("Word:%s"), currentWord.display);
+	DrawFormatString(220, 170, GetColor(240, 240, 240), TEXT("%s"), currentWord.display);
 	
 	SetFontSize(30);
 
@@ -283,7 +290,7 @@ void PracticeTypingScene_2::Draw()
 		target = toupper(target);
 
 		// キーボードUI描画
-		keyboard.Draw(target, 100, 300);
+		keyboard.Draw(target,missKey,100, 300);
 	}
 
 	//スコアボード表示

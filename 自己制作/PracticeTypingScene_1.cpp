@@ -27,8 +27,9 @@ PracticeTypingScene_1::PracticeTypingScene_1()
     combo = 0;
     maxCombo = 0;
 
-    // ミスタイマー
+    // ミス
     missTimer = 0;
+    missKey = '\0';
 
     // キー入力状態初期化
     memset(keyNow, 0, sizeof(keyNow));
@@ -58,9 +59,6 @@ void PracticeTypingScene_1::Update()
         return;
     }
 
-    // 正解キーのインデックス
-    int correctIndex = target - 'A';
-
     // 現在のキー状態取得
     GetHitKeyStateAll(keyNow);
 
@@ -70,11 +68,14 @@ void PracticeTypingScene_1::Update()
         // 押された瞬間だけ判定
         if (keyNow[keyTable[i]] && !keyOld[keyTable[i]])
         {
+            //キーを文字に変換
+            char inputChar = 'A' + i;
+
             // タイピング音
             PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
 
             //正解
-            if (i == correctIndex)
+            if (inputChar == target)
             {   
                 // チョークエフェクト
                 chalk.Spawn(320, 240);
@@ -94,6 +95,7 @@ void PracticeTypingScene_1::Update()
                 miss++;
                 combo = 0;
                 missTimer = 20;
+                missKey = inputChar;
             }
             break;
         }
@@ -105,6 +107,10 @@ void PracticeTypingScene_1::Update()
     if (missTimer > 0)
     {
         missTimer--;
+    }
+    else
+    {
+        missKey = '\0';
     }
 }
 
@@ -157,7 +163,7 @@ void PracticeTypingScene_1::Draw()
     scoreboard.Draw(480, 10);
 
     // キーボード表示
-    keyboard.Draw(target, 100, 300);
+    keyboard.Draw(target,missKey, 100, 300);
 
     // チョーク粉エフェクト表示
     chalk.Draw();

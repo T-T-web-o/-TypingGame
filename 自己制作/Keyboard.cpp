@@ -8,7 +8,7 @@
 // startX  : キーボード左上のX座標
 // startY  : キーボード左上のY座標
 //============================================================
-void Keyboard::Draw(TCHAR target, int startX, int startY)
+void Keyboard::Draw(TCHAR target, TCHAR missKey, int startX, int startY)
 {
     //一つのキーのサイズ
     const int KEY_SIZE = 40;
@@ -27,10 +27,21 @@ void Keyboard::Draw(TCHAR target, int startX, int startY)
         // 縦位置
         int y = startY;
 
-        // target と同じキーなら赤でハイライト
-        int color = (row1[i] == target)
-            ? GetColor(255, 120, 120)    //強調表示 (赤)
-            : GetColor(240, 240, 240);   //通常キー (白)
+        // キーの色変更
+        int color;
+        if (row1[i] == missKey)
+        {
+            color=GetColor(255, 0, 0);        //ミス(赤)
+        }
+        else if (row1[i] == target)
+        {
+            color=GetColor(100, 255, 100);    //正解(緑)
+        }
+        else
+        {
+            color=GetColor(240, 240, 240);   //通常キー (白)
+        }
+            
 
         // キー枠の描画
         DrawBox(x, y, x + KEY_SIZE, y + KEY_SIZE, color, FALSE);
@@ -55,9 +66,19 @@ void Keyboard::Draw(TCHAR target, int startX, int startY)
         // 縦位置（1段下)
         int y = startY + KEY_SIZE + KEY_GAP;
 
-        int color = (row2[i] == target)
-            ? GetColor(255, 120, 120)
-            : GetColor(240, 240, 240);
+        int color;
+            if (row2[i] == missKey)
+            {
+                color=GetColor(255, 0, 0);      //ミス(赤)
+            }
+            else if (row2[i] == target)
+            {
+                color=GetColor(100, 255, 100);  //正解(緑)
+            }
+            else
+            {
+                color=GetColor(240, 240, 240);   //通常キー (白)
+            }
 
         DrawBox(x, y, x + KEY_SIZE, y + KEY_SIZE, color, FALSE);
         DrawBox(x + 1, y + 1, x + KEY_SIZE - 1, y + KEY_SIZE - 1, color, FALSE);
@@ -79,9 +100,19 @@ void Keyboard::Draw(TCHAR target, int startX, int startY)
         // 縦位置（2段下）
         int y = startY + (KEY_SIZE + KEY_GAP) * 2;
 
-        int color = (row3[i] == target)
-            ? GetColor(255, 120, 120)
-            : GetColor(240, 240, 240);
+        int color;
+            if (row3[i] == missKey)
+            {
+                color=GetColor(255, 0, 0);        //ミス(赤)
+            }
+            else if (row3[i] == target)
+            {
+                color=GetColor(100, 255, 100);    //正解(緑)
+            }
+            else
+            {
+                color=GetColor(240, 240, 240);   //通常キー (白)
+            }
 
         DrawBox(x, y, x + KEY_SIZE, y + KEY_SIZE, color, FALSE);
         DrawBox(x + 1, y + 1, x + KEY_SIZE - 1, y + KEY_SIZE - 1, color, FALSE);

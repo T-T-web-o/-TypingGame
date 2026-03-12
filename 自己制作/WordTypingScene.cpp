@@ -11,8 +11,10 @@
 #include <cstring>
 #include <ctime>
 
+
+
 //難易度[かんたん]の単語リスト
-WordData easyWords[] = {
+WordData_1 easyWords[] = {
 	{ TEXT("犬"), TEXT("inu") },{ TEXT("猫"), TEXT("neko") },{ TEXT("山"), TEXT("yama") },{ TEXT("海"), TEXT("umi") },{ TEXT("空"), TEXT("sora") },
 	{ TEXT("川"), TEXT("kawa") },{ TEXT("森"), TEXT("mori") },{ TEXT("花"), TEXT("hana") },{ TEXT("雨"), TEXT("ame") },{ TEXT("雪"), TEXT("yuki") },
 	{ TEXT("月"), TEXT("tsuki") },{ TEXT("星"), TEXT("hoshi") },{ TEXT("石"), TEXT("ishi") },{ TEXT("鳥"), TEXT("tori") },{ TEXT("音"), TEXT("oto") },
@@ -22,7 +24,7 @@ WordData easyWords[] = {
 };
 
 //難易度[ふつう]の単語リスト
-WordData normalWords[] = {
+WordData_1 normalWords[] = {
 	{ TEXT("林檎"), TEXT("ringo") },{ TEXT("電車"), TEXT("densha") },{ TEXT("勝利"), TEXT("shouri") },{ TEXT("失敗"), TEXT("shippai") },{ TEXT("未来"), TEXT("mirai") },
 	{ TEXT("希望"), TEXT("kibou") },{ TEXT("世界"), TEXT("sekai") },{ TEXT("平和"), TEXT("heiwa") },{ TEXT("音楽"), TEXT("ongaku") },{ TEXT("映画"), TEXT("eiga") },
 	{ TEXT("旅行"), TEXT("ryokou") },{ TEXT("勇気"), TEXT("yuuki") },{ TEXT("力"), TEXT("chikara") },{ TEXT("写真"), TEXT("shashin") },{ TEXT("手紙"), TEXT("tegami") },
@@ -33,7 +35,7 @@ WordData normalWords[] = {
 
 
 //難易度[むずかしい]の単語リスト
-WordData hardWords[] = {
+WordData_1 hardWords[] = {
 	{ TEXT("情報技術"), TEXT("jouhougijutsu") },{TEXT("国際社会"), TEXT("kokusaishakai") },{ TEXT("環境問題"), TEXT("kankyoumondai") },{ TEXT("経済成長"), TEXT("keizaiseichou") },
 	{ TEXT("科学技術"), TEXT("kagakugijutsu") },{ TEXT("技術革新"), TEXT("gijutsukakushin") },{ TEXT("情報社会"), TEXT("jouhoushakai") },{ TEXT("産業革命"), TEXT("sangyoukakumei") },
 	{ TEXT("経営戦略"), TEXT("keieisenryaku") },{ TEXT("企業活動"), TEXT("kigyoukatsudou") },{ TEXT("研究開発"), TEXT("kenkyuukaihatsu") },{ TEXT("国際関係"), TEXT("kokusaikankei") },
@@ -119,6 +121,7 @@ WordTypingScene::WordTypingScene()
 	missTimer = 0;
 	missIndex = -1;
 	missFlag = false;
+	missKey = '\0';
 
 	//キー入力状態初期化
 	memset(keyNow, 0, sizeof(keyNow));
@@ -171,6 +174,11 @@ void WordTypingScene::Update()
 	if (missTimer > 0)
 	{
 		missTimer--;
+	}
+	else
+	{
+		missIndex = -1;
+		missKey = '\0';
 	}
 }
 
@@ -234,6 +242,7 @@ void WordTypingScene::CheckTyping()
 				missFlag = true;
 				missTimer = 20;
 				missIndex = charIndex;
+				missKey = toupper(inputChar);
 			}
 			break; // 1入力で終了
 		}
@@ -298,11 +307,24 @@ void WordTypingScene::Draw()
 	SetFontSize(40);
 	DrawString(170, 10, TEXT("タイムアタック"), GetColor(255, 255, 255));
 
+	//-------------------------------------------------------------------
+	//単語・ローマ字を中央に
+	//-------------------------------------------------------------------
+	int len = _tcslen(currentWord.input);    // ローマ字の長さを取得
+	int width = len * 15;                    // ローマ字の幅を取得
+	int centerX = screenW / 2;               // 画面の中央を取得
+	int baseX = centerX - width / 2 - 40;    //  ローマ字の中央を取得
+
+	int wordWidth = GetDrawStringWidth(currentWord.display
+		_tcslen(currentWord.display));            // 単語の長さを取得
+	int romajiCenter = baseX + width / 2;         // ローマ字の中央を取得
+	int wordX = romajiCenter - wordWidth / 2;     // 単語の中央を取得
+
 	//------------------------------------------------------------
 	// 単語表示
 	//------------------------------------------------------------
 	SetFontSize(30);
-	DrawFormatString(200, 150, GetColor(240, 240, 240), TEXT("Word:%s"), currentWord.display);
+	DrawFormatString(wordX, 150, GetColor(240, 240, 240), TEXT("%s"), currentWord.display);
 
 	//------------------------------------------------------------
 	// 入力に応じて文字の色を変更して表示
@@ -327,8 +349,9 @@ void WordTypingScene::Draw()
 			color = GetColor(255, 255, 255);
 		}
 
-		DrawFormatString(WORD_X + i * WORD_SPACE, WORD_Y,color,TEXT("%c"),currentWord.input[i]);
+		DrawFormatString(baseX + i * 15, 190,color,TEXT("%c"),currentWord.input[i]);
 	}
+
 
 	SetFontSize(16);
 	//------------------------------------------------------------
@@ -380,7 +403,7 @@ void WordTypingScene::Draw()
 	{
 		TCHAR target = currentWord.input[charIndex];
 		target = toupper(target);
-		keyboard.Draw(target, 100, 300);
+		keyboard.Draw(target,missKey,100, 300);
 	}
 
 	//スコアボード表示
