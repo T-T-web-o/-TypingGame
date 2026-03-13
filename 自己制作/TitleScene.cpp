@@ -17,7 +17,6 @@ TitleScene::TitleScene()
 
 	//タイトル画像読み込み
 	titleImage = LoadGraph(TEXT("Resource/Title.png"));
-
 }
 
 //============================================================
@@ -41,7 +40,7 @@ void TitleScene::Update()
 	// Enterキーが押されたか判定
 	if (nowEnter && !prevEnter)
 	{
-		//決定音を再生
+		// 決定音を再生
 		PlaySoundMem(SoundManager::titleSE, DX_PLAYTYPE_BACK);
 
 		// 説明画面へシーン切り替え

@@ -224,6 +224,7 @@ void WordTypingScene::CheckTyping()
 					if (!missFlag)
 					{
 						combo++;
+						chalk.Spawn(95,160);
 						if (combo > maxCombo) {
 							maxCombo = combo;
 						}
@@ -312,11 +313,13 @@ void WordTypingScene::Draw()
 	//-------------------------------------------------------------------
 	int len = _tcslen(currentWord.input);    // ローマ字の長さを取得
 	int width = len * 15;                    // ローマ字の幅を取得
+
 	int centerX = screenW / 2;               // 画面の中央を取得
 	int baseX = centerX - width / 2 - 40;    //  ローマ字の中央を取得
 
 	int wordWidth = GetDrawStringWidth(currentWord.display
-		_tcslen(currentWord.display));            // 単語の長さを取得
+	   ,_tcslen(currentWord.display));            // 単語の長さを取得
+
 	int romajiCenter = baseX + width / 2;         // ローマ字の中央を取得
 	int wordX = romajiCenter - wordWidth / 2;     // 単語の中央を取得
 
@@ -352,29 +355,35 @@ void WordTypingScene::Draw()
 		DrawFormatString(baseX + i * 15, 190,color,TEXT("%c"),currentWord.input[i]);
 	}
 
-
-	SetFontSize(16);
+	SetFontSize(20);
 	//------------------------------------------------------------
 	// スコア表示
 	//------------------------------------------------------------
-	DrawFormatString(10, 10, GetColor(230, 230, 230), TEXT("スコア:%d"), score);     
+	DrawFormatString(10, 20, GetColor(230, 230, 230), TEXT("スコア:%d"), score);     
 
 	//------------------------------------------------------------
 	// タイプミス数の表示
 	//------------------------------------------------------------
-	DrawFormatString(10, 40, GetColor(230, 230, 230), TEXT("ミス:%d"), miss);               
+	DrawFormatString(10, 60, GetColor(230, 230, 230), TEXT("ミス:%d"), miss);               
 
 	//------------------------------------------------------------
 	// 制限時間表示
 	//------------------------------------------------------------
-	DrawFormatString(10, 70, GetColor(230, 230, 230), TEXT("残り時間:%d"), timeLimit / 60);
+	DrawFormatString(10, 100, GetColor(230, 230, 230), TEXT("残り時間:%d"), timeLimit / 60);
 
 	//------------------------------------------------------------
 	// コンボ表示
 	//------------------------------------------------------------
-	DrawFormatString(10, 100, GetColor(230, 230, 0), TEXT("コンボ：%d"), combo);
+	DrawString(10, 150, TEXT("コンボ:"), GetColor(230, 230, 230));
 
+	// コンボごとの表示サイズ変更
+	int comboSize = 20 + combo * 1;
+	if (comboSize > 30) comboSize = 30;
+	SetFontSize(comboSize);
+
+	DrawFormatString(90, 150, GetColor(230, 230, 0), TEXT("%d"), combo);
 	
+	SetFontSize(16);
 	//------------------------------------------------------------
 	// 難易度の表示
 	//------------------------------------------------------------

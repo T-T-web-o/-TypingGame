@@ -227,7 +227,7 @@ void PracticeTypingScene_2::Draw()
     // タイピング文字を表示
     //------------------------------------------------------------
 	SetFontSize(40);
-	DrawFormatString(220, 170, GetColor(240, 240, 240), TEXT("%s"), currentWord.display);
+	DrawFormatString(260, 170, GetColor(240, 240, 240), TEXT("%s"), currentWord.display);
 	
 	SetFontSize(30);
 
@@ -252,9 +252,9 @@ void PracticeTypingScene_2::Draw()
 			color = GetColor(240, 240, 240);
 		}
 		// ローマ字を1文字ずつ描画
-		DrawFormatString(WORD_X + i * WORD_SPACE, WORD_Y, color, TEXT("%c"), currentWord.input[i]);
+		DrawFormatString(270+ i * 15, 210, color, TEXT("%c"), currentWord.input[i]);
 	}
-
+	
 	SetFontSize(23);
 	//------------------------------------------------------------
     // スコア表示
