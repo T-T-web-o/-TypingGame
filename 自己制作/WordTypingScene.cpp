@@ -11,7 +11,35 @@
 #include <cstring>
 #include <ctime>
 
+//============================================================
+// 描画用定数
+//============================================================
 
+const int UI_X = 10;         // UIのX座標
+const int UI_START_Y = 20;   // UIの開始Y座標
+const int UI_SPACE = 40;     // UI同士の間隔
+
+const int TITLE_X = 170;     // タイトルのX座標
+const int TITLE_Y = 10;      // タイトルのY座標
+
+const int WORD_Y = 150;      // 日本語単語のY座標
+const int ROMAJI_Y = 190;    // ローマ字のY座標
+
+const int CHAR_SPACE = 15;   // ローマ字1文字ごとの間隔
+
+const int COMBO_X = 90;          // コンボ数値のX座標
+const int COMBO_Y = 140;         // コンボ数値のY座標
+const int COMBO_BASE_SIZE = 20;  // コンボ表示の基本フォントサイズ
+const int COMBO_MAX_SIZE = 30;   // コンボ表示の最大フォントサイズ
+
+const int DIFFICULTY_X = 250;  // 難易度表示のX座標
+const int DIFFICULTY_Y = 70;   // 難易度表示のY座標
+
+const int KEYBOARD_X = 100;    // キーボード描画のX座標
+const int KEYBOARD_Y = 300;    // キーボード描画のY座標
+
+const int SCOREBOARD_X = 480;  // スコアボードのX座標
+const int SCOREBOARD_Y = 10;   // スコアボードのY座標
 
 //難易度[かんたん]の単語リスト
 WordData_1 easyWords[] = {
@@ -306,13 +334,13 @@ void WordTypingScene::Draw()
 	// タイトル表示
 	//------------------------------------------------------------
 	SetFontSize(40);
-	DrawString(170, 10, TEXT("タイムアタック"), GetColor(255, 255, 255));
+	DrawString(TITLE_X, TITLE_Y, TEXT("タイムアタック"), GetColor(255, 255, 255));
 
 	//-------------------------------------------------------------------
 	//単語・ローマ字を中央に
 	//-------------------------------------------------------------------
 	int len = _tcslen(currentWord.input);    // ローマ字の長さを取得
-	int width = len * 15;                    // ローマ字の幅を取得
+	int width = len * CHAR_SPACE;            // ローマ字の幅を取得
 
 	int centerX = screenW / 2;               // 画面の中央を取得
 	int baseX = centerX - width / 2 - 40;    //  ローマ字の中央を取得
@@ -327,7 +355,7 @@ void WordTypingScene::Draw()
 	// 単語表示
 	//------------------------------------------------------------
 	SetFontSize(30);
-	DrawFormatString(wordX, 150, GetColor(240, 240, 240), TEXT("%s"), currentWord.display);
+	DrawFormatString(wordX, WORD_Y, GetColor(240, 240, 240), TEXT("%s"), currentWord.display);
 
 	//------------------------------------------------------------
 	// 入力に応じて文字の色を変更して表示
@@ -352,36 +380,36 @@ void WordTypingScene::Draw()
 			color = GetColor(255, 255, 255);
 		}
 
-		DrawFormatString(baseX + i * 15, 190,color,TEXT("%c"),currentWord.input[i]);
+		DrawFormatString(baseX + i * CHAR_SPACE, ROMAJI_Y,color,TEXT("%c"),currentWord.input[i]);
 	}
 
 	SetFontSize(20);
 	//------------------------------------------------------------
 	// スコア表示
 	//------------------------------------------------------------
-	DrawFormatString(10, 20, GetColor(230, 230, 230), TEXT("スコア:%d"), score);     
+	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 0, GetColor(230, 230, 230), TEXT("スコア:%d"), score);
 
 	//------------------------------------------------------------
 	// タイプミス数の表示
 	//------------------------------------------------------------
-	DrawFormatString(10, 60, GetColor(230, 230, 230), TEXT("ミス:%d"), miss);               
+	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 1, GetColor(230, 230, 230), TEXT("ミス:%d"), miss);
 
 	//------------------------------------------------------------
 	// 制限時間表示
 	//------------------------------------------------------------
-	DrawFormatString(10, 100, GetColor(230, 230, 230), TEXT("残り時間:%d"), timeLimit / 60);
+	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 2, GetColor(230, 230, 230), TEXT("残り時間:%d"), timeLimit / 60);
 
 	//------------------------------------------------------------
 	// コンボ表示
 	//------------------------------------------------------------
-	DrawString(10, 150, TEXT("コンボ:"), GetColor(230, 230, 230));
+	DrawString(UI_X, UI_START_Y + UI_SPACE * 3, TEXT("コンボ:"), GetColor(230, 230, 230));
 
 	// コンボごとの表示サイズ変更
-	int comboSize = 20 + combo * 1;
-	if (comboSize > 30) comboSize = 30;
+	int comboSize = COMBO_BASE_SIZE + combo;
+	if (comboSize > COMBO_MAX_SIZE) comboSize = COMBO_MAX_SIZE;
 	SetFontSize(comboSize);
 
-	DrawFormatString(90, 150, GetColor(230, 230, 0), TEXT("%d"), combo);
+	DrawFormatString(COMBO_X, COMBO_Y, GetColor(230, 230, 0), TEXT("%d"), combo);
 	
 	SetFontSize(16);
 	//------------------------------------------------------------
@@ -390,20 +418,25 @@ void WordTypingScene::Draw()
 	Difficulty d = GameManager::GetInstance().GetDifficulty();
 
 	//難易度ごとに表示する内容を変更
-	diffText = TEXT("かんたん");
-	diffColor = GetColor(100, 200, 255);       //[かんたん]   水色
-	if (d == NORMAL) 
+	switch (d)
 	{
+	case EASY:
+		diffText = TEXT("かんたん");
+		diffColor = GetColor(100, 200, 255);
+		break;
+
+	case NORMAL:
 		diffText = TEXT("ふつう");
-		diffColor = GetColor(255, 255, 100);   //[ふつう]     黄色
-	}
-	if (d == HARD)
-	{
+		diffColor = GetColor(255, 255, 100);
+		break;
+
+	case HARD:
 		diffText = TEXT("むずかしい");
-		diffColor = GetColor(255, 100, 100);   //[むずかしい] 赤色
+		diffColor = GetColor(255, 100, 100);
+		break;
 	}
-	
-	DrawFormatString(250, 70,diffColor,TEXT("難易度: %s"), diffText);
+
+	DrawFormatString(DIFFICULTY_X, DIFFICULTY_Y,diffColor,TEXT("難易度: %s"), diffText);
 
 	//------------------------------------------------------------
 	// キーボード表示
@@ -412,11 +445,11 @@ void WordTypingScene::Draw()
 	{
 		TCHAR target = currentWord.input[charIndex];
 		target = toupper(target);
-		keyboard.Draw(target,missKey,100, 300);
+		keyboard.Draw(target,missKey, KEYBOARD_X, KEYBOARD_Y);
 	}
 
 	//スコアボード表示
-    scoreboard.Draw(480, 10);
+    scoreboard.Draw(SCOREBOARD_X, SCOREBOARD_Y);
 
 	//チョークエフェクト表示
 	chalk.Draw();

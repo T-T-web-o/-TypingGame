@@ -6,6 +6,32 @@
 #include "WordTypingScene.h"
 
 //============================================================
+// 描画用定数
+//============================================================
+
+const int TITLE_X = 180;   // タイトルのX座標
+const int TITLE_Y = 30;    // タイトルのY座標
+
+const int GAME_TEXT_X = 220;      // ゲーム選択のX座標
+const int GAME_CURSOR_X = 190;    // ゲーム選択カーソルのX座標
+const int GAME_Y1 = 190;          // 1つ目のゲームY座標  
+const int GAME_Y2 = 290;          // 2つ目のゲームY座標
+
+const int MODE_TEXT_X = 100;      // モード選択のX座標
+const int MODE_CURSOR_X = 80;     // モード選択カーソルのX座標
+const int MODE_Y1 = 190;          // 1つ目のモードY座標
+const int MODE_Y2 = 280;          // 2つ目のモードY座標
+
+const int DIFFICULTY_TEXT_X = 180;     // 難易度選択のX座標
+const int DIFFICULTY_CURSOR_X = 150;   // 難易度選択カーソルのX座標
+const int DIFFICULTY_Y1 = 150;         // 難易度(かんたん)のY座標
+const int DIFFICULTY_Y2 = 250;         // 難易度(ふつう)のY座標
+const int DIFFICULTY_Y3 = 350;         // 難易度(むずかしい)のY座標
+
+const int SELECT_TEXT_X = 500;    // 選択テキストのX座標
+const int SELECT_TEXT_Y = 400;    // 選択テキストのY座標
+
+//============================================================
 // コンストラクタ
 // 初期状態は「ゲーム選択画面」から開始する
 //============================================================
@@ -196,7 +222,7 @@ void SelectScene::Draw()
 
     ///タイトル表示
     SetFontSize(60);
-    DrawString(180, 30, TEXT("ゲーム選択"), GetColor(230, 230, 230));
+    DrawString(TITLE_X, TITLE_Y, TEXT("ゲーム選択"), GetColor(230, 230, 230));
 
     //============================================================
     // ゲーム選択表示
@@ -204,18 +230,11 @@ void SelectScene::Draw()
     if (state == SELECT_GAME)
     {
         SetFontSize(30);
-        DrawString(220, 190, TEXT("タイピング練習"), GetColor(230, 230, 230));
-        DrawString(220, 290, TEXT("単語タイピング"), GetColor(230, 230, 230));
+        DrawString(GAME_TEXT_X, GAME_Y1, TEXT("タイピング練習"), GetColor(230, 230, 230));
+        DrawString(GAME_TEXT_X, GAME_Y2, TEXT("単語タイピング"), GetColor(230, 230, 230));
 
-        // カーソル表示
-        if (cursor == 0)
-        {
-            DrawString(190, 190, TEXT("→"), GetColor(230, 230, 230));
-        }
-        else if (cursor == 1)
-        {
-            DrawString(190, 290, TEXT("→"), GetColor(230, 230, 230));
-        }
+        int y = (cursor == 0) ? GAME_Y1 : GAME_Y2;
+        DrawString(GAME_CURSOR_X, y, TEXT("→"), GetColor(230, 230, 230));
     }
 
     SetFontSize(27);
@@ -224,17 +243,11 @@ void SelectScene::Draw()
     //------------------------------------------------------------
     if (state == SELECT_MODE)
     {
-        DrawString(100, 190, TEXT(" 1文字タイピング練習"), GetColor(230, 230, 230));
-        DrawString(100, 280, TEXT(" アルファベットタイピング練習"), GetColor(230, 230, 230));
+        DrawString(MODE_TEXT_X, MODE_Y1, TEXT(" 1文字タイピング練習"), GetColor(230, 230, 230));
+        DrawString(MODE_TEXT_X, MODE_Y2, TEXT(" アルファベットタイピング練習"), GetColor(230, 230, 230));
 
-        if (cursor == 0)
-        {
-            DrawString(80, 190, TEXT("→"), GetColor(230, 230, 230));
-        }
-        else if (cursor == 1)
-        {
-            DrawString(80, 280, TEXT("→"), GetColor(230, 230, 230));
-        }
+        int y = (cursor == 0) ? MODE_Y1 : MODE_Y2;
+        DrawString(MODE_CURSOR_X, y, TEXT("→"), GetColor(230, 230, 230));
     }
     
     SetFontSize(50);
@@ -243,27 +256,31 @@ void SelectScene::Draw()
     //------------------------------------------------------------
     if (state==SELECT_DIFFICULTY)
     {
-        DrawString(180, 150, TEXT(" かんたん"), GetColor(100, 200, 255));
-        DrawString(180, 250, TEXT(" ふつう"), GetColor(255, 255, 100));
-        DrawString(180, 350, TEXT(" むずかしい"), GetColor(255, 100, 100));
+        DrawString(DIFFICULTY_TEXT_X, DIFFICULTY_Y1, TEXT(" かんたん"), GetColor(100, 200, 255));
+        DrawString(DIFFICULTY_TEXT_X, DIFFICULTY_Y2, TEXT(" ふつう"), GetColor(255, 255, 100));
+        DrawString(DIFFICULTY_TEXT_X, DIFFICULTY_Y3, TEXT(" むずかしい"), GetColor(255, 100, 100));
 
-        if (cursor == 0)
+        int y;
+
+        switch (cursor)
         {
-            DrawString(160, 150, TEXT("→"), GetColor(230, 230, 230));
+        case 0:
+            y = DIFFICULTY_Y1;
+            break;
+        case 1:
+            y = DIFFICULTY_Y2;
+            break;
+        case 2:
+            y = DIFFICULTY_Y3;
+            break;
         }
-        else if (cursor == 1)
-        {
-            DrawString(160, 250, TEXT("→"), GetColor(230, 230, 230));
-        }
-        else if (cursor == 2)
-        {
-            DrawString(160, 350, TEXT("→"), GetColor(230, 230, 230));
-        }
+        
+        DrawString(DIFFICULTY_CURSOR_X, y, TEXT("→"), GetColor(230, 230, 230));
     }
 
     //------------------------------------------------------------
     // 選択案内
     //------------------------------------------------------------
     SetFontSize(18);
-    DrawString(500, 400, TEXT("Spaceで選択"), GetColor(230, 230, 230));
+    DrawString(SELECT_TEXT_X, SELECT_TEXT_Y, TEXT("Spaceで選択"), GetColor(230, 230, 230));
 }
