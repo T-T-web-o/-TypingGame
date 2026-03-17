@@ -7,6 +7,37 @@
 #include "Scoreboard.h"
 #include "ChalkEffect.h"
 
+//============================================================
+// 描画用定数
+//============================================================
+ 
+const int COUNTDOWN_X = 400;    // カウントダウン表示のX座標
+const int COUNTDOWN_Y = 200;    // カウントダウン表示のY座標
+
+const int TYPING_WORD_X = 260;  // タイピング文字のX座標
+const int TYPING_WORD_Y = 170;  // タイピング文字のY座標
+
+const int ROMAJI_X = 270;
+const int ROMAJI_Y = 210;
+const int ROMAJI_SPACE = 15;
+
+const int UI_X = 10;         // UIのX座標
+const int UI_START_Y = 20;   // UIの開始Y座標
+const int UI_SPACE = 30;     // UI同士の間隔
+
+const int END_TEXT_X = 550;  // 終了案内のX座標
+const int END_TEXT_Y = 430;  // 終了案内のY座標
+
+const int SCOREBOARD_X = 480; // スコアボードのX座標
+const int SCOREBOARD_Y = 10;  // スコアボードのY座標
+
+const int KEYBOARD_X = 100;    // キーボード描画のX座標
+const int KEYBOARD_Y = 300;    // キーボード描画のY座標
+
+const int COLOR_WHITE = GetColor(240, 240, 240);  //白
+const int COLOR_GREEN = GetColor(100, 255, 100);  //緑
+const int COLOR_RED = GetColor(255, 0, 0);        //赤
+
 WordData_2 practiceKana[] = {
 
 	// ===== あ行 =====
@@ -215,7 +246,7 @@ void PracticeTypingScene_2::Draw()
 	DrawExtendGraph(0, 0, screenW, screenH, gameImage, TRUE);
 
 	//カウントダウン表示
-	countdown.Draw(400, 200);
+	countdown.Draw(COUNTDOWN_X, COUNTDOWN_Y);
 
 	// カウントダウンが終わるまでゲーム画面は表示しない
 	if (!countdown.IsFinished())
@@ -227,7 +258,7 @@ void PracticeTypingScene_2::Draw()
     // タイピング文字を表示
     //------------------------------------------------------------
 	SetFontSize(40);
-	DrawFormatString(260, 170, GetColor(240, 240, 240), TEXT("%s"), currentWord.display);
+	DrawFormatString(TYPING_WORD_X, TYPING_WORD_Y, COLOR_WHITE, TEXT("%s"), currentWord.display);
 	
 	SetFontSize(30);
 
@@ -239,44 +270,44 @@ void PracticeTypingScene_2::Draw()
 		if (i < charIndex)
 		{
 			//入力済み（緑）
-			color = GetColor(100, 255, 100);
+			color = COLOR_GREEN;
 		}
 		else if (i== missIndex&&missTimer>0)
 		{
 			//入力ミス（赤）
-			color = GetColor(255, 0, 0);
+			color = COLOR_RED;
 		}
 		else
 		{
 			// まだ（白）
-			color = GetColor(240, 240, 240);
+			color = COLOR_WHITE;
 		}
 		// ローマ字を1文字ずつ描画
-		DrawFormatString(270+ i * 15, 210, color, TEXT("%c"), currentWord.input[i]);
+		DrawFormatString(ROMAJI_X + i * ROMAJI_SPACE, ROMAJI_Y, color, TEXT("%c"), currentWord.input[i]);
 	}
 	
 	SetFontSize(23);
 	//------------------------------------------------------------
     // スコア表示
     //------------------------------------------------------------
-	DrawFormatString(10, 10, GetColor(240, 240, 240), TEXT("スコア:%d"), score);
+	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 0, COLOR_WHITE, TEXT("スコア:%d"), score);
 
 	//------------------------------------------------------------
 	// タイプミス数の表示
 	//------------------------------------------------------------
-	DrawFormatString(10, 40, GetColor(240, 240, 240), TEXT("ミス:%d"), miss);
+	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 1, COLOR_WHITE, TEXT("ミス:%d"), miss);
 
 	//------------------------------------------------------------
     // コンボ表示
     //------------------------------------------------------------
-	DrawFormatString(10, 70, GetColor(240, 240, 240), TEXT("コンボ：%d"), combo);
+	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 2, COLOR_WHITE, TEXT("コンボ：%d"), combo);
 
 
 	SetFontSize(16);
 	//------------------------------------------------------------
 	// 終了案内
 	//------------------------------------------------------------
-	DrawString(550, 430, TEXT("Tabで終了"), GetColor(230, 230, 230));
+	DrawString(END_TEXT_X, END_TEXT_Y, TEXT("Tabで終了"), COLOR_WHITE);
 
 	//------------------------------------------------------------
 	// キーボード表示
@@ -290,11 +321,11 @@ void PracticeTypingScene_2::Draw()
 		target = toupper(target);
 
 		// キーボードUI描画
-		keyboard.Draw(target,missKey,100, 300);
+		keyboard.Draw(target,missKey, KEYBOARD_X, KEYBOARD_Y);
 	}
 
 	//スコアボード表示
-	scoreboard.Draw(480, 10);
+	scoreboard.Draw(SCOREBOARD_X, SCOREBOARD_Y);
 
 	//チョーク粉エフェクト表示
 	chalk.Draw();

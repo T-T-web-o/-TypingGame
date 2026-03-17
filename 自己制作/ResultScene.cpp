@@ -5,6 +5,33 @@
 #include "TitleScene.h"
 
 //============================================================
+// 描画用定数
+//============================================================
+
+const int TITLE_TEXT_X = 200;  // タイトル文字のX座標
+const int TITLE_TEXT_Y = 10;   // タイトル文字のY座標
+
+const int SCORE_TEXT_X = 200;  // スコア文字のX座標
+const int SCORE_TEXT_Y = 100;  // スコア文字のY座標
+
+const int MISS_TEXT_X = 200;   // ミス数文字のX座標
+const int MISS_TEXT_Y = 150;   // ミス数文字のY座標
+
+const int COMBO_TEXT_X = 200;  // コンボ文字のX座標
+const int COMBO_TEXT_Y = 200;  // コンボ文字のY座標
+
+const int ACCURACY_TEXT_X = 200; // 正答率文字のX座標
+const int ACCURACY_TEXT_Y = 250; // 正答率文字のY座標
+
+const int GUIDE_TEXT_X = 430; // 操作案内文字のX座標
+const int GUIDE_TEXT_Y = 420; // 操作案内文字のY座標
+
+const int RANK_TEXT_X = 200;  // ランク文字のX座標
+const int RANK_TEXT_Y = 310;  // ランク文字のY座標
+
+const int SCORE_BOARD_X = 480; // スコアボードのX座標
+const int SCORE_BOARD_Y = 10;  // スコアボードのY座標
+//============================================================
 // コンストラクタ
 // ゲーム終了時のスコア・ミス数・最大コンボを受け取り
 // リザルト画面用のデータを初期化する
@@ -96,23 +123,23 @@ void ResultScene::Draw()
 	//------------------------------------------------------------
 	// リザルトタイトル表示
 	//------------------------------------------------------------
-	DrawString(200, 10, TEXT("リザルト"), GetColor(230, 230, 230));
+	DrawString(TITLE_TEXT_X, TITLE_TEXT_Y, TEXT("リザルト"), GetColor(230, 230, 230));
 
 	SetFontSize(30);
 	//------------------------------------------------------------
     // スコア情報表示
     //------------------------------------------------------------
-	DrawFormatString(200, 100, GetColor(230, 230, 230), TEXT("スコア: %d"), finalScore);
+	DrawFormatString(SCORE_TEXT_X, SCORE_TEXT_Y, GetColor(230, 230, 230), TEXT("スコア: %d"), finalScore);
 
 	//------------------------------------------------------------
     // タイプミス数の表示
     //------------------------------------------------------------
-	DrawFormatString(200, 150, GetColor(230, 230, 230),TEXT("ミス: %d"), finalMiss);
+	DrawFormatString(MISS_TEXT_X, MISS_TEXT_Y, GetColor(230, 230, 230),TEXT("ミス: %d"), finalMiss);
 
 	//------------------------------------------------------------
 	// 最大コンボ数表示
 	//------------------------------------------------------------
-	DrawFormatString(200, 200, GetColor(230, 230, 230), TEXT("最大コンボ数: %d"), MaxCombo);
+	DrawFormatString(COMBO_TEXT_X, COMBO_TEXT_Y, GetColor(230, 230, 230), TEXT("最大コンボ数: %d"), MaxCombo);
 
 	//------------------------------------------------------------
 	// 正確率
@@ -125,21 +152,21 @@ void ResultScene::Draw()
 	{
 		accuracy = (float)finalScore / total * 100;
 	}
-	DrawFormatString(200, 250, GetColor(230, 230, 230), TEXT("正確率: %.1f%%"), accuracy);
+	DrawFormatString(ACCURACY_TEXT_X, ACCURACY_TEXT_Y, GetColor(230, 230, 230), TEXT("正確率: %.1f%%"), accuracy);
 
 
 	SetFontSize(16);
 	//------------------------------------------------------------
 	// 操作案内
 	//------------------------------------------------------------
-	DrawString(430, 420, TEXT("Spaceでタイトル"), GetColor(230, 230, 230));
+	DrawString(GUIDE_TEXT_X, GUIDE_TEXT_Y, TEXT("Spaceでタイトル"), GetColor(230, 230, 230));
 
 	SetFontSize(40);
 	//------------------------------------------------------------
 	// ランク表示
 	//------------------------------------------------------------
-	DrawFormatString(200, 310, rankColor, TEXT("ランク: %s"), rank);
+	DrawFormatString(RANK_TEXT_X, RANK_TEXT_Y, rankColor, TEXT("ランク: %s"), rank);
 
 	//スコアボード表示
-	scoreboard.Draw(480, 10);
+	scoreboard.Draw(SCORE_BOARD_X, SCORE_BOARD_Y);
 }

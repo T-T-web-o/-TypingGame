@@ -2,38 +2,88 @@
 #include "DxLib.h"
 
 //============================================================
+// 描画用定数
+//============================================================
+
+const int TITLE_X = 35;        // タイトルのX座標
+const int TITLE_Y = 10;        // タイトルのY座標
+
+const int RANK_TEXT_X = 20;    // ランク表示のX座標
+const int RANK_TEXT_Y = 50;    // ランク表示のY座標
+const int RANK_TEXT_SPACE = 30;// ランク同士の間隔
+const int CONDITION_OFFSET = 30; //ランクと条件の間隔
+//============================================================
+// ランク表示用データ
+//============================================================
+const TCHAR* rankText[] =
+{
+    TEXT("SS"),
+    TEXT("S"),
+    TEXT("A"),
+    TEXT("B"),
+    TEXT("C"),
+    TEXT("D")
+};
+
+const TCHAR* rankCondition[] =
+{
+    TEXT(": 30+ミス0"),
+    TEXT(": 30"),
+    TEXT(": 25"),
+    TEXT(": 20"),
+    TEXT(": 15"),
+    TEXT(": 15未満")
+};
+
+const int rankColor[] =
+{
+    GetColor(0, 0, 0),       // 黒
+    GetColor(0, 0, 255),     // 青
+    GetColor(255, 255, 0),   // 黄
+    GetColor(255, 0, 0),     // 赤
+    GetColor(0, 255, 0),     // 緑
+    GetColor(0, 255, 255)    // 水
+};
+
+// rankText配列の要素数を計算
+const int RANK_COUNT = sizeof(rankText) / sizeof(rankText[0]);
+
+//============================================================
 // スコアボード描画処理
 // ランクの基準表を画面に表示する
 // x, y : 表示位置
 //============================================================
+
 void Scoreboard::Draw(int x, int y)
 {
+    int textColor = GetColor(240, 240, 240);
+
     //------------------------------------------------------------
     // ボードサイズ
     //------------------------------------------------------------
-	int width = 150;
-	int height = 240;
+    int width = 150;
+    int height = 240;
 
     //------------------------------------------------------------
     // 枠の描画
     //------------------------------------------------------------
-	DrawBox(x, y, x + width, y + height, GetColor(240, 240, 240), FALSE);
-	DrawBox(x + 1, y + 1, x + width - 1, y + height - 1, GetColor(240, 240, 240), FALSE);
+    DrawBox(x, y, x + width, y + height, textColor, FALSE);
+    DrawBox(x + 1, y + 1, x + width - 1, y + height - 1, textColor, FALSE);
 
     SetFontSize(18);
 
-    //------------------------------------------------------------
     // タイトル表示
-    //------------------------------------------------------------
-    DrawString(x + 35, y + 10, TEXT("SCORE"), GetColor(240, 240, 240));
+    DrawString(x + TITLE_X, y + TITLE_Y, TEXT("SCORE"), textColor);
 
-    //------------------------------------------------------------
     // ランク基準表表示
-    //------------------------------------------------------------
-    DrawString(x + 20, y + 50, TEXT("SS: 30+ミス0"), GetColor(240, 240, 240));
-    DrawString(x + 20, y + 80, TEXT("S : 30"), GetColor(240, 240, 240));
-    DrawString(x + 20, y + 110, TEXT("A : 25"), GetColor(240, 240, 240));
-    DrawString(x + 20, y + 140, TEXT("B : 20"), GetColor(240, 240, 240));
-    DrawString(x + 20, y + 170, TEXT("C : 15"), GetColor(240, 240, 240));
-    DrawString(x + 20, y + 200, TEXT("D : 15未満"), GetColor(240, 240, 240));
+    for (int i = 0; i < RANK_COUNT; i++)
+    {
+        int yPos = RANK_TEXT_Y + RANK_TEXT_SPACE * i;
+
+        //ランク文字
+        DrawString(x + RANK_TEXT_X, y + yPos , rankText[i], rankColor[i]);
+
+        //ランク条件
+        DrawString(x + RANK_TEXT_X + CONDITION_OFFSET, y + yPos , rankCondition[i], textColor);
+    }
 }
