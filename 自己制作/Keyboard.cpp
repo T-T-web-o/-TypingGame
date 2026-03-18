@@ -1,6 +1,15 @@
 #include "Keyboard.h"
 
 //============================================================
+// 描画用定数
+//============================================================
+
+const int COLOR_KEY = GetColor(240, 240, 240);   // 白
+const int COLOR_TYPED = GetColor(100, 255, 100);  //緑
+const int COLOR_MISS = GetColor(255, 0, 0);       // ミス用（警告・エラー）
+
+
+//============================================================
 // キーボードの描画処理
 // target で指定されたキーをハイライト表示する
 //
@@ -31,15 +40,15 @@ void Keyboard::Draw(TCHAR target, TCHAR missKey, int startX, int startY)
         int color;
         if (row1[i] == missKey)
         {
-            color=GetColor(255, 0, 0);        //ミス(赤)
+            color= COLOR_MISS;        //ミス(赤)
         }
         else if (row1[i] == target)
         {
-            color=GetColor(100, 255, 100);    //正解(緑)
+            color= COLOR_TYPED;    //正解(緑)
         }
         else
         {
-            color=GetColor(240, 240, 240);   //通常キー (白)
+            color= COLOR_KEY;   //通常キー (白)
         }
             
 
@@ -51,7 +60,7 @@ void Keyboard::Draw(TCHAR target, TCHAR missKey, int startX, int startY)
         TCHAR str[2] = { row1[i], '\0' };
 
         // キー中央に文字を描画
-        DrawString(x + KEY_SIZE / 2 - 5, y + KEY_SIZE / 2 - 5,str,GetColor(240, 240, 240));
+        DrawString(x + KEY_SIZE / 2 - 5, y + KEY_SIZE / 2 - 5,str, COLOR_KEY);
     }
 
     //------------------------------------------------------------
@@ -69,15 +78,15 @@ void Keyboard::Draw(TCHAR target, TCHAR missKey, int startX, int startY)
         int color;
             if (row2[i] == missKey)
             {
-                color=GetColor(255, 0, 0);      //ミス(赤)
+                color= COLOR_MISS;      //ミス(赤)
             }
             else if (row2[i] == target)
             {
-                color=GetColor(100, 255, 100);  //正解(緑)
+                color= COLOR_TYPED;  //正解(緑)
             }
             else
             {
-                color=GetColor(240, 240, 240);   //通常キー (白)
+                color= COLOR_KEY;   //通常キー (白)
             }
 
         DrawBox(x, y, x + KEY_SIZE, y + KEY_SIZE, color, FALSE);
@@ -85,7 +94,7 @@ void Keyboard::Draw(TCHAR target, TCHAR missKey, int startX, int startY)
 
         TCHAR str[2] = { row2[i], '\0' };
 
-        DrawString(x + KEY_SIZE / 2 - 5, y + KEY_SIZE / 2 - 5,str,GetColor(240, 240, 240));
+        DrawString(x + KEY_SIZE / 2 - 5, y + KEY_SIZE / 2 - 5,str, COLOR_KEY);
     }
 
     //------------------------------------------------------------
@@ -103,15 +112,15 @@ void Keyboard::Draw(TCHAR target, TCHAR missKey, int startX, int startY)
         int color;
             if (row3[i] == missKey)
             {
-                color=GetColor(255, 0, 0);        //ミス(赤)
+                color= COLOR_MISS;        //ミス(赤)
             }
             else if (row3[i] == target)
             {
-                color=GetColor(100, 255, 100);    //正解(緑)
+                color= COLOR_TYPED;    //正解(緑)
             }
             else
             {
-                color=GetColor(240, 240, 240);   //通常キー (白)
+                color= COLOR_KEY;   //通常キー (白)
             }
 
         DrawBox(x, y, x + KEY_SIZE, y + KEY_SIZE, color, FALSE);
@@ -119,7 +128,7 @@ void Keyboard::Draw(TCHAR target, TCHAR missKey, int startX, int startY)
 
         TCHAR str[2] = { row3[i], '\0' };
 
-        DrawString(x + KEY_SIZE / 2 - 5 ,y + KEY_SIZE / 2 - 5,str,GetColor(240, 240, 240));
+        DrawString(x + KEY_SIZE / 2 - 5 ,y + KEY_SIZE / 2 - 5,str, COLOR_KEY);
     }
   
 }

@@ -34,9 +34,9 @@ const int SCOREBOARD_Y = 10;  // スコアボードのY座標
 const int KEYBOARD_X = 100;    // キーボード描画のX座標
 const int KEYBOARD_Y = 300;    // キーボード描画のY座標
 
-const int COLOR_WHITE = GetColor(240, 240, 240);  //白
-const int COLOR_GREEN = GetColor(100, 255, 100);  //緑
-const int COLOR_RED = GetColor(255, 0, 0);        //赤
+const int COLOR_TEXT = GetColor(240, 240, 240);  //白
+const int COLOR_TYPED = GetColor(100, 255, 100);  //緑
+const int COLOR_MISS = GetColor(255, 0, 0);        //赤
 
 WordData_2 practiceKana[] = {
 
@@ -258,7 +258,7 @@ void PracticeTypingScene_2::Draw()
     // タイピング文字を表示
     //------------------------------------------------------------
 	SetFontSize(40);
-	DrawFormatString(TYPING_WORD_X, TYPING_WORD_Y, COLOR_WHITE, TEXT("%s"), currentWord.display);
+	DrawFormatString(TYPING_WORD_X, TYPING_WORD_Y, COLOR_TEXT, TEXT("%s"), currentWord.display);
 	
 	SetFontSize(30);
 
@@ -270,17 +270,17 @@ void PracticeTypingScene_2::Draw()
 		if (i < charIndex)
 		{
 			//入力済み（緑）
-			color = COLOR_GREEN;
+			color = COLOR_TYPED;
 		}
 		else if (i== missIndex&&missTimer>0)
 		{
 			//入力ミス（赤）
-			color = COLOR_RED;
+			color = COLOR_MISS;
 		}
 		else
 		{
 			// まだ（白）
-			color = COLOR_WHITE;
+			color = COLOR_TEXT;
 		}
 		// ローマ字を1文字ずつ描画
 		DrawFormatString(ROMAJI_X + i * ROMAJI_SPACE, ROMAJI_Y, color, TEXT("%c"), currentWord.input[i]);
@@ -290,24 +290,24 @@ void PracticeTypingScene_2::Draw()
 	//------------------------------------------------------------
     // スコア表示
     //------------------------------------------------------------
-	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 0, COLOR_WHITE, TEXT("スコア:%d"), score);
+	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 0, COLOR_TEXT, TEXT("スコア:%d"), score);
 
 	//------------------------------------------------------------
 	// タイプミス数の表示
 	//------------------------------------------------------------
-	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 1, COLOR_WHITE, TEXT("ミス:%d"), miss);
+	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 1, COLOR_TEXT, TEXT("ミス:%d"), miss);
 
 	//------------------------------------------------------------
     // コンボ表示
     //------------------------------------------------------------
-	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 2, COLOR_WHITE, TEXT("コンボ：%d"), combo);
+	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 2, COLOR_TEXT, TEXT("コンボ：%d"), combo);
 
 
 	SetFontSize(16);
 	//------------------------------------------------------------
 	// 終了案内
 	//------------------------------------------------------------
-	DrawString(END_TEXT_X, END_TEXT_Y, TEXT("Tabで終了"), COLOR_WHITE);
+	DrawString(END_TEXT_X, END_TEXT_Y, TEXT("Tabで終了"), COLOR_TEXT);
 
 	//------------------------------------------------------------
 	// キーボード表示

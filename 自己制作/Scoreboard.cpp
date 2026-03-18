@@ -12,6 +12,9 @@ const int RANK_TEXT_X = 20;    // ランク表示のX座標
 const int RANK_TEXT_Y = 50;    // ランク表示のY座標
 const int RANK_TEXT_SPACE = 30;// ランク同士の間隔
 const int CONDITION_OFFSET = 30; //ランクと条件の間隔
+
+const int TEXT_COLOR = GetColor(230, 230, 230);  //白
+
 //============================================================
 // ランク表示用データ
 //============================================================
@@ -56,7 +59,6 @@ const int RANK_COUNT = sizeof(rankText) / sizeof(rankText[0]);
 
 void Scoreboard::Draw(int x, int y)
 {
-    int textColor = GetColor(240, 240, 240);
 
     //------------------------------------------------------------
     // ボードサイズ
@@ -67,13 +69,13 @@ void Scoreboard::Draw(int x, int y)
     //------------------------------------------------------------
     // 枠の描画
     //------------------------------------------------------------
-    DrawBox(x, y, x + width, y + height, textColor, FALSE);
-    DrawBox(x + 1, y + 1, x + width - 1, y + height - 1, textColor, FALSE);
+    DrawBox(x, y, x + width, y + height, TEXT_COLOR, FALSE);
+    DrawBox(x + 1, y + 1, x + width - 1, y + height - 1, TEXT_COLOR, FALSE);
 
     SetFontSize(18);
 
     // タイトル表示
-    DrawString(x + TITLE_X, y + TITLE_Y, TEXT("SCORE"), textColor);
+    DrawString(x + TITLE_X, y + TITLE_Y, TEXT("SCORE"), TEXT_COLOR);
 
     // ランク基準表表示
     for (int i = 0; i < RANK_COUNT; i++)
@@ -84,6 +86,6 @@ void Scoreboard::Draw(int x, int y)
         DrawString(x + RANK_TEXT_X, y + yPos , rankText[i], rankColor[i]);
 
         //ランク条件
-        DrawString(x + RANK_TEXT_X + CONDITION_OFFSET, y + yPos , rankCondition[i], textColor);
+        DrawString(x + RANK_TEXT_X + CONDITION_OFFSET, y + yPos , rankCondition[i], TEXT_COLOR);
     }
 }

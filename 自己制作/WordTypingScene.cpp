@@ -41,11 +41,12 @@ const int KEYBOARD_Y = 300;    // キーボード描画のY座標
 const int SCOREBOARD_X = 480;  // スコアボードのX座標
 const int SCOREBOARD_Y = 10;   // スコアボードのY座標
 
-const int COLOR_WHITE = GetColor(240, 240, 240);  //白
-const int COLOR_GREEN = GetColor(100, 255, 100);  //緑
-const int COLOR_RED = GetColor(255, 0, 0);        //赤
-const int COLOR_BLUE = GetColor(100, 200, 255);   //青
-const int COLOR_YELLOW = GetColor(255, 255, 100); //黄
+const int COLOR_TEXT = GetColor(230, 230, 230);   //白
+const int COLOR_TYPED = GetColor(100, 255, 100);  //緑
+const int COLOR_MISS = GetColor(255, 0, 0);       // ミス用（警告・エラー）
+const int COLOR_HARD = GetColor(255, 100, 100);   // 難易度用（少し柔らかい赤）
+const int COLOR_EASY = GetColor(100, 200, 255);   //青
+const int COLOR_NORMAL = GetColor(255, 255, 100); //黄
 //難易度[かんたん]の単語リスト
 WordData_1 easyWords[] = {
 	{ TEXT("犬"), TEXT("inu") },{ TEXT("猫"), TEXT("neko") },{ TEXT("山"), TEXT("yama") },{ TEXT("海"), TEXT("umi") },{ TEXT("空"), TEXT("sora") },
@@ -339,7 +340,7 @@ void WordTypingScene::Draw()
 	// タイトル表示
 	//------------------------------------------------------------
 	SetFontSize(40);
-	DrawString(TITLE_X, TITLE_Y, TEXT("タイムアタック"), COLOR_WHITE);
+	DrawString(TITLE_X, TITLE_Y, TEXT("タイムアタック"), COLOR_TEXT);
 
 	//-------------------------------------------------------------------
 	//単語・ローマ字を中央に
@@ -360,7 +361,7 @@ void WordTypingScene::Draw()
 	// 単語表示
 	//------------------------------------------------------------
 	SetFontSize(30);
-	DrawFormatString(wordX, WORD_Y, COLOR_WHITE, TEXT("%s"), currentWord.display);
+	DrawFormatString(wordX, WORD_Y, COLOR_TEXT, TEXT("%s"), currentWord.display);
 
 	//------------------------------------------------------------
 	// 入力に応じて文字の色を変更して表示
@@ -372,17 +373,17 @@ void WordTypingScene::Draw()
 		if (i < charIndex)
 		{
 			// 入力済み（緑）
-			color = COLOR_GREEN;
+			color = COLOR_TYPED;
 		}
 		else if (i == missIndex && missTimer > 0)
 		{
 			// 入力ミス　(赤)
-			color = COLOR_RED;
+			color = COLOR_MISS;
 		}
 		else
 		{
 			// まだ（白）
-			color = COLOR_WHITE;
+			color = COLOR_TEXT;
 		}
 
 		DrawFormatString(baseX + i * CHAR_SPACE, ROMAJI_Y,color,TEXT("%c"),currentWord.input[i]);
@@ -392,29 +393,29 @@ void WordTypingScene::Draw()
 	//------------------------------------------------------------
 	// スコア表示
 	//------------------------------------------------------------
-	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 0, COLOR_WHITE, TEXT("スコア:%d"), score);
+	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 0, COLOR_TEXT, TEXT("スコア:%d"), score);
 
 	//------------------------------------------------------------
 	// タイプミス数の表示
 	//------------------------------------------------------------
-	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 1, COLOR_WHITE, TEXT("ミス:%d"), miss);
+	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 1, COLOR_TEXT, TEXT("ミス:%d"), miss);
 
 	//------------------------------------------------------------
 	// 制限時間表示
 	//------------------------------------------------------------
-	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 2, COLOR_WHITE, TEXT("残り時間:%d"), timeLimit / 60);
+	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 2, COLOR_TEXT, TEXT("残り時間:%d"), timeLimit / 60);
 
 	//------------------------------------------------------------
 	// コンボ表示
 	//------------------------------------------------------------
-	DrawString(UI_X, UI_START_Y + UI_SPACE * 3, TEXT("コンボ:"), COLOR_WHITE);
+	DrawString(UI_X, UI_START_Y + UI_SPACE * 3, TEXT("コンボ:"), COLOR_TEXT);
 
 	// コンボごとの表示サイズ変更
 	int comboSize = COMBO_BASE_SIZE + combo;
 	if (comboSize > COMBO_MAX_SIZE) comboSize = COMBO_MAX_SIZE;
 	SetFontSize(comboSize);
 
-	DrawFormatString(COMBO_X, COMBO_Y, COLOR_WHITE, TEXT("%d"), combo);
+	DrawFormatString(COMBO_X, COMBO_Y, COLOR_TEXT, TEXT("%d"), combo);
 	
 	SetFontSize(16);
 	//------------------------------------------------------------
@@ -427,17 +428,17 @@ void WordTypingScene::Draw()
 	{
 	case EASY:
 		diffText = TEXT("かんたん");
-		diffColor = COLOR_BLUE;
+		diffColor = COLOR_EASY;
 		break;
 
 	case NORMAL:
 		diffText = TEXT("ふつう");
-		diffColor = COLOR_YELLOW;
+		diffColor = COLOR_NORMAL;
 		break;
 
 	case HARD:
 		diffText = TEXT("むずかしい");
-		diffColor = COLOR_RED;
+		diffColor = COLOR_HARD;
 		break;
 	}
 

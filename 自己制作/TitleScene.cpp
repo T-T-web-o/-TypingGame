@@ -13,6 +13,7 @@
 const int START_TEXT_X = 430;    // スタートテキストのX座標
 const int START_TEXT_Y = 420;    // スタートテキストのY座標
 const int START_FONT_SIZE = 23;  // スタートテキストのフォントサイズ
+const int COLOR_TEXT = GetColor(230, 230, 230);  //白
 
 //============================================================
 // コンストラクタ
@@ -70,7 +71,7 @@ void TitleScene::Draw()
 	//------------------------------------------------------------
 	// スタート案内
 	//------------------------------------------------------------
-	DrawString(START_TEXT_X, START_TEXT_Y, TEXT("Enterでスタート"), GetColor(230, 230, 230));
+	DrawString(START_TEXT_X, START_TEXT_Y, TEXT("Enterでスタート"), COLOR_TEXT);
 }
 
 

@@ -8,6 +8,29 @@
 #include <cstdlib>
 
 //============================================================
+// 描画用定数
+//============================================================
+
+const int UI_X = 10;         // UIのX座標
+const int UI_START_Y = 10;   // UIの開始Y座標
+const int UI_SPACE = 30;     // UI同士の間隔
+
+const int TYPING_WORD_X = 300;  // タイピング文字のX座標
+const int TYPING_WORD_Y = 200;  // タイピング文字のY座標
+
+const int END_TEXT_X = 550;  // 終了案内のX座標
+const int END_TEXT_Y = 430;  // 終了案内のY座標
+
+const int SCOREBOARD_X = 480; // スコアボードのX座標
+const int SCOREBOARD_Y = 10;  // スコアボードのY座標
+
+const int KEYBOARD_X = 100;    // キーボード描画のX座標
+const int KEYBOARD_Y = 300;    // キーボード描画のY座標
+
+const int COLOR_TEXT = GetColor(240, 240, 240);  //白
+const int COLOR_MISS = GetColor(255, 0, 0);        //赤
+
+//============================================================
 // コンストラクタ
 //============================================================
 PracticeTypingScene_1::PracticeTypingScene_1()
@@ -122,48 +145,48 @@ void PracticeTypingScene_1::Draw()
     //背景画像を画面全体に表示
     DrawExtendGraph(0, 0, screenW, screenH, gameImage, TRUE);
 
-    // 現在入力すべき文字を画面中央に表示・入力ミスをした文字を赤く表示
+    // 入力対象文字の表示（ミス時は赤表示）
     SetFontSize(50);
 
     //通常時　（白）
-    int color = GetColor(240, 240, 240);
+    int color = COLOR_TEXT;
 
     if (missTimer > 0)
     {
         //入力ミス（赤）
-        color = GetColor(255, 0, 0);
+        color = COLOR_MISS;
     }
 
-    DrawFormatString(300, 200, color, TEXT("%c"), target);
+    DrawFormatString(TYPING_WORD_X, TYPING_WORD_Y, color, TEXT("%c"), target);
 	
 
     SetFontSize(23);
     //------------------------------------------------------------
     // スコア表示
     //------------------------------------------------------------
-    DrawFormatString(10, 10, GetColor(240, 240, 240), TEXT("スコア:%d"), score);
-
+    DrawFormatString(UI_X, UI_START_Y, COLOR_TEXT, TEXT("スコア:%d"), score);
+    
     //------------------------------------------------------------
     // タイプミス数の表示
     //------------------------------------------------------------
-    DrawFormatString(10, 40, GetColor(240, 240, 240), TEXT("ミス:%d"), miss);
+    DrawFormatString(UI_X, UI_START_Y + UI_SPACE, COLOR_TEXT, TEXT("ミス:%d"), miss);
 
     //------------------------------------------------------------
     // コンボ表示
     //------------------------------------------------------------
-    DrawFormatString(10, 70, GetColor(240, 240, 240), TEXT("コンボ：%d"), combo);
+    DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 2, COLOR_TEXT, TEXT("コンボ：%d"), combo);
 
     SetFontSize(16);
     //------------------------------------------------------------
     // 終了案内
     //------------------------------------------------------------
-    DrawString(550, 430, TEXT("Tabで終了"), GetColor(240, 240, 240));
+    DrawString(END_TEXT_X, END_TEXT_Y, TEXT("Tabで終了"), COLOR_TEXT);
 
     // スコアボード表示
-    scoreboard.Draw(480, 10);
+    scoreboard.Draw(SCOREBOARD_X, SCOREBOARD_Y);
 
     // キーボード表示
-    keyboard.Draw(target,missKey, 100, 300);
+    keyboard.Draw(target,missKey, KEYBOARD_X, KEYBOARD_Y);
 
     // チョーク粉エフェクト表示
     chalk.Draw();

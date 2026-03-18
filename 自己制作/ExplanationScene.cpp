@@ -5,6 +5,84 @@
 #include "DxLib.h"
 
 //============================================================
+// 描画用定数
+//============================================================
+
+const int GUIDE_TITLE_X = 260;
+const int GUIDE_TITLE_Y = 10;
+
+const int GUIDE_TEXT_X = 100;
+const int GUIDE_TEXT_Y = 40;
+
+const int CONTROL_TEXT_X = 20;
+const int CONTROL_TEXT_Y_START = 80;
+const int CONTROL_TEXT_SPACE = 30;
+
+const int MODE_TEXT_X = 300;
+const int MODE_TEXT_Y_START = 80;
+const int MODE_TEXT_SPACE = 30;
+
+const int MODE_DESC_TITLE_X = 20;
+const int MODE_DESC_TITLE_Y_START = 220;
+const int MODE_DESC_TITLE_SPACE = 70;
+
+const int MODE_DESC_TEXT_X = 40;
+const int MODE_DESC_TEXT_Y_OFFSET = 30;
+
+const int START_TEXT_X = 460;
+const int START_TEXT_Y = 430;
+
+const int COLOR_TEXT = GetColor(240, 240, 240);  // 白
+const int COLOR_BLUE = GetColor(80, 160, 220);      // 青
+const int COLOR_YELLOW = GetColor(240, 220, 120);  // 黄
+const int COLOR_GREEN = GetColor(170, 255, 170);     // 緑
+
+const TCHAR* controlText[] =
+{
+	TEXT("[操作説明]"),
+	TEXT("Enter:ゲームスタート"),
+	TEXT("Space:選択"),
+	TEXT("Tab:ゲーム終了")
+};
+
+const int controlColor[] =
+{
+	COLOR_BLUE,    // 青
+	COLOR_GREEN,    // 緑
+	COLOR_GREEN,    // 緑
+	COLOR_GREEN     // 緑
+};
+
+const int CONTROL_COUNT = sizeof(controlText) / sizeof(controlText[0]);
+
+const TCHAR* modeText[] =
+{
+	TEXT("[ゲームモード]"),
+	TEXT("・一文字タイピング練習"),
+	TEXT("・アルファベットタイピング練習"),
+	TEXT("・単語タイピング")
+};
+
+const int MODE_COUNT = sizeof(modeText) / sizeof(modeText[0]);
+
+const TCHAR* modeTitle[] =
+{
+	TEXT("・一文字タイピング練習"),
+	TEXT("・アルファベットタイピング練習"),
+	TEXT("・単語タイピング")
+};
+
+const int MODE_DESC_COUNT = sizeof(modeTitle) / sizeof(modeTitle[0]);
+
+const TCHAR* modeDesc[] =
+{
+	TEXT("ひらがなをローマ字で入力する基本練習モード"),
+	TEXT("A～Zをタイピングしてキーボード操作に慣れよう"),
+	TEXT("英単語を素早く入力してスコアとコンボを伸ばそう")
+};
+
+
+//============================================================
 // コンストラクタ（説明画面の初期化）
 //============================================================
 ExplanationScene::ExplanationScene()
@@ -60,41 +138,40 @@ void ExplanationScene::Draw()
 	//------------------------------------------------------------
 	// ゲーム説明
 	//------------------------------------------------------------
-	DrawString(260, 10, TEXT("ゲーム説明"), GetColor(255, 220, 100));
+	DrawString(GUIDE_TITLE_X, GUIDE_TITLE_Y, TEXT("ゲーム説明"), GetColor(255, 220, 100));
 
-	DrawString(100, 40, TEXT("表示された文字を正しくタイピングしよう！"), GetColor(255, 255, 255));
+	DrawString(GUIDE_TEXT_X, GUIDE_TEXT_Y, TEXT("表示された文字を正しくタイピングしよう！"), COLOR_TEXT);
 
 	//------------------------------------------------------------
 	// 操作説明
 	//------------------------------------------------------------
-	DrawString(20, 80, TEXT("[操作説明]"), GetColor(100, 200, 255));
-	DrawString(20, 110, TEXT("Enter:ゲームスタート"), GetColor(100, 255, 100));
-	DrawString(20, 140, TEXT("Space:選択"), GetColor(100, 255, 100));
-	DrawString(20, 170, TEXT("Tab:ゲーム終了"), GetColor(100, 255, 100));
+	for (int i = 0; i < CONTROL_COUNT; i++)
+	{
+		DrawString(CONTROL_TEXT_X, CONTROL_TEXT_Y_START + CONTROL_TEXT_SPACE * i, controlText[i], controlColor[i]);
+	}
 
 	//------------------------------------------------------------
 	// ゲーム紹介
 	//------------------------------------------------------------
-	DrawString(300, 80, TEXT("[ゲームモード]"), GetColor(100, 200, 255));
-	DrawString(300, 110, TEXT("・一文字タイピング練習"), GetColor(255, 255, 255));
-	DrawString(300, 140, TEXT("・アルファベットタイピング練習"), GetColor(255, 255, 255));
-	DrawString(300, 170, TEXT("・単語タイピング"), GetColor(255, 255, 255));
+	for (int i = 0; i < MODE_COUNT; i++)
+	{
+		DrawString(MODE_TEXT_X,MODE_TEXT_Y_START + MODE_TEXT_SPACE * i,modeText[i],(i == 0) ? COLOR_BLUE : COLOR_TEXT);
+	}
 
 	//------------------------------------------------------------
 	// 各モードの説明
 	//------------------------------------------------------------
-	DrawString(20, 220, TEXT("・一文字タイピング練習"), GetColor(255, 220, 100));
-	DrawString(40, 250, TEXT("ひらがなをローマ字で入力する基本練習モード"), GetColor(255, 255, 255));
+	for (int i = 0; i < MODE_DESC_COUNT; i++)
+	{
+		int y = MODE_DESC_TITLE_Y_START + MODE_DESC_TITLE_SPACE * i;
 
-	DrawString(20, 290, TEXT("・アルファベットタイピング練習"), GetColor(255, 220, 100));
-	DrawString(40, 320, TEXT("A～Zをタイピングしてキーボード操作に慣れよう"), GetColor(255, 255, 255));
-
-	DrawString(20, 360, TEXT("・単語タイピング"), GetColor(255, 220, 100));
-	DrawString(40, 390, TEXT("英単語を素早く入力してスコアとコンボを伸ばそう"), GetColor(255, 255, 255));
+		DrawString(MODE_DESC_TITLE_X, y, modeTitle[i], COLOR_YELLOW);
+		DrawString(MODE_DESC_TEXT_X, y + MODE_DESC_TEXT_Y_OFFSET, modeDesc[i], COLOR_TEXT);
+	}
 
 	//------------------------------------------------------------
 	//  スタート案内
 	//------------------------------------------------------------
-	DrawString(460, 430, TEXT("Enterでスタート"), GetColor(230, 230, 230));
+	DrawString(START_TEXT_X, START_TEXT_Y, TEXT("Enterでスタート"), GetColor(230, 230, 230));
 	
 }

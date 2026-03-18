@@ -31,6 +31,8 @@ const int RANK_TEXT_Y = 310;  // ランク文字のY座標
 
 const int SCORE_BOARD_X = 480; // スコアボードのX座標
 const int SCORE_BOARD_Y = 10;  // スコアボードのY座標
+
+const int TEXT_COLOR = GetColor(230, 230, 230);  //白
 //============================================================
 // コンストラクタ
 // ゲーム終了時のスコア・ミス数・最大コンボを受け取り
@@ -123,23 +125,23 @@ void ResultScene::Draw()
 	//------------------------------------------------------------
 	// リザルトタイトル表示
 	//------------------------------------------------------------
-	DrawString(TITLE_TEXT_X, TITLE_TEXT_Y, TEXT("リザルト"), GetColor(230, 230, 230));
+	DrawString(TITLE_TEXT_X, TITLE_TEXT_Y, TEXT("リザルト"), TEXT_COLOR);
 
 	SetFontSize(30);
 	//------------------------------------------------------------
     // スコア情報表示
     //------------------------------------------------------------
-	DrawFormatString(SCORE_TEXT_X, SCORE_TEXT_Y, GetColor(230, 230, 230), TEXT("スコア: %d"), finalScore);
+	DrawFormatString(SCORE_TEXT_X, SCORE_TEXT_Y, TEXT_COLOR, TEXT("スコア: %d"), finalScore);
 
 	//------------------------------------------------------------
     // タイプミス数の表示
     //------------------------------------------------------------
-	DrawFormatString(MISS_TEXT_X, MISS_TEXT_Y, GetColor(230, 230, 230),TEXT("ミス: %d"), finalMiss);
+	DrawFormatString(MISS_TEXT_X, MISS_TEXT_Y, TEXT_COLOR, TEXT("ミス: %d"), finalMiss);
 
 	//------------------------------------------------------------
 	// 最大コンボ数表示
 	//------------------------------------------------------------
-	DrawFormatString(COMBO_TEXT_X, COMBO_TEXT_Y, GetColor(230, 230, 230), TEXT("最大コンボ数: %d"), MaxCombo);
+	DrawFormatString(COMBO_TEXT_X, COMBO_TEXT_Y, TEXT_COLOR, TEXT("最大コンボ数: %d"), MaxCombo);
 
 	//------------------------------------------------------------
 	// 正確率
@@ -152,14 +154,14 @@ void ResultScene::Draw()
 	{
 		accuracy = (float)finalScore / total * 100;
 	}
-	DrawFormatString(ACCURACY_TEXT_X, ACCURACY_TEXT_Y, GetColor(230, 230, 230), TEXT("正確率: %.1f%%"), accuracy);
+	DrawFormatString(ACCURACY_TEXT_X, ACCURACY_TEXT_Y, TEXT_COLOR, TEXT("正確率: %.1f%%"), accuracy);
 
 
 	SetFontSize(16);
 	//------------------------------------------------------------
 	// 操作案内
 	//------------------------------------------------------------
-	DrawString(GUIDE_TEXT_X, GUIDE_TEXT_Y, TEXT("Spaceでタイトル"), GetColor(230, 230, 230));
+	DrawString(GUIDE_TEXT_X, GUIDE_TEXT_Y, TEXT("Spaceでタイトル"), TEXT_COLOR);
 
 	SetFontSize(40);
 	//------------------------------------------------------------
