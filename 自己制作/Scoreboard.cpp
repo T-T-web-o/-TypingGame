@@ -60,15 +60,11 @@ const int RANK_COUNT = sizeof(rankText) / sizeof(rankText[0]);
 void Scoreboard::Draw(int x, int y)
 {
 
-    //------------------------------------------------------------
     // ボードサイズ
-    //------------------------------------------------------------
     int width = 150;
     int height = 240;
 
-    //------------------------------------------------------------
     // 枠の描画
-    //------------------------------------------------------------
     DrawBox(x, y, x + width, y + height, TEXT_COLOR, FALSE);
     DrawBox(x + 1, y + 1, x + width - 1, y + height - 1, TEXT_COLOR, FALSE);
 

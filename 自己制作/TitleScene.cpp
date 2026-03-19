@@ -41,9 +41,7 @@ TitleScene::~TitleScene()
 //============================================================
 void TitleScene::Update()
 {
-	//------------------------------------------------------------
 	// Enterキー入力取得
-	//------------------------------------------------------------
 	nowEnter = (CheckHitKey(KEY_INPUT_RETURN));
 
 	// Enterキーが押されたか判定
@@ -68,9 +66,7 @@ void TitleScene::Draw()
 	DrawExtendGraph(0, 0,screenW, screenH,titleImage,TRUE);
 
 	SetFontSize(START_FONT_SIZE);
-	//------------------------------------------------------------
 	// スタート案内
-	//------------------------------------------------------------
 	DrawString(START_TEXT_X, START_TEXT_Y, TEXT("Enterでスタート"), COLOR_TEXT);
 }
 

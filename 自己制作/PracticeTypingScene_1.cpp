@@ -27,7 +27,7 @@ const int SCOREBOARD_Y = 10;  // スコアボードのY座標
 const int KEYBOARD_X = 100;    // キーボード描画のX座標
 const int KEYBOARD_Y = 300;    // キーボード描画のY座標
 
-const int COLOR_TEXT = GetColor(240, 240, 240);  //白
+const int COLOR_TEXT = GetColor(230, 230, 230);  //白
 const int COLOR_MISS = GetColor(255, 0, 0);        //赤
 
 //============================================================
@@ -161,25 +161,17 @@ void PracticeTypingScene_1::Draw()
 	
 
     SetFontSize(23);
-    //------------------------------------------------------------
     // スコア表示
-    //------------------------------------------------------------
     DrawFormatString(UI_X, UI_START_Y, COLOR_TEXT, TEXT("スコア:%d"), score);
     
-    //------------------------------------------------------------
     // タイプミス数の表示
-    //------------------------------------------------------------
     DrawFormatString(UI_X, UI_START_Y + UI_SPACE, COLOR_TEXT, TEXT("ミス:%d"), miss);
 
-    //------------------------------------------------------------
     // コンボ表示
-    //------------------------------------------------------------
     DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 2, COLOR_TEXT, TEXT("コンボ：%d"), combo);
 
     SetFontSize(16);
-    //------------------------------------------------------------
     // 終了案内
-    //------------------------------------------------------------
     DrawString(END_TEXT_X, END_TEXT_Y, TEXT("Tabで終了"), COLOR_TEXT);
 
     // スコアボード表示

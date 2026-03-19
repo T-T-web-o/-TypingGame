@@ -3,6 +3,21 @@
 #include "DxLib.h"
 
 //============================================================
+// 描画用定数
+//============================================================
+
+const int TITLE_TEXT_X = 200;   // タイトル座標X
+const int TITLE_TEXT_Y = 10;    // タイトル座標Y
+
+const int START_TEXT_X = 200;   // 操作案内座標X
+const int START_TEXT_Y = 240;   // 操作案内座標Y
+
+const int COUNTDOWN_TEXT_X = 300;   // カウントダウン座標X
+const int COUNTDOWN_TEXT_Y = 200;   // カウントダウン座標Y
+
+const int COLOR_TEXT = GetColor(230, 230, 230);  //白
+
+//============================================================
 // コンストラクタ（カウントダウンの初期化）
 //============================================================
 CountDown::CountDown()
@@ -16,9 +31,7 @@ CountDown::CountDown()
 //============================================================
 void CountDown::Update()
 {
-	//------------------------------------------------------------
 	// ゲーム開始待ち状態
-	//------------------------------------------------------------
 	if (state == WAIT_START)
 	{
 		//ENTERキーが押されたらカウントダウン開始
@@ -33,9 +46,7 @@ void CountDown::Update()
 		return;
 	}
 
-	//------------------------------------------------------------
 	// カウントダウン処理
-	//------------------------------------------------------------
 	if (state == COUNTDOWN)
 	{
 		//タイマーを減らす
@@ -55,21 +66,19 @@ void CountDown::Update()
 //============================================================
 void CountDown::Draw(int x, int y)
 {
-	//------------------------------------------------------------
 	// ゲーム開始前の表示
-	//------------------------------------------------------------
 	if (state == WAIT_START)
 	{
 		SetFontSize(30);
-		DrawString(200, 10, TEXT("タイピングゲーム"), GetColor(230, 230, 230));
-		DrawString(200, 240, TEXT("ENTERキーでスタート"), GetColor(255, 255, 255));
+
+		DrawString(TITLE_TEXT_X, TITLE_TEXT_Y, TEXT("タイピングゲーム"), COLOR_TEXT);
+
+		DrawString(START_TEXT_X, START_TEXT_Y, TEXT("ENTERキーでスタート"), COLOR_TEXT);
 
 		return;
 	}
 
-	//------------------------------------------------------------
 	// カウントダウン表示
-	//------------------------------------------------------------
 	if (state == COUNTDOWN)
 	{
 		// 残り秒数を計算
@@ -77,7 +86,7 @@ void CountDown::Draw(int x, int y)
 
 		SetFontSize(80);
 		// カウント数字を表示
-		DrawFormatString(300, 220, GetColor(255, 255, 255), TEXT("%d"), count);
+		DrawFormatString(COUNTDOWN_TEXT_X, COUNTDOWN_TEXT_Y, COLOR_TEXT, TEXT("%d"), count);
 		return;
 	}
 }

@@ -94,9 +94,8 @@ WordTypingScene::WordTypingScene()
 	//選択された難易度の取得
 	Difficulty d = GameManager::GetInstance().GetDifficulty();
 
-	//------------------------------------------------------------
+
 	// 難易度ごとに単語リストと制限時間を設定
-	//------------------------------------------------------------
 	if (d == EASY)
 	{
 		wordList = easyWords;
@@ -136,9 +135,7 @@ WordTypingScene::WordTypingScene()
 	currentWord = wordList[order[wordIndex]];
 
 
-	//------------------------------------------------------------
 	// スコアや入力状態の初期化
-	//------------------------------------------------------------
 
 	//入力文字初期化
 	charIndex = 0;
@@ -244,9 +241,7 @@ void WordTypingScene::CheckTyping()
 			// タイピング音
 			PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
 
-			//------------------------------------------------------------
 			// 正解
-			//------------------------------------------------------------
 			if (inputChar == correctChar)
 			{
 				charIndex++;
@@ -267,9 +262,7 @@ void WordTypingScene::CheckTyping()
 					NextWord();
 				}
 			}
-			//------------------------------------------------------------
 			// ミス
-			//------------------------------------------------------------
 			else
 			{
 				miss++;
@@ -293,9 +286,8 @@ void WordTypingScene::NextWord()
 {
 	wordIndex++;
 
-	//------------------------------------------------------------
+
 	// 全単語終了 → リザルト
-	//------------------------------------------------------------
 	if (wordIndex >= wordCount)
 	{
 		GameManager::GetInstance().ChangeScene(
@@ -328,23 +320,19 @@ void WordTypingScene::Draw()
 
 	countdown.Draw(400, 200);
 
-	//------------------------------------------------------------
+
 	// カウントダウン表示
-	//------------------------------------------------------------
 	if (!countdown.IsFinished())
 	{
 		return;
 	}
 
-	//------------------------------------------------------------
 	// タイトル表示
-	//------------------------------------------------------------
 	SetFontSize(40);
 	DrawString(TITLE_X, TITLE_Y, TEXT("タイムアタック"), COLOR_TEXT);
 
-	//-------------------------------------------------------------------
+
 	//単語・ローマ字を中央に
-	//-------------------------------------------------------------------
 	int len = _tcslen(currentWord.input);    // ローマ字の長さを取得
 	int width = len * CHAR_SPACE;            // ローマ字の幅を取得
 
@@ -357,15 +345,12 @@ void WordTypingScene::Draw()
 	int romajiCenter = baseX + width / 2;         // ローマ字の中央を取得
 	int wordX = romajiCenter - wordWidth / 2;     // 単語の中央を取得
 
-	//------------------------------------------------------------
 	// 単語表示
-	//------------------------------------------------------------
 	SetFontSize(30);
 	DrawFormatString(wordX, WORD_Y, COLOR_TEXT, TEXT("%s"), currentWord.display);
 
-	//------------------------------------------------------------
+
 	// 入力に応じて文字の色を変更して表示
-	//------------------------------------------------------------
 	for (int i = 0; currentWord.input[i] != '\0'; i++)
 	{
 		int color;
@@ -390,24 +375,18 @@ void WordTypingScene::Draw()
 	}
 
 	SetFontSize(20);
-	//------------------------------------------------------------
 	// スコア表示
-	//------------------------------------------------------------
 	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 0, COLOR_TEXT, TEXT("スコア:%d"), score);
 
-	//------------------------------------------------------------
+
 	// タイプミス数の表示
-	//------------------------------------------------------------
 	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 1, COLOR_TEXT, TEXT("ミス:%d"), miss);
 
-	//------------------------------------------------------------
 	// 制限時間表示
-	//------------------------------------------------------------
 	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 2, COLOR_TEXT, TEXT("残り時間:%d"), timeLimit / 60);
 
-	//------------------------------------------------------------
+
 	// コンボ表示
-	//------------------------------------------------------------
 	DrawString(UI_X, UI_START_Y + UI_SPACE * 3, TEXT("コンボ:"), COLOR_TEXT);
 
 	// コンボごとの表示サイズ変更
@@ -418,9 +397,7 @@ void WordTypingScene::Draw()
 	DrawFormatString(COMBO_X, COMBO_Y, COLOR_TEXT, TEXT("%d"), combo);
 	
 	SetFontSize(16);
-	//------------------------------------------------------------
 	// 難易度の表示
-	//------------------------------------------------------------
 	Difficulty d = GameManager::GetInstance().GetDifficulty();
 
 	//難易度ごとに表示する内容を変更
@@ -444,9 +421,7 @@ void WordTypingScene::Draw()
 
 	DrawFormatString(DIFFICULTY_X, DIFFICULTY_Y,diffColor,TEXT("難易度: %s"), diffText);
 
-	//------------------------------------------------------------
 	// キーボード表示
-	//------------------------------------------------------------
 	if (currentWord.input[charIndex] != '\0')
 	{
 		TCHAR target = currentWord.input[charIndex];

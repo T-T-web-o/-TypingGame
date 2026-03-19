@@ -15,18 +15,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// DxLib初期化
 	DxLib_Init();
 
-	//------------------------------------------------------------
 	// 乱数初期化
 	// 毎回違う単語が出るようにする
-	//------------------------------------------------------------
 	srand((unsigned int)time(nullptr));
 
 	// サウンド読み込み
 	SoundManager::Load();
 
-	//------------------------------------------------------------
     // メインゲームループ
-    //------------------------------------------------------------
 	while (ProcessMessage() == 0)
 	{
 		// 画面のクリア
@@ -41,9 +37,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		// 描画結果を画面に反映
 		ScreenFlip();
 	}
-	//------------------------------------------------------------
+
 	// サウンド解放
-	//------------------------------------------------------------
 	SoundManager::Release();
 
 	// DxLibの終了処理

@@ -172,9 +172,8 @@ void PracticeTypingScene_2::TypingUpdate()
 			// タイピング音
 			PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
 
-			//========================
+			
 		    // 正解判定
-		    //========================
 			if (inputChar == correctChar)
 			{
 				charIndex++;
@@ -212,9 +211,7 @@ void PracticeTypingScene_2::TypingUpdate()
 			}
 			else
 			{
-				//========================
 				// ミス
-				//========================
 				miss++;
 				combo = 0;
 				missFlag = true;
@@ -254,9 +251,7 @@ void PracticeTypingScene_2::Draw()
 		return;
 	}
 
-	//------------------------------------------------------------
     // タイピング文字を表示
-    //------------------------------------------------------------
 	SetFontSize(40);
 	DrawFormatString(TYPING_WORD_X, TYPING_WORD_Y, COLOR_TEXT, TEXT("%s"), currentWord.display);
 	
@@ -287,31 +282,23 @@ void PracticeTypingScene_2::Draw()
 	}
 	
 	SetFontSize(23);
-	//------------------------------------------------------------
+
     // スコア表示
-    //------------------------------------------------------------
 	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 0, COLOR_TEXT, TEXT("スコア:%d"), score);
 
-	//------------------------------------------------------------
 	// タイプミス数の表示
-	//------------------------------------------------------------
 	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 1, COLOR_TEXT, TEXT("ミス:%d"), miss);
 
-	//------------------------------------------------------------
     // コンボ表示
-    //------------------------------------------------------------
 	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 2, COLOR_TEXT, TEXT("コンボ：%d"), combo);
 
 
 	SetFontSize(16);
-	//------------------------------------------------------------
 	// 終了案内
-	//------------------------------------------------------------
 	DrawString(END_TEXT_X, END_TEXT_Y, TEXT("Tabで終了"), COLOR_TEXT);
 
-	//------------------------------------------------------------
+
 	// キーボード表示
-	//------------------------------------------------------------
 	if (currentWord.input[charIndex] != '\0')
 	{
 		// 次に入力する文字を取得
