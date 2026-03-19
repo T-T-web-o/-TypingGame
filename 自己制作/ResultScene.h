@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Scoreboard.h"
+#include "Ranking.h"
 #include <tchar.h>
 
 //============================================================
@@ -9,31 +10,18 @@
 class ResultScene:public Scene
 {
 private:
-	//------------------------------------------------------------
 	// ゲーム結果データ
-	//------------------------------------------------------------
 
-	// 最終スコア
-	int finalScore;
-
-	// ミス回数
-	int finalMiss;
-
-	// 最大コンボ数
-	int MaxCombo;
-
-	//------------------------------------------------------------
+	int finalScore; // 最終スコア	
+	int finalMiss;  // ミス回数
+	int MaxCombo;   // 最大コンボ数
+	
 	// 画面関連
-	//------------------------------------------------------------
 	
 	int resultImage;  // 背景画面 
 	int screenW;      // 画面幅
 	int screenH;      // 画面高さ
 
-	//------------------------------------------------------------
-	// ランク表示
-	//------------------------------------------------------------
-	
 	// ランク文字列
 	const TCHAR* rank;
 	
@@ -42,6 +30,17 @@ private:
 
 	// スコアボード描画管理
 	Scoreboard scoreboard;
+
+	//ランキング名前管理
+	Ranking ranking;
+
+    TCHAR playerName[16];
+	int nameLength;
+
+	bool NameEntered;
+
+	char keyNow[256];        // 現在フレームのキー情報
+	char keyOld[256];        // 前フレームのキー情報
 
 public:
 	//------------------------------------------------------------

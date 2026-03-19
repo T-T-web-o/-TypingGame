@@ -3,6 +3,8 @@
 #include "GameManager.h"
 #include "Scoreboard.h"
 #include "TitleScene.h"
+#include "KeyTable.h"
+#include "Ranking.h"
 
 //============================================================
 // 描画用定数
@@ -46,6 +48,15 @@ ResultScene::ResultScene(int score ,int miss ,int maxCombo)
 	finalScore = score;    //最終スコア
 	finalMiss = miss;      //ミス回数
 	MaxCombo = maxCombo;   //最大コンボ数
+
+	//名前データ
+	playerName[0] = '\0';
+	nameLength = 0;
+
+	NameEntered = false;
+
+	memset(keyNow, 0, sizeof(keyNow));
+	memset(keyOld, 0, sizeof(keyOld));
 
 	// 画面サイズ取得
 	GetDrawScreenSize(&screenW, &screenH);
@@ -99,11 +110,49 @@ ResultScene::~ResultScene()
 //============================================================
 void ResultScene::Update()
 {
+	GetHitKeyStateAll(keyNow);
+
 	// スペースキーでタイトル画面へ
 	if (CheckHitKey(KEY_INPUT_SPACE))
 	{
 		GameManager::GetInstance().ChangeScene(new TitleScene());
 	}
+
+	// 名前入力
+	if (!NameEntered)
+	{
+		for (int i = 0; i < 26; i++)
+		{
+			if (keyNow[keyTable[i]] && !keyOld[keyTable[i]])
+			{
+				if (nameLength < 15)
+				{
+					playerName[nameLength] = TEXT('a') + i;
+					nameLength++;
+					playerName[nameLength] = '\0';
+				}
+			}
+		}
+	}
+	
+	// 名前消去
+	if (keyNow[KEY_INPUT_BACK] && !keyOld[KEY_INPUT_BACK])
+	{
+		if (nameLength > 0)
+		{
+			nameLength--;
+			playerName[nameLength] = '\0';
+		}
+	}
+
+	// 名前決定
+	if (!NameEntered && keyNow[KEY_INPUT_RETURN] && !keyOld[KEY_INPUT_RETURN])
+	{
+		ranking.Add(playerName, finalScore);
+		NameEntered = true;
+	}
+
+	memcpy(keyOld, keyNow, sizeof(keyNow));
 }
 
 //============================================================
@@ -152,4 +201,8 @@ void ResultScene::Draw()
 
 	//スコアボード表示
 	scoreboard.Draw(SCORE_BOARD_X, SCORE_BOARD_Y);
+
+	//名前の表示
+	DrawString(10, 10, TEXT("name:"), TEXT_COLOR);
+	DrawString(70, 10, playerName, TEXT_COLOR);
 }

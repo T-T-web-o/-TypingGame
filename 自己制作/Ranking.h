@@ -1,21 +1,24 @@
 #pragma once
-
-static const int MAX_RANKING = 10;
+#include <tchar.h>
 
 struct ScoreData 
 {
-	char name[16];
+    TCHAR name[16];
 	int score;
 };
 class Ranking
 {
 private:
+
+	static const int MAX_RANKING = 10;
+
 	ScoreData ranking[MAX_RANKING];
 
 	int rankingCount;
+
 public:
 	Ranking();
 
-	void Add(const char* name,int score);
+	void Add(const TCHAR* name,int score);
 };
 

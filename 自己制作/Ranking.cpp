@@ -1,16 +1,15 @@
-#include "Ranking.h"
+ #include "Ranking.h"
 #include "DxLib.h"
 #include <cstring> 
-
 
 Ranking::Ranking()
 {
 	rankingCount = 0;
 }
 
-void Ranking::Add(const char* name, int score)
+void Ranking::Add(const TCHAR* name, int score)
 {
-	strcpy_s(ranking[rankingCount].name, name);
+	_tcscpy_s(ranking[rankingCount].name, name);
 	ranking[rankingCount].score = score;
 	rankingCount++;
 
