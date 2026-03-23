@@ -205,4 +205,10 @@ void ResultScene::Draw()
 	//–¼‘O‚Ì•\¦
 	DrawString(10, 10, TEXT("name:"), TEXT_COLOR);
 	DrawString(70, 10, playerName, TEXT_COLOR);
+
+	//“o˜^Š®—¹‚Ì•\¦
+	if (NameEntered)
+	{
+		DrawString(10, 30, TEXT("“o˜^Š®—¹I"), TEXT_COLOR);
+	}
 }
