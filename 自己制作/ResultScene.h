@@ -32,8 +32,7 @@ private:
 	Scoreboard scoreboard;
 
 	//ƒ‰ƒ“ƒLƒ“ƒO–¼‘OŠÇ—
-	Ranking ranking;
-
+	
     TCHAR playerName[16];
 	int nameLength;
 

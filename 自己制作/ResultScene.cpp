@@ -148,7 +148,7 @@ void ResultScene::Update()
 	// –¼‘OŒˆ’è
 	if (!NameEntered && keyNow[KEY_INPUT_RETURN] && !keyOld[KEY_INPUT_RETURN])
 	{
-		ranking.Add(playerName, finalScore);
+		GameManager::GetInstance().GetRanking().Add(playerName, finalScore);
 		NameEntered = true;
 	}
 
@@ -210,5 +210,14 @@ void ResultScene::Draw()
 	if (NameEntered)
 	{
 		DrawString(10, 30, TEXT("“o˜^Š®—¹I"), TEXT_COLOR);
+	}
+
+	SetFontSize(20);
+	Ranking& ranking = GameManager::GetInstance().GetRanking();
+	for (int i = 0; i < ranking.GetCount(); i++)
+	{
+		ScoreData data = ranking.GetData(i);
+
+		DrawFormatString(50,350 + i * 25,TEXT_COLOR,TEXT("%dˆÊ %s  %d"),i + 1,data.name,data.score);
 	}
 }

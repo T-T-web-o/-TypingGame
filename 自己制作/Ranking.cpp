@@ -1,6 +1,16 @@
- #include "Ranking.h"
+#include "Ranking.h"
 #include "DxLib.h"
 #include <cstring> 
+
+int Ranking::GetCount() const
+{
+	return rankingCount;
+}
+
+ScoreData Ranking::GetData(int index) const
+{
+	return ranking[index];
+}
 
 Ranking::Ranking()
 {

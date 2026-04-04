@@ -82,4 +82,9 @@ Difficulty GameManager::GetDifficulty() const
 	return selectedDifficulty;
 }
 
+Ranking& GameManager::GetRanking()
+{
+	return ranking[selectedDifficulty];
+}
+
 

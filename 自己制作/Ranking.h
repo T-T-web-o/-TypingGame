@@ -16,8 +16,14 @@ private:
 
 	int rankingCount;
 
+	
+	
+
 public:
 	Ranking();
+
+	int GetCount()const;
+	ScoreData GetData(int index)const;
 
 	void Add(const TCHAR* name,int score);
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Difficulty.h"
+#include "Ranking.h"
 
 //============================================================
 // GameManager クラス
@@ -22,6 +23,7 @@ private:
 	// 選択された難易度
 	Difficulty selectedDifficulty; 
 
+	Ranking ranking[3];
 
 	// コンストラクタ（シングルトンのため private）
 	GameManager();
@@ -38,6 +40,8 @@ public:
  
     // 現在の難易度取得
 	Difficulty GetDifficulty() const;
+
+	Ranking& GetRanking();
 
 	// 更新処理
 	void Update();
