@@ -41,12 +41,14 @@ private:
 	char keyNow[256];        // 現在フレームのキー情報
 	char keyOld[256];        // 前フレームのキー情報
 
+	bool useRanking;
+
 public:
 	//------------------------------------------------------------
 	// コンストラクタ
 	// ゲーム終了時のスコア・ミス数・最大コンボを受け取る
 	//------------------------------------------------------------
-	ResultScene(int score ,int miss, int maxCombo);
+	ResultScene(int score ,int miss, int maxCombo,bool useRanking);
 
 	// デストラクタ
 	~ResultScene();

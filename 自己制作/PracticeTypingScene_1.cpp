@@ -78,7 +78,7 @@ void PracticeTypingScene_1::Update()
     // Tabキーでリザルト画面へ
     if (CheckHitKey(KEY_INPUT_TAB))
     {
-        GameManager::GetInstance().ChangeScene(new ResultScene(score, miss,maxCombo));
+        GameManager::GetInstance().ChangeScene(new ResultScene(score, miss,maxCombo,false));
         return;
     }
 

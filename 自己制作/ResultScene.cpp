@@ -38,13 +38,14 @@ const int TEXT_COLOR = GetColor(230, 230, 230);  //白
 // ゲーム終了時のスコア・ミス数・最大コンボを受け取り
 // リザルト画面用のデータを初期化する
 //============================================================
-ResultScene::ResultScene(int score ,int miss ,int maxCombo)
+ResultScene::ResultScene(int score ,int miss ,int maxCombo,bool useRanking)
 {
 
 	// リザルトデータ保存
 	finalScore = score;    //最終スコア
 	finalMiss = miss;      //ミス回数
 	MaxCombo = maxCombo;   //最大コンボ数
+	this->useRanking = useRanking; //ランキング表示
 
 	//名前データ
 	playerName[0] = '\0';
@@ -143,7 +144,7 @@ void ResultScene::Update()
 	}
 
 	// 名前決定
-	if (!NameEntered && keyNow[KEY_INPUT_RETURN] && !keyOld[KEY_INPUT_RETURN])
+	if (useRanking && !NameEntered && keyNow[KEY_INPUT_RETURN] && !keyOld[KEY_INPUT_RETURN])
 	{
 		GameManager::GetInstance().GetRanking().Add(playerName, finalScore);
 		NameEntered = true;
@@ -196,29 +197,38 @@ void ResultScene::Draw()
 	// ランク表示
 	DrawFormatString(leftX, RANK_TEXT_Y, rankColor, TEXT("ランク: %s"), rank);
 
-	SetFontSize(40);
-	//ランキング表示
-	DrawFormatString(rightX, 30, TEXT_COLOR, TEXT("ランキング"));
-
-	SetFontSize(20);
-
-	Ranking& ranking = GameManager::GetInstance().GetRanking();
-	for (int i = 0; i < ranking.GetCount(); i++)
+	if (useRanking)
 	{
-		ScoreData data = ranking.GetData(i);
+		SetFontSize(40);
+		//ランキング表示
+		DrawFormatString(rightX, 30, TEXT_COLOR, TEXT("ランキング"));
 
-		DrawFormatString(rightX, 120 + i * 25, TEXT_COLOR, TEXT("%d位 %s  %d"), i + 1, data.name, data.score);
+		SetFontSize(20);
+
+		Ranking& ranking = GameManager::GetInstance().GetRanking();
+		for (int i = 0; i < ranking.GetCount(); i++)
+		{
+			ScoreData data = ranking.GetData(i);
+
+			DrawFormatString(rightX, 120 + i * 25, TEXT_COLOR, TEXT("%d位 %s  %d"), i + 1, data.name, data.score);
+		}
+
+		//名前の表示
+		SetFontSize(25);
+		DrawString(NAME_X, NAME_Y, TEXT("名前:"), TEXT_COLOR);
+		DrawString(NAME_X + 80, NAME_Y, playerName, TEXT_COLOR);
+
+		//登録完了の表示
+		if (NameEntered)
+		{
+			DrawString(NAME_X, NAME_Y + 30, TEXT("登録完了！"), TEXT_COLOR);
+		}
 	}
-
-	//名前の表示
-	SetFontSize(25);
-	DrawString(NAME_X, NAME_Y, TEXT("名前:"), TEXT_COLOR);
-	DrawString(NAME_X + 80, NAME_Y, playerName, TEXT_COLOR);
-
-	//登録完了の表示
-	if (NameEntered)
+	
+	SetFontSize(20);
+	if (!useRanking)
 	{
-		DrawString(NAME_X, NAME_Y + 30, TEXT("登録完了！"), TEXT_COLOR);
+		DrawString(270, 60, TEXT("※練習モードのためランキングなし"), TEXT_COLOR);
 	}
 
 	DrawString(screenW - 220, screenH - 60, TEXT("Spaceでタイトル"), TEXT_COLOR);

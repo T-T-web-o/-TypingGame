@@ -179,7 +179,7 @@ void WordTypingScene::Update()
 	if (IsTimeUp())
 	{
 		GameManager::GetInstance().ChangeScene(
-			new ResultScene(score, miss,maxCombo)
+			new ResultScene(score, miss,maxCombo,true)
 		);
 		return;
 	}
@@ -291,7 +291,7 @@ void WordTypingScene::NextWord()
 	if (wordIndex >= wordCount)
 	{
 		GameManager::GetInstance().ChangeScene(
-			new ResultScene(score, miss, maxCombo)
+			new ResultScene(score, miss, maxCombo,true)
 		);
 		return;
 	}

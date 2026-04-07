@@ -126,7 +126,7 @@ void PracticeTypingScene_2::Update()
 	//TabƒL[‚ÅŒ‹‰Ê‰æ–Ê‚Ö
 	if (CheckHitKey(KEY_INPUT_TAB))
 	{
-		GameManager::GetInstance().ChangeScene(new ResultScene(score, miss,maxCombo));
+		GameManager::GetInstance().ChangeScene(new ResultScene(score, miss,maxCombo,false));
 		return;
 	}
 

@@ -26,5 +26,6 @@ public:
 	ScoreData GetData(int index)const;
 
 	void Add(const TCHAR* name,int score);
+	void SaveRanking();
 };
 
