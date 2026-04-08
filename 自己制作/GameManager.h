@@ -23,7 +23,7 @@ private:
 	// 選択された難易度
 	Difficulty selectedDifficulty; 
 
-	Ranking ranking[3];
+	Ranking* rankings[3];
 
 	// コンストラクタ（シングルトンのため private）
 	GameManager();
@@ -42,6 +42,7 @@ public:
 	Difficulty GetDifficulty() const;
 
 	Ranking& GetRanking();
+
 
 	// 更新処理
 	void Update();

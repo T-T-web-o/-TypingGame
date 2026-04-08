@@ -16,11 +16,10 @@ private:
 
 	int rankingCount;
 
+	const char* fileName;
 	
-	
-
 public:
-	Ranking();
+	Ranking(const char* fileName);
 
 	int GetCount()const;
 	ScoreData GetData(int index)const;

@@ -13,12 +13,12 @@ ScoreData Ranking::GetData(int index) const
 	return ranking[index];
 }
 
-Ranking::Ranking()
+Ranking::Ranking(const char* fileName)
 {
-
+	this->fileName = fileName;
 	rankingCount = 0;
 
-	std::ifstream file("ranking.txt");
+	std::ifstream file(fileName);
 
 	ScoreData data;
 
@@ -68,7 +68,7 @@ void Ranking::Add(const TCHAR* name, int score)
 
 void Ranking::SaveRanking()
 {
-	std::ofstream file("ranking.txt");
+	std::ofstream file(fileName);
 
 	for (int i = 0; i < rankingCount; i++)
 	{
