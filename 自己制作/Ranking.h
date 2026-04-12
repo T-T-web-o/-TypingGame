@@ -16,7 +16,7 @@ private:
 
 	int rankingCount;
 
-	const char* fileName;
+	char fileName[64];
 	
 public:
 	Ranking(const char* fileName);

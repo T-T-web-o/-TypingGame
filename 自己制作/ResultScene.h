@@ -31,18 +31,9 @@ private:
 	// スコアボード描画管理
 	Scoreboard scoreboard;
 
-	//ランキング名前管理
-	
-    TCHAR playerName[16];
-	int nameLength;
-
-	bool NameEntered;
-
-	char keyNow[256];        // 現在フレームのキー情報
-	char keyOld[256];        // 前フレームのキー情報
-
 	bool useRanking;
 
+	bool isAdded;
 public:
 	//------------------------------------------------------------
 	// コンストラクタ

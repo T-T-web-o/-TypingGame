@@ -43,6 +43,10 @@ public:
 
 	Ranking& GetRanking();
 
+	TCHAR playerName[16];
+
+	void SetPlayerName(const TCHAR* name);
+	const TCHAR* GetPlayerName() const;
 
 	// XVˆ—
 	void Update();

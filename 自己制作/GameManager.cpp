@@ -91,4 +91,14 @@ Ranking& GameManager::GetRanking()
 	return *rankings[selectedDifficulty];
 }
 
+void GameManager::SetPlayerName(const TCHAR* name)
+{
+	_tcscpy_s(playerName, name);
+}
+
+const TCHAR* GameManager::GetPlayerName() const
+{
+	return playerName;
+}
+
 

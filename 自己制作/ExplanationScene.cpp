@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include "SoundManager.h"
 #include "SelectScene.h"
+#include "NameInputScene.h"
 #include "DxLib.h"
 
 //============================================================
@@ -119,7 +120,7 @@ void ExplanationScene::Update()
 		PlaySoundMem(SoundManager::titleSE, DX_PLAYTYPE_BACK);
 
 		// ゲーム選択シーンに切り替え
-		GameManager::GetInstance().ChangeScene(new SelectScene());
+		GameManager::GetInstance().ChangeScene(new NameInputScene());
 	}
 	// 前フレームの入力状態を保存
 	prevEnter = nowEnter;

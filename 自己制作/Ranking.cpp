@@ -15,7 +15,7 @@ ScoreData Ranking::GetData(int index) const
 
 Ranking::Ranking(const char* fileName)
 {
-	this->fileName = fileName;
+	strcpy_s(this->fileName, fileName);
 	rankingCount = 0;
 
 	std::ifstream file(fileName);
@@ -29,7 +29,6 @@ Ranking::Ranking(const char* fileName)
 	{
 		if (strlen(name) >= 16) continue; // 長すぎたら無視
 
-		ScoreData data;
 		mbstowcs_s(NULL, data.name, 16, name, _TRUNCATE);
 		data.score = score;
 

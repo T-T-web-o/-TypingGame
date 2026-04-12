@@ -47,14 +47,7 @@ ResultScene::ResultScene(int score ,int miss ,int maxCombo,bool useRanking)
 	MaxCombo = maxCombo;   //最大コンボ数
 	this->useRanking = useRanking; //ランキング表示
 
-	//名前データ
-	playerName[0] = '\0';
-	nameLength = 0;
-
-	NameEntered = false;
-
-	memset(keyNow, 0, sizeof(keyNow));
-	memset(keyOld, 0, sizeof(keyOld));
+	isAdded = false;
 
 	// 画面サイズ取得
 	GetDrawScreenSize(&screenW, &screenH);
@@ -108,7 +101,16 @@ ResultScene::~ResultScene()
 //============================================================
 void ResultScene::Update()
 {
-	GetHitKeyStateAll(keyNow);
+	//GetHitKeyStateAll(keyNow);
+
+	 // 1回だけランキング登録
+	if (!isAdded && useRanking)
+	{
+		const TCHAR* name = GameManager::GetInstance().GetPlayerName();
+		GameManager::GetInstance().GetRanking().Add(name, finalScore);
+
+		isAdded = true;
+	}
 
 	// スペースキーでタイトル画面へ
 	if (CheckHitKey(KEY_INPUT_SPACE))
@@ -116,41 +118,6 @@ void ResultScene::Update()
 		GameManager::GetInstance().ChangeScene(new TitleScene());
 	}
 
-	// 名前入力
-	if (!NameEntered)
-	{
-		for (int i = 0; i < 26; i++)
-		{
-			if (keyNow[keyTable[i]] && !keyOld[keyTable[i]])
-			{
-				if (nameLength < 15)
-				{
-					playerName[nameLength] = TEXT('a') + i;
-					nameLength++;
-					playerName[nameLength] = '\0';
-				}
-			}
-		}
-	}
-	
-	// 名前消去
-	if (keyNow[KEY_INPUT_BACK] && !keyOld[KEY_INPUT_BACK])
-	{
-		if (nameLength > 0)
-		{
-			nameLength--;
-			playerName[nameLength] = '\0';
-		}
-	}
-
-	// 名前決定
-	if (useRanking && !NameEntered && keyNow[KEY_INPUT_RETURN] && !keyOld[KEY_INPUT_RETURN])
-	{
-		GameManager::GetInstance().GetRanking().Add(playerName, finalScore);
-		NameEntered = true;
-	}
-
-	memcpy(keyOld, keyNow, sizeof(keyNow));
 }
 
 //============================================================
@@ -212,17 +179,6 @@ void ResultScene::Draw()
 
 			DrawFormatString(rightX, 120 + i * 25, TEXT_COLOR, TEXT("%d位 %s  %d"), i + 1, data.name, data.score);
 		}
-
-		//名前の表示
-		SetFontSize(25);
-		DrawString(NAME_X, NAME_Y, TEXT("名前:"), TEXT_COLOR);
-		DrawString(NAME_X + 80, NAME_Y, playerName, TEXT_COLOR);
-
-		//登録完了の表示
-		if (NameEntered)
-		{
-			DrawString(NAME_X, NAME_Y + 30, TEXT("登録完了！"), TEXT_COLOR);
-		}
 	}
 	
 	SetFontSize(20);
@@ -233,5 +189,4 @@ void ResultScene::Draw()
 
 	DrawString(screenW - 220, screenH - 60, TEXT("Spaceでタイトル"), TEXT_COLOR);
 	
-	//DrawLine(screenW / 2, 0, screenW / 2, screenH, TEXT_COLOR);
 }
