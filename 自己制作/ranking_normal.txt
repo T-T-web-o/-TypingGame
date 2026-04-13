@@ -1,4 +1,3 @@
-uuuu 30
-aiueo 30
-iii 30
-tt 30
+a 30
+i 30
+a 30

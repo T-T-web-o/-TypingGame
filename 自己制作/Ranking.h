@@ -10,7 +10,7 @@ class Ranking
 {
 private:
 
-	static const int MAX_RANKING = 10;
+	static const int MAX_RANKING = 7;
 
 	ScoreData ranking[MAX_RANKING];
 

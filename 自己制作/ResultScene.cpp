@@ -14,11 +14,11 @@
 // ===== レイアウト =====
 const int CENTER_X = 300;
 
-const int TITLE_TEXT_X = CENTER_X;   // タイトル文字のX座標
-const int TITLE_TEXT_Y = 30;         // タイトル文字のY座標
+const int TITLE_TEXT_X = CENTER_X;  // タイトル文字のX座標
+const int TITLE_TEXT_Y = 30;        // タイトル文字のY座標
 
-const int INFO_START_Y = 100;
-const int LINE_SPACE = 55;
+const int INFO_START_Y = 100;       // 
+const int LINE_SPACE = 55;          // 
 
 const int RANK_TEXT_Y = 320;
 
@@ -117,7 +117,6 @@ void ResultScene::Update()
 	{
 		GameManager::GetInstance().ChangeScene(new TitleScene());
 	}
-
 }
 
 //============================================================
@@ -164,29 +163,32 @@ void ResultScene::Draw()
 	// ランク表示
 	DrawFormatString(leftX, RANK_TEXT_Y, rankColor, TEXT("ランク: %s"), rank);
 
+	//ランキング表示
 	if (useRanking)
 	{
 		SetFontSize(40);
-		//ランキング表示
+		
 		DrawFormatString(rightX, 30, TEXT_COLOR, TEXT("ランキング"));
 
-		SetFontSize(20);
+		SetFontSize(30);
 
+		// 順位・名前・ポイント表示
 		Ranking& ranking = GameManager::GetInstance().GetRanking();
 		for (int i = 0; i < ranking.GetCount(); i++)
 		{
 			ScoreData data = ranking.GetData(i);
 
-			DrawFormatString(rightX, 120 + i * 25, TEXT_COLOR, TEXT("%d位 %s  %d"), i + 1, data.name, data.score);
+			DrawFormatString(rightX+10, 100 + i * 40, TEXT_COLOR, TEXT("%d位 %s  %d"), i + 1, data.name, data.score);
 		}
 	}
 	
+	// 練習モードの時はランキングを表示しない。
 	SetFontSize(20);
 	if (!useRanking)
 	{
 		DrawString(270, 60, TEXT("※練習モードのためランキングなし"), TEXT_COLOR);
 	}
 
+	// 操作案内
 	DrawString(screenW - 220, screenH - 60, TEXT("Spaceでタイトル"), TEXT_COLOR);
-	
 }

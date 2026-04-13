@@ -6,12 +6,13 @@
 
 NameInputScene::NameInputScene()
 {
-	//ç”»é¢ã‚µã‚¤ã‚ºå–å¾—
+	// ‰æ–ÊƒTƒCƒYæ“¾
 	GetDrawScreenSize(&screenW, &screenH);
 
-	//èƒŒæ™¯ç”»åƒèª­ã¿è¾¼ã¿
+	// ”wŒi‰æ‘œ“Ç‚İ‚İ
 	NameInputImage = LoadGraph(TEXT("Resource/blackboard.png"));
 
+	// –¼‘O‚Æ–¼‘O‚Ì’·‚³‚ğ‰Šú‰»
 	name[0] = '\0';
 	length = 0;
 
@@ -25,7 +26,7 @@ void NameInputScene::Update()
 {
 	GetHitKeyStateAll(keyNow);
 
-	// åå‰å…¥åŠ›
+	// –¼‘O“ü—Í
 	for (int i = 0; i < 26; i++)
 	{
 		if (keyNow[keyTable[i]] && !keyOld[keyTable[i]])
@@ -38,7 +39,7 @@ void NameInputScene::Update()
 			}
 		}
 	}
-	// åå‰æ¶ˆå»
+	// –¼‘OÁ‹
 	if (keyNow[KEY_INPUT_BACK] && !keyOld[KEY_INPUT_BACK])
 	{
 		if (length > 0)
@@ -48,7 +49,7 @@ void NameInputScene::Update()
 		}
 	}
 
-	// åå‰æ±ºå®š
+	// –¼‘OŒˆ’è
 	if ( keyNow[KEY_INPUT_RETURN] && !keyOld[KEY_INPUT_RETURN])
 	{
 		GameManager::GetInstance().SetPlayerName(name);
@@ -60,24 +61,26 @@ void NameInputScene::Update()
 
 void NameInputScene::Draw()
 {
-	//èƒŒæ™¯ç”»åƒã‚’ç”»é¢å…¨ä½“ã«è¡¨ç¤º
+	// ”wŒi‰æ‘œ‚ğ‰æ–Ê‘S‘Ì‚É•\¦
 	DrawExtendGraph(0, 0, screenW, screenH, NameInputImage, TRUE);
 
 	int color = GetColor(255, 255, 255);
 
 	SetFontSize(40);
-	DrawString(200, 100, TEXT("Enter Name"), color);
+	DrawString(110, 100,TEXT("–¼‘O‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢"), color);
 
 	SetFontSize(30);
-	DrawString(200, 200, TEXT("Name:"), color);
+	DrawString(200, 200, TEXT("–¼‘O:"), color);
 	DrawString(300, 200, name, color);
 
+	// “ü—ÍƒJ[ƒ\ƒ‹‚Ì•\¦
 	if ((GetNowCount() / 500) % 2 == 0)
 	{
 		DrawString(300 + length * 16, 200, TEXT("_"), color);
 	}
 
 	SetFontSize(20);
-	DrawString(200, 300, TEXT("Press Enter"), color);
-	DrawString(200, 330, TEXT("Backspace: Delete"), color);
+	// ‘€ìˆÄ“à
+	DrawString(200, 300, TEXT("Enter‚ÅŒˆ’è"), color);
+	DrawString(200, 330, TEXT("BackSpace‚ÅÁ‹"), color);
 }

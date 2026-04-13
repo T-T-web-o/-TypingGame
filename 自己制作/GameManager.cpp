@@ -25,6 +25,12 @@ GameManager::~GameManager()
 {
 	// 現在のシーンを解放
 	delete currentScene;
+
+	for (int i = 0; i < 3; i++)
+	{
+		delete rankings[i];
+		rankings[i] = nullptr;
+	}
 }
 
 //============================================================
@@ -59,6 +65,7 @@ void GameManager::Draw()
 //============================================================
 // シーン切り替え処理
 // 現在のシーンを削除して新しいシーンに変更する
+// GameManagerがSceneの所有権を持つ
 //============================================================
 void GameManager::ChangeScene(Scene* next)
 {
@@ -86,16 +93,25 @@ Difficulty GameManager::GetDifficulty() const
 	return selectedDifficulty;
 }
 
+//===========================================================
+// 現在設定されている難易度のランキングを取得
+//===========================================================
 Ranking& GameManager::GetRanking()
 {
 	return *rankings[selectedDifficulty];
 }
 
+//==========================================================
+// プレイヤー名を設定
+//==========================================================
 void GameManager::SetPlayerName(const TCHAR* name)
 {
 	_tcscpy_s(playerName, name);
 }
 
+//==========================================================
+// プレイヤー名を取得
+//==========================================================
 const TCHAR* GameManager::GetPlayerName() const
 {
 	return playerName;
