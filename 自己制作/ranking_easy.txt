@@ -1,7 +1,4 @@
-a 30
-name 30
-a 30
-owo 30
-ooo 30
-aaaaa 30
-ll 30
+oo 30 5
+owo 30 4
+a 30 4
+aa 17 1

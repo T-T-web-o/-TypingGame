@@ -16,6 +16,9 @@ NameInputScene::NameInputScene()
 	name[0] = '\0';
 	length = 0;
 
+	state = STATE_INPUT;
+	isDuplicate = false;
+
 	memset(keyNow, 0, sizeof(keyNow));
 	memset(keyOld, 0, sizeof(keyOld));
 
@@ -26,34 +29,66 @@ void NameInputScene::Update()
 {
 	GetHitKeyStateAll(keyNow);
 
-	// 名前入力
-	for (int i = 0; i < 26; i++)
+	if (state == STATE_INPUT)
 	{
-		if (keyNow[keyTable[i]] && !keyOld[keyTable[i]])
+		// 名前入力
+		for (int i = 0; i < 26; i++)
 		{
-			if (length < 15)
+			if (keyNow[keyTable[i]] && !keyOld[keyTable[i]])
 			{
-				name[length] = TEXT('a') + i;
-				length++;
+				if (length < 15)
+				{
+					name[length] = TEXT('a') + i;
+					length++;
+					name[length] = '\0';
+				}
+			}
+		}
+		// 名前消去
+		if (keyNow[KEY_INPUT_BACK] && !keyOld[KEY_INPUT_BACK])
+		{
+			if (length > 0)
+			{
+				length--;
 				name[length] = '\0';
 			}
 		}
-	}
-	// 名前消去
-	if (keyNow[KEY_INPUT_BACK] && !keyOld[KEY_INPUT_BACK])
-	{
-		if (length > 0)
+
+		// 名前決定
+		if (keyNow[KEY_INPUT_RETURN] && !keyOld[KEY_INPUT_RETURN])
 		{
-			length--;
-			name[length] = '\0';
+			Ranking& ranking = GameManager::GetInstance().GetRanking();
+
+			// 名前が重複しているか確認
+			if (ranking.IsNameExists(name))
+			{
+				// 重複したので確認
+				state = STATE_CONFIRM;
+				isDuplicate = true;
+			}
+			else
+			{
+				// 重複してないので次へ
+				GameManager::GetInstance().SetPlayerName(name);
+				GameManager::GetInstance().ChangeScene(new SelectScene());
+			}
 		}
 	}
-
-	// 名前決定
-	if ( keyNow[KEY_INPUT_RETURN] && !keyOld[KEY_INPUT_RETURN])
+	else if (state == STATE_CONFIRM)
 	{
-		GameManager::GetInstance().SetPlayerName(name);
-		GameManager::GetInstance().ChangeScene(new SelectScene());
+		// Y → そのまま進む
+		if (CheckHitKey(KEY_INPUT_Y))
+		{
+			GameManager::GetInstance().SetPlayerName(name);
+			GameManager::GetInstance().ChangeScene(new SelectScene());
+		}
+
+		// N → 名前入力に戻る
+		if (CheckHitKey(KEY_INPUT_N))
+		{
+			state = STATE_INPUT;
+			isDuplicate = false;
+		}
 	}
 
 	memcpy(keyOld, keyNow, sizeof(keyNow));
@@ -79,8 +114,17 @@ void NameInputScene::Draw()
 		DrawString(300 + length * 16, 200, TEXT("_"), color);
 	}
 
-	SetFontSize(20);
-	// 操作案内
-	DrawString(200, 300, TEXT("Enterで決定"), color);
-	DrawString(200, 330, TEXT("BackSpaceで消去"), color);
+	// ===== 重複時 =====
+	if (state == STATE_CONFIRM)
+	{
+		DrawString(170, 270, TEXT("同じ名前があります"), GetColor(255, 100, 100));
+		DrawString(170, 330, TEXT("上書きしますか？ Y / N"), GetColor(255, 255, 255));
+	}
+	else
+	{
+		SetFontSize(20);
+		DrawString(200, 300, TEXT("Enterで決定"), GetColor(255, 255, 255));
+		DrawString(200, 330, TEXT("BackSpaceで消去"), color);
+	}
+	
 }

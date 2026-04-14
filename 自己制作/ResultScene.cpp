@@ -101,13 +101,21 @@ ResultScene::~ResultScene()
 //============================================================
 void ResultScene::Update()
 {
-	//GetHitKeyStateAll(keyNow);
-
 	 // 1回だけランキング登録
 	if (!isAdded && useRanking)
 	{
 		const TCHAR* name = GameManager::GetInstance().GetPlayerName();
-		GameManager::GetInstance().GetRanking().Add(name, finalScore);
+
+		int rankValue = 0;
+
+		if (_tcscmp(rank, TEXT("SS")) == 0)rankValue = 5;
+		else if (_tcscmp(rank, TEXT("S")) == 0)rankValue = 4;
+		else if (_tcscmp(rank, TEXT("A")) == 0)rankValue = 3;
+		else if (_tcscmp(rank, TEXT("B")) == 0)rankValue = 2;
+		else if (_tcscmp(rank, TEXT("C")) == 0)rankValue = 1;
+		else rankValue = 0;
+
+		GameManager::GetInstance().GetRanking().Add(name, finalScore, rankValue);
 
 		isAdded = true;
 	}
@@ -172,13 +180,25 @@ void ResultScene::Draw()
 
 		SetFontSize(30);
 
-		// 順位・名前・ポイント表示
+		// 順位・名前・ポイント・ランク表示
 		Ranking& ranking = GameManager::GetInstance().GetRanking();
 		for (int i = 0; i < ranking.GetCount(); i++)
 		{
 			ScoreData data = ranking.GetData(i);
 
-			DrawFormatString(rightX+10, 100 + i * 40, TEXT_COLOR, TEXT("%d位 %s  %d"), i + 1, data.name, data.score);
+			const TCHAR* rankText;
+
+			switch (data.rank)
+			{
+			case 5: rankText = TEXT("SS"); break;
+			case 4: rankText = TEXT("S"); break;
+			case 3: rankText = TEXT("A"); break;
+			case 2: rankText = TEXT("B"); break;
+			case 1: rankText = TEXT("C"); break;
+			default: rankText = TEXT("D"); break;
+			}
+
+			DrawFormatString(rightX+10, 100 + i * 40, TEXT_COLOR, TEXT("%d位 %s  %d  %s"), i + 1, data.name, data.score, rankText);
 		}
 	}
 	

@@ -2,6 +2,12 @@
 #include "Scene.h"
 #include <tchar.h>
 
+enum InputState
+{
+	STATE_INPUT,
+	STATE_CONFIRM
+};
+
 class NameInputScene : public Scene
 {
 private:
@@ -14,6 +20,10 @@ private:
 
 	TCHAR name[16];
 	int length;
+
+	InputState state;
+
+	bool isDuplicate;
 
 	char keyNow[256];
 	char keyOld[256];
