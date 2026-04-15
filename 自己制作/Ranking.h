@@ -15,7 +15,7 @@ class Ranking
 private:
 
 	// 定数　保存できるランキングの最大数
-	static const int MAX_RANKING = 5;
+	static const int MAX_RANKING = 8;
 
 	// ランキングのデータ配列
 	ScoreData ranking[MAX_RANKING];

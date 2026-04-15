@@ -198,7 +198,7 @@ void ResultScene::Draw()
 			default: rankText = TEXT("D"); break;
 			}
 
-			DrawFormatString(rightX+10, 100 + i * 40, TEXT_COLOR, TEXT("%dˆÊ %s  %d  %s"), i + 1, data.name, data.score, rankText);
+			DrawFormatString(rightX+10, 100 + i * 40, TEXT_COLOR, TEXT("%dˆÊ %s %d %s"), i + 1, data.name, data.score, rankText);
 		}
 	}
 	

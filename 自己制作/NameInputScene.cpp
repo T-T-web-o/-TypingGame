@@ -4,6 +4,49 @@
 #include "KeyTable.h"
 #include "SelectScene.h"
 
+//============================================================
+// レイアウト定数
+//============================================================
+
+// タイトル位置
+const int TITLE_X = 110;
+const int TITLE_Y = 100;
+
+// 名前入力欄
+const int NAME_LABEL_X = 200;
+const int NAME_LABEL_Y = 200;
+
+const int NAME_INPUT_X = 300;
+const int NAME_INPUT_Y = 200;
+
+// カーソル
+const int CURSOR_X = 300;
+const int CURSOR_Y = 200;
+const int CURSOR_OFFSET_X = 16;
+
+// メッセージ位置
+const int MESSAGE_X1 = 170;
+const int MESSAGE_X2 = 200;
+
+const int MESSAGE_Y1 = 270;
+const int MESSAGE_Y2 = 300;
+const int MESSAGE_Y3 = 330;
+
+//============================================================
+// フォントサイズ
+//============================================================
+const int FONT_TITLE = 40;
+const int FONT_NORMAL = 30;
+const int FONT_SMALL = 20;
+
+//============================================================
+// 色
+//============================================================
+const int COLOR_WHITE = GetColor(230, 230, 230);
+const int COLOR_RED = GetColor(255, 100, 100); 
+
+const int MAX_NAME_LENGTH = 5;
+
 // コンストラクタ
 NameInputScene::NameInputScene()
 {
@@ -41,7 +84,7 @@ void NameInputScene::Update()
 		{
 			if (keyNow[keyTable[i]] && !keyOld[keyTable[i]])
 			{
-				if (length < 15)
+				if (length < MAX_NAME_LENGTH)
 				{
 					name[length] = TEXT('a') + i;
 					length++;
@@ -105,32 +148,38 @@ void NameInputScene::Draw()
 	// 背景画像を画面全体に表示
 	DrawExtendGraph(0, 0, screenW, screenH, NameInputImage, TRUE);
 
-	int color = GetColor(255, 255, 255);
+	SetFontSize(FONT_TITLE);
 
-	SetFontSize(40);
-	DrawString(110, 100,TEXT("名前を入力してください"), color);
+	DrawString(TITLE_X, TITLE_Y,TEXT("名前を入力してください"), COLOR_WHITE);
 
-	SetFontSize(30);
-	DrawString(200, 200, TEXT("名前:"), color);
-	DrawString(300, 200, name, color);
+	SetFontSize(FONT_NORMAL);
+
+	DrawString(NAME_LABEL_X, NAME_LABEL_Y, TEXT("名前:"), COLOR_WHITE);
+	DrawString(NAME_INPUT_X, NAME_INPUT_Y, name, COLOR_WHITE);
 
 	// 入力カーソルの表示
 	if ((GetNowCount() / 500) % 2 == 0)
 	{
-		DrawString(300 + length * 16, 200, TEXT("_"), color);
+		DrawString(CURSOR_X + length * CURSOR_OFFSET_X, CURSOR_Y, TEXT("_"), COLOR_WHITE);
 	}
 
 	// ===== 重複時 =====
 	if (state == STATE_CONFIRM)
 	{
-		DrawString(170, 270, TEXT("同じ名前があります"), GetColor(255, 100, 100));
-		DrawString(170, 330, TEXT("上書きしますか？ Y / N"), GetColor(255, 255, 255));
+		DrawString(MESSAGE_X1, MESSAGE_Y1, TEXT("同じ名前があります"), COLOR_RED);
+		DrawString(MESSAGE_X1, MESSAGE_Y3, TEXT("上書きしますか？ Y / N"), COLOR_WHITE);
 	}
 	else
 	{
-		SetFontSize(20);
-		DrawString(200, 300, TEXT("Enterで決定"), GetColor(255, 255, 255));
-		DrawString(200, 330, TEXT("BackSpaceで消去"), color);
+		SetFontSize(FONT_SMALL);
+
+		DrawString(MESSAGE_X2, MESSAGE_Y2, TEXT("Enterで決定"), COLOR_WHITE);
+		DrawString(MESSAGE_X2, MESSAGE_Y3, TEXT("BackSpaceで消去"), COLOR_WHITE);
 	}
-	
+
+	// 文字数制限
+	if (length >= MAX_NAME_LENGTH)
+	{
+		DrawString(MESSAGE_X2, 360, TEXT("これ以上入力できません"), COLOR_RED);
+	}
 }
