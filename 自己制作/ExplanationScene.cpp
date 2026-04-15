@@ -38,48 +38,56 @@ const int COLOR_BLUE = GetColor(80, 160, 220);     // 青
 const int COLOR_YELLOW = GetColor(240, 220, 120);  // 黄
 const int COLOR_GREEN = GetColor(170, 255, 170);   // 緑
 
+// 操作説明テキス
 const TCHAR* controlText[] =
 {
-	TEXT("[操作説明]"),
-	TEXT("Enter:ゲームスタート"),
-	TEXT("Space:選択"),
-	TEXT("Tab:ゲーム終了")
+	TEXT("[操作説明]"),             // タイトル
+	TEXT("Enter:ゲームスタート"),   // Enterで開始
+	TEXT("Space:選択"),             // Spaceで選択
+	TEXT("Tab:ゲーム終了")          // Tabで終了
 };
 
+// 操作説明の文字色
 const int controlColor[] =
 {
-	COLOR_BLUE,     // 青
-	COLOR_GREEN,    // 緑
-	COLOR_GREEN,    // 緑
-	COLOR_GREEN     // 緑
+	COLOR_BLUE,     // タイトルは青青
+	COLOR_GREEN,    // 以下は緑
+	COLOR_GREEN,    
+	COLOR_GREEN     
 };
 
+// 配列の要素数を自動で取得
 const int CONTROL_COUNT = sizeof(controlText) / sizeof(controlText[0]);
 
+// ゲームモード一覧
 const TCHAR* modeText[] =
 {
-	TEXT("[ゲームモード]"),
-	TEXT("・一文字タイピング練習"),
-	TEXT("・アルファベットタイピング練習"),
-	TEXT("・単語タイピング")
+	TEXT("[ゲームモード]"),                   // タイトル
+	TEXT("・一文字タイピング練習"),           // モード１
+	TEXT("・アルファベットタイピング練習"),   // モード２
+	TEXT("・単語タイピング")                  // モード３
 };
 
+// モード一覧の数
 const int MODE_COUNT = sizeof(modeText) / sizeof(modeText[0]);
 
+// モードタイトル
 const TCHAR* modeTitle[] =
 {
-	TEXT("・一文字タイピング練習"),
-	TEXT("・アルファベットタイピング練習"),
-	TEXT("・単語タイピング")
+	TEXT("・一文字タイピング練習"),           
+	TEXT("・アルファベットタイピング練習"),   
+	TEXT("・単語タイピング")                 
 };
 
+// モードタイトル数
 const int MODE_DESC_COUNT = sizeof(modeTitle) / sizeof(modeTitle[0]);
 
+// 各モードの説明
 const TCHAR* modeDesc[] =
 {
-	TEXT("ひらがなをローマ字で入力する基本練習モード"),
-	TEXT("A～Zをタイピングしてキーボード操作に慣れよう"),
-	TEXT("英単語を素早く入力してスコアとコンボを伸ばそう")
+	TEXT("ひらがなをローマ字で入力する基本練習モード"),     // モード１の説明
+	TEXT("A～Zをタイピングしてキーボード操作に慣れよう"),   // モード２の説明
+	TEXT("英単語を素早く入力してスコアとコンボを伸ばそう")  // モード３の説明
 };
 
 
@@ -93,6 +101,7 @@ ExplanationScene::ExplanationScene()
 
 	//背景画像(黒板)読み込み
 	ExplanationImage = LoadGraph(TEXT("Resource/blackboard.png"));
+
 }
 
 

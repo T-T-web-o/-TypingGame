@@ -6,9 +6,6 @@
 #include "Scoreboard.h"
 #include "ChalkEffect.h"
 
-// 単語の最大数
-static const int MAX_WORDS = 30;
-
 //============================================================
 // 単語データ構造体
 //============================================================
@@ -33,13 +30,16 @@ private:
 	WordData_1 currentWord;
 
 	//難易度ごとの単語リスト
-	WordData_1* wordList;     
+	const WordData_1* wordList;     
 
 	//単語の数を保存
 	int wordCount;         
 
 	// 何文字目まで入力したか
 	int charIndex;          
+
+	// 単語の最大数
+	static const int MAX_WORDS = 30;
 
 	// 単語の出現順をランダムに
 	int order[MAX_WORDS];   

@@ -36,7 +36,7 @@ public:
 	//XVˆ—
 	void Update() override;
 
-	//‰æ‘œˆ—
+	//•`‰æˆ—
 	void Draw() override;
 };
 

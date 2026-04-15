@@ -4,6 +4,7 @@
 #include "KeyTable.h"
 #include "SelectScene.h"
 
+// コンストラクタ
 NameInputScene::NameInputScene()
 {
 	// 画面サイズ取得
@@ -16,7 +17,10 @@ NameInputScene::NameInputScene()
 	name[0] = '\0';
 	length = 0;
 
+	// 入力状態を初期化
 	state = STATE_INPUT;
+
+	//重複フラグを初期化
 	isDuplicate = false;
 
 	memset(keyNow, 0, sizeof(keyNow));
@@ -25,6 +29,7 @@ NameInputScene::NameInputScene()
 	GetHitKeyStateAll(keyOld);
 }
 
+// 更新処理
 void NameInputScene::Update()
 {
 	GetHitKeyStateAll(keyNow);
@@ -94,6 +99,7 @@ void NameInputScene::Update()
 	memcpy(keyOld, keyNow, sizeof(keyNow));
 }
 
+// 描画処理
 void NameInputScene::Draw()
 {
 	// 背景画像を画面全体に表示
