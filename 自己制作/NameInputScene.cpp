@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "KeyTable.h"
 #include "SelectScene.h"
+#include "SoundManager.h"
 
 //============================================================
 // レイアウト定数
@@ -84,6 +85,9 @@ void NameInputScene::Update()
 		{
 			if (keyNow[keyTable[i]] && !keyOld[keyTable[i]])
 			{
+				// タイピング音
+				PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
+
 				if (length < MAX_NAME_LENGTH)
 				{
 					name[length] = TEXT('a') + i;
@@ -95,6 +99,9 @@ void NameInputScene::Update()
 		// 名前消去
 		if (keyNow[KEY_INPUT_BACK] && !keyOld[KEY_INPUT_BACK])
 		{
+			// タイピング音
+			PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
+
 			if (length > 0)
 			{
 				length--;
@@ -105,6 +112,9 @@ void NameInputScene::Update()
 		// 名前決定
 		if (keyNow[KEY_INPUT_RETURN] && !keyOld[KEY_INPUT_RETURN])
 		{
+			// タイピング音
+			PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
+
 			Ranking& ranking = GameManager::GetInstance().GetRanking();
 
 			// 名前が重複しているか確認
