@@ -11,24 +11,20 @@
 //============================================================
 
 
-// ===== レイアウト =====
+// リザルト (左側)
 const int CENTER_X = 300;
 
 const int TITLE_TEXT_X = CENTER_X;  // タイトル文字のX座標
 const int TITLE_TEXT_Y = 30;        // タイトル文字のY座標
 
-const int INFO_START_Y = 100;       // 
-const int LINE_SPACE = 55;          // 
+const int INFO_START_Y = 100;       // スコア情報のスタートY座標
+const int LINE_SPACE = 55;          // スコアごとのスペース
 
-const int RANK_TEXT_Y = 320;
+const int RANK_TEXT_Y = 320;        // ランクのY座標
 
 // ランキング（右側）
-const int RANKING_X = 650;
-const int RANKING_Y = 120;
-
-// 名前入力
-const int NAME_X = 200;
-const int NAME_Y = 380;
+const int RANKING_X = 650;      // ランキングのX座標
+const int RANKING_Y = 120;      // ランキングのY座標
 
 const int TEXT_COLOR = GetColor(230, 230, 230);  //白
 
