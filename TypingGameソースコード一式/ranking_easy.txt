@@ -1,2 +1,3 @@
 aaa 30 5
+ss 30 5
 aiueo 30 4
