@@ -4,6 +4,7 @@
 #include "KeyTable.h"
 #include "SelectScene.h"
 #include "SoundManager.h"
+#include "ExplanationScene.h"
 
 //============================================================
 // レイアウト定数
@@ -148,8 +149,23 @@ void NameInputScene::Update()
 			isDuplicate = false;
 		}
 	}
-
 	memcpy(keyOld, keyNow, sizeof(keyNow));
+
+
+	//左SHIFTキーの入力状態を取得
+	nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
+
+	//SHIFTキーが押されたら
+	if (nowShift && !prevShift)
+	{
+		//効果音再生
+		PlaySoundMem(SoundManager::titleSE, DX_PLAYTYPE_BACK);
+
+		// 説明シーンに切り替え
+		GameManager::GetInstance().ChangeScene(new ExplanationScene());
+	}
+	// 前フレームの入力状態を保存
+	prevShift = nowShift;
 }
 
 // 描画処理
@@ -192,4 +208,6 @@ void NameInputScene::Draw()
 	{
 		DrawString(MESSAGE_X2, 360, TEXT("これ以上入力できません"), COLOR_RED);
 	}
+
+	DrawString(20, 400, TEXT("左SHIFTで戻る"),COLOR_WHITE);
 }

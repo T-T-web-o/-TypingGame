@@ -4,6 +4,7 @@
 #include "PracticeTypingScene_1.h"
 #include "PracticeTypingScene_2.h"
 #include "WordTypingScene.h"
+#include "NameInputScene.h"
 
 //============================================================
 // 描画用定数
@@ -73,6 +74,7 @@ void SelectScene::Update()
     nowSpace = CheckHitKey(KEY_INPUT_SPACE);
     nowUp = CheckHitKey(KEY_INPUT_UP);
     nowDown = CheckHitKey(KEY_INPUT_DOWN);
+    nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
 
     // ====== ゲーム選択フェーズ ======
     if (state == SELECT_GAME)
@@ -204,10 +206,32 @@ void SelectScene::Update()
             }
         }
     }
+    //============================================================
+    // 一つ前に戻る処理
+    //============================================================
+    if (nowShift && !prevShift)
+    {
+        //選択SE再生
+        PlaySoundMem(SoundManager::selectSE, DX_PLAYTYPE_BACK);
+
+        // 難易度選択・モード選択　→　ゲーム選択に戻る
+        if (state == SELECT_DIFFICULTY || state==SELECT_MODE)
+        {
+            state = SELECT_GAME;
+            cursor = 0;
+        }
+
+        // ゲーム選択から名前入力に戻る
+        else if (state == SELECT_GAME)
+        {
+            GameManager::GetInstance().ChangeScene(new NameInputScene());
+        }
+    }
     // 前フレームの入力状態を保存
     prevSpace = nowSpace;
     prevUp = nowUp;
     prevDown = nowDown;
+    prevShift = nowShift;
 }
 
 //============================================================
@@ -275,4 +299,6 @@ void SelectScene::Draw()
     // 選択案内
     SetFontSize(18);
     DrawString(SELECT_TEXT_X, SELECT_TEXT_Y, TEXT("Spaceで選択"), COLOR_TEXT);
+
+    DrawString(20, SELECT_TEXT_Y, TEXT("左SHIFTで戻る"), COLOR_TEXT);
 }

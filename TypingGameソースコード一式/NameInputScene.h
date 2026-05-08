@@ -31,6 +31,9 @@ private:
 	// キー入力管理
 	char keyNow[256];
 	char keyOld[256];
+
+	bool prevShift;
+	bool nowShift;
 public:
 	NameInputScene();
 

@@ -50,6 +50,8 @@ private:
 	bool prevDown;
 	bool nowDown;
 
+	bool prevShift;
+	bool nowShift;
 public:
 	// コンストラクタ
 	SelectScene();

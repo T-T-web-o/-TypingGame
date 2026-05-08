@@ -153,6 +153,9 @@ void Ranking::SaveRanking()
 	}
 }
 
+//===========================================================
+// 名前の重複をチェック
+//===========================================================
 bool Ranking::IsNameExists(const TCHAR* name)
 {
 	for (int i = 0; i < rankingCount; i++)

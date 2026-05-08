@@ -25,6 +25,7 @@ private:
 	bool prevEnter;
 	bool nowEnter;
 
+
 public:
 
 	//コンストラクタ
