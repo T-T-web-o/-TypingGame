@@ -38,7 +38,7 @@ void CountDown::Update()
 		if (CheckHitKey(KEY_INPUT_RETURN))
 		{
 			//効果音再生
-			PlaySoundMem(SoundManager::titleSE, DX_PLAYTYPE_BACK);
+			PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
 
 			//カウントダウン状態へ
 			state = COUNTDOWN;

@@ -5,6 +5,7 @@
 #include "TitleScene.h"
 #include "KeyTable.h"
 #include "Ranking.h"
+#include "SoundManager.h"
 
 //============================================================
 // 描画用定数
@@ -119,6 +120,10 @@ void ResultScene::Update()
 	// スペースキーでタイトル画面へ
 	if (CheckHitKey(KEY_INPUT_SPACE))
 	{
+		// 効果音再生
+		PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
+
+		// タイトルシーンへ切り替え
 		GameManager::GetInstance().ChangeScene(new TitleScene());
 	}
 }

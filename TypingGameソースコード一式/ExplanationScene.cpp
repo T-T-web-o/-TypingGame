@@ -126,7 +126,7 @@ void ExplanationScene::Update()
 	if (nowEnter && !prevEnter)
 	{
 		//効果音再生
-		PlaySoundMem(SoundManager::titleSE, DX_PLAYTYPE_BACK);
+		PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
 
 		// ゲーム選択シーンに切り替え
 		GameManager::GetInstance().ChangeScene(new NameInputScene());
