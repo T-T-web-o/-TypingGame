@@ -286,7 +286,6 @@ void WordTypingScene::NextWord()
 {
 	wordIndex++;
 
-
 	// 全単語終了 → リザルト
 	if (wordIndex >= wordCount)
 	{
