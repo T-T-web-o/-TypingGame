@@ -24,6 +24,7 @@
     <ProjectGuid>{e6dfc05e-048c-431e-94d6-7c63660875c9}</ProjectGuid>
     <RootNamespace>自己制作</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>TypingGame</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
