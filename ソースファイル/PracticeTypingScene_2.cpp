@@ -17,9 +17,9 @@ const int COUNTDOWN_Y = 200;    // カウントダウン表示のY座標
 const int TYPING_WORD_X = 260;  // タイピング文字のX座標
 const int TYPING_WORD_Y = 170;  // タイピング文字のY座標
 
-const int ROMAJI_X = 270;
-const int ROMAJI_Y = 210;
-const int ROMAJI_SPACE = 15;
+const int ROMAJI_X = 270;       // ローマ字文字のX座標
+const int ROMAJI_Y = 210;       // ローマ字文字のY座標
+const int ROMAJI_SPACE = 15;    // 文字と文字の間隔
 
 const int UI_X = 10;         // UIのX座標
 const int UI_START_Y = 20;   // UIの開始Y座標
