@@ -54,7 +54,7 @@ SelectScene::SelectScene()
     GetDrawScreenSize(&screenW, &screenH);
 
     //îwåiâÊëúì«Ç›çûÇ›
-    selectImage = LoadGraph(TEXT("Resource/blackboard.png"));
+    selectImage = LoadGraph(TEXT("Resource/Model/blackboard.png"));
 }
 
 //============================================================

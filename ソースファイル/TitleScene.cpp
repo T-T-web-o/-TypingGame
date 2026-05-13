@@ -25,7 +25,7 @@ TitleScene::TitleScene()
 	GetDrawScreenSize(&screenW, &screenH);
 
 	//ƒ^ƒCƒgƒ‹‰æ‘œ“Ç‚İ‚İ
-	titleImage = LoadGraph(TEXT("Resource/Title.png"));
+	titleImage = LoadGraph(TEXT("Resource/Model/Title.png"));
 }
 
 //============================================================

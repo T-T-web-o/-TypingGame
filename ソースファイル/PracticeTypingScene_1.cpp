@@ -39,7 +39,7 @@ PracticeTypingScene_1::PracticeTypingScene_1()
     GetDrawScreenSize(&screenW, &screenH);
 
     //背景画像読み込み
-    gameImage = LoadGraph(TEXT("Resource/blackboard.png"));
+    gameImage = LoadGraph(TEXT("Resource/Model/blackboard.png"));
 
     // 最初のターゲット文字をランダムで決定
 	target = 'A' + rand() % 26;

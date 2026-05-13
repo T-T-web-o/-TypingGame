@@ -50,7 +50,7 @@ ResultScene::ResultScene(int score ,int miss ,int maxCombo,bool useRanking)
 	GetDrawScreenSize(&screenW, &screenH);
 
 	// 背景画像読み込み
-	resultImage = LoadGraph(TEXT("Resource/blackboard.png"));
+	resultImage = LoadGraph(TEXT("Resource/Model/blackboard.png"));
 
 	// スコアによるランク判定
 	if (miss == 0 && score == 30)

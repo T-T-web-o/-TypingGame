@@ -14,9 +14,9 @@ int SoundManager::selectSE;
 //============================================================
 void SoundManager::Load()
 {
-	typeSE = LoadSoundMem(TEXT("Resource/type.mp3"));
-	titleSE = LoadSoundMem(TEXT("Resource/Title.mp3"));
-	selectSE = LoadSoundMem(TEXT("Resource/Select.mp3"));
+	typeSE = LoadSoundMem(TEXT("Resource/bgm/type.mp3"));
+	titleSE = LoadSoundMem(TEXT("Resource/bgm/Title.mp3"));
+	selectSE = LoadSoundMem(TEXT("Resource/bgm/Select.mp3"));
 }
 
 //============================================================

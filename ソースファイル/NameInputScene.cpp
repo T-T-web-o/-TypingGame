@@ -56,7 +56,7 @@ NameInputScene::NameInputScene()
 	GetDrawScreenSize(&screenW, &screenH);
 
 	// ”wŒi‰æ‘œ“Ç‚İ‚İ
-	NameInputImage = LoadGraph(TEXT("Resource/blackboard.png"));
+	NameInputImage = LoadGraph(TEXT("Resource/Model/blackboard.png"));
 
 	// –¼‘O‚Æ–¼‘O‚Ì’·‚³‚ğ‰Šú‰»
 	name[0] = '\0';

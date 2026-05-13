@@ -100,7 +100,7 @@ ExplanationScene::ExplanationScene()
 	GetDrawScreenSize(&screenW, &screenH);
 
 	//”wŒi‰æ‘œ(•”Â)“Ç‚İ‚İ
-	ExplanationImage = LoadGraph(TEXT("Resource/blackboard.png"));
+	ExplanationImage = LoadGraph(TEXT("Resource/Model/blackboard.png"));
 
 }
 

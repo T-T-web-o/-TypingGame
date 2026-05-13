@@ -80,7 +80,7 @@ PracticeTypingScene_2::PracticeTypingScene_2()
    GetDrawScreenSize(&screenW, &screenH);
 
    //”wŒi‰æ‘œ“Ç‚İ‚İ
-   gameImage = LoadGraph(TEXT("Resource/blackboard.png"));
+   gameImage = LoadGraph(TEXT("Resource/Model/blackboard.png"));
 
    //Å‰‚Ì’PŒêİ’è
    kanaIndex = 0;

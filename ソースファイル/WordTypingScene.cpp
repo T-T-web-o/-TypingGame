@@ -89,7 +89,7 @@ WordTypingScene::WordTypingScene()
 	GetDrawScreenSize(&screenW, &screenH);
 
 	//”wŒi‰æ‘œ“Ç‚İ‚İ
-	otherGameImage = LoadGraph(TEXT("Resource/blackboard.png"));
+	otherGameImage = LoadGraph(TEXT("Resource/Model/blackboard.png"));
 
 	//‘I‘ğ‚³‚ê‚½“ïˆÕ“x‚Ìæ“¾
 	Difficulty d = GameManager::GetInstance().GetDifficulty();
