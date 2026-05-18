@@ -47,37 +47,37 @@ const int COLOR_MISS = GetColor(255, 0, 0);       // ƒ~ƒX—piŒxEƒGƒ‰[j
 const int COLOR_HARD = GetColor(255, 100, 100);   // “ïˆÕ“x—pi­‚µ_‚ç‚©‚¢Ôj
 const int COLOR_EASY = GetColor(100, 200, 255);   //Â
 const int COLOR_NORMAL = GetColor(255, 255, 100); //‰©
+
 //“ïˆÕ“x[‚©‚ñ‚½‚ñ]‚Ì’PŒêƒŠƒXƒg
 WordData_1 easyWords[] = {
-	{ TEXT("Œ¢"), TEXT("inu") },{ TEXT("”L"), TEXT("neko") },{ TEXT("R"), TEXT("yama") },{ TEXT("ŠC"), TEXT("umi") },{ TEXT("‹ó"), TEXT("sora") },
-	{ TEXT("ì"), TEXT("kawa") },{ TEXT("X"), TEXT("mori") },{ TEXT("‰Ô"), TEXT("hana") },{ TEXT("‰J"), TEXT("ame") },{ TEXT("á"), TEXT("yuki") },
-	{ TEXT("Œ"), TEXT("tsuki") },{ TEXT("¯"), TEXT("hoshi") },{ TEXT("Î"), TEXT("ishi") },{ TEXT("’¹"), TEXT("tori") },{ TEXT("‰¹"), TEXT("oto") },
-	{ TEXT("…"), TEXT("ito") },{ TEXT("ŠL"), TEXT("kai") },{ TEXT("À"), TEXT("mi") },{ TEXT("‰Î"), TEXT("hi") },{ TEXT("–Ø"), TEXT("ki") },
-	{ TEXT("‘"), TEXT("kusa") },{ TEXT("’|"), TEXT("take") },{ TEXT("“~"), TEXT("fuyu") },{ TEXT("Ô"), TEXT("aka") },{ TEXT("Â"), TEXT("ao") },
-	{ TEXT("”’"), TEXT("shiro") },{ TEXT("•"), TEXT("kuro") },{ TEXT("t"), TEXT("haru") },{ TEXT("‰Ä"), TEXT("natsu") },{ TEXT("H"), TEXT("aki") }
+	{ TEXT("Œ¢"), TEXT("inu")}, {TEXT("”L"), TEXT("neko")}, {TEXT("R"), TEXT("yama")}, { TEXT("ŠC"), TEXT("umi")}, { TEXT("‹ó"), TEXT("sora")},
+	{ TEXT("ì"), TEXT("kawa")}, { TEXT("X"), TEXT("mori")}, { TEXT("‰Ô"), TEXT("hana")}, { TEXT("‰J"), TEXT("ame")}, { TEXT("á"), TEXT("yuki")},
+	{ TEXT("Œ"), TEXT("tsuki")}, {TEXT("¯"), TEXT("hoshi")}, {TEXT("Î"), TEXT("ishi")}, {TEXT("’¹"), TEXT("tori")}, {TEXT("‰¹"), TEXT("oto")},
+	{ TEXT("…"), TEXT("ito")}, { TEXT("ŠL"), TEXT("kai")}, { TEXT("À"), TEXT("mi")}, { TEXT("‰Î"), TEXT("hi")}, { TEXT("–Ø"), TEXT("ki")},
+	{ TEXT("‘"), TEXT("kusa")}, { TEXT("’|"), TEXT("take")}, { TEXT("“~"), TEXT("fuyu")}, {TEXT("Ô"), TEXT("aka")}, {TEXT("Â"), TEXT("ao")},
+	{ TEXT("”’"), TEXT("shiro")}, {TEXT("•"),TEXT("kuro")}, {TEXT("t"), TEXT("haru")}, {TEXT("‰Ä"),TEXT("natsu")}, {TEXT("H"), TEXT("aki")}
 };
 
 //“ïˆÕ“x[‚Ó‚Â‚¤]‚Ì’PŒêƒŠƒXƒg
 WordData_1 normalWords[] = {
-	{ TEXT("—ÑŒç"), TEXT("ringo") },{ TEXT("“dÔ"), TEXT("densha") },{ TEXT("Ÿ—˜"), TEXT("shouri") },{ TEXT("¸”s"), TEXT("shippai") },{ TEXT("–¢—ˆ"), TEXT("mirai") },
-	{ TEXT("Šó–]"), TEXT("kibou") },{ TEXT("¢ŠE"), TEXT("sekai") },{ TEXT("•½˜a"), TEXT("heiwa") },{ TEXT("‰¹Šy"), TEXT("ongaku") },{ TEXT("‰f‰æ"), TEXT("eiga") },
-	{ TEXT("—·s"), TEXT("ryokou") },{ TEXT("—E‹C"), TEXT("yuuki") },{ TEXT("—Í"), TEXT("chikara") },{ TEXT("Ê^"), TEXT("shashin") },{ TEXT("è†"), TEXT("tegami") },
-	{ TEXT("•×‹­"), TEXT("benkyou") },{ TEXT("–ñ‘©"), TEXT("yakusoku") },{ TEXT("Š´Ó"), TEXT("kansha") },{ TEXT("ˆ¤î"), TEXT("aijou") },{ TEXT("d–"), TEXT("shigoto") },
-	{ TEXT("Œ’N"), TEXT("kenkou") },{ TEXT("–ì‹…"), TEXT("yakyuu") },{ TEXT("‡"), TEXT("shiai") },{ TEXT("ŠwZ"), TEXT("gakkou") },{ TEXT("æ¶"), TEXT("sensei") },
-	{ TEXT("‰Æ‘°"), TEXT("kazoku") },{ TEXT("—F’B"), TEXT("tomodachi") },{ TEXT("”ƒ•¨"), TEXT("kaimono") },{ TEXT("—¿—"), TEXT("ryouri") },{ TEXT("ŠÔ"), TEXT("jikan") }
+	{ TEXT("—ÑŒç"), TEXT("ringo")},{ TEXT("“dÔ"), TEXT("densha")}, {TEXT("Ÿ—˜"), TEXT("shouri")}, {TEXT("¸”s"), TEXT("shippai")}, {TEXT("–¢—ˆ"), TEXT("mirai")},
+	{ TEXT("Šó–]"), TEXT("kibou")},{ TEXT("¢ŠE"), TEXT("sekai")}, { TEXT("•½˜a"), TEXT("heiwa")}, { TEXT("‰¹Šy"), TEXT("ongaku")}, { TEXT("‰f‰æ"), TEXT("eiga")},
+	{ TEXT("—·s"), TEXT("ryokou")},{ TEXT("—E‹C"), TEXT("yuuki")},{ TEXT("—Í"), TEXT("chikara")},{TEXT("Ê^"), TEXT("shashin")},{TEXT("è†"), TEXT("tegami")},
+	{ TEXT("•×‹­"), TEXT("benkyou")},{ TEXT("–ñ‘©"), TEXT("yakusoku")},{ TEXT("Š´Ó"), TEXT("kansha")},{TEXT("ˆ¤î"), TEXT("aijou")},{TEXT("d–"), TEXT("shigoto")},
+	{ TEXT("Œ’N"), TEXT("kenkou")},{ TEXT("–ì‹…"), TEXT("yakyuu")}, { TEXT("‡"), TEXT("shiai")}, {TEXT("ŠwZ"), TEXT("gakkou")}, {TEXT("æ¶"), TEXT("sensei")},
+	{ TEXT("‰Æ‘°"), TEXT("kazoku")}, { TEXT("—F’B"), TEXT("tomodachi")}, {TEXT("”ƒ•¨"), TEXT("kaimono")}, {TEXT("—¿—"), TEXT("ryouri")}, {TEXT("ŠÔ"), TEXT("jikan")}
 };
-
 
 //“ïˆÕ“x[‚Ş‚¸‚©‚µ‚¢]‚Ì’PŒêƒŠƒXƒg
 WordData_1 hardWords[] = {
-	{ TEXT("î•ñ‹Zp"), TEXT("jouhougijutsu") },{TEXT("‘ÛĞ‰ï"), TEXT("kokusaishakai") },{ TEXT("ŠÂ‹«–â‘è"), TEXT("kankyoumondai") },{ TEXT("ŒoÏ¬’·"), TEXT("keizaiseichou") },
-	{ TEXT("‰ÈŠw‹Zp"), TEXT("kagakugijutsu") },{ TEXT("‹ZpŠvV"), TEXT("gijutsukakushin") },{ TEXT("î•ñĞ‰ï"), TEXT("jouhoushakai") },{ TEXT("Y‹ÆŠv–½"), TEXT("sangyoukakumei") },
-	{ TEXT("Œo‰cí—ª"), TEXT("keieisenryaku") },{ TEXT("Šé‹ÆŠˆ“®"), TEXT("kigyoukatsudou") },{ TEXT("Œ¤‹†ŠJ”­"), TEXT("kenkyuukaihatsu") },{ TEXT("‘ÛŠÖŒW"), TEXT("kokusaikankei") },
-	{ TEXT("î•ñ’ÊM"), TEXT("jouhoutsuushin") },{ TEXT("ŠÂ‹«•ÛŒì"), TEXT("kankyouhogo") },{ TEXT("Ğ‰ï–â‘è"), TEXT("shakaimondai") },{ TEXT("‹³ˆç§“x"), TEXT("kyouikuseido") },
-	{ TEXT("‘ÛŒğ—¬"), TEXT("kokusaikouryuu") },{ TEXT("ŒoÏ­ô"), TEXT("keizaiseisaku") },{ TEXT("“ssŠJ”­"), TEXT("toshikaihatsu") },{ TEXT("î•ñ•ªÍ"), TEXT("jouhoubunseki") },
-	{ TEXT("lH’m”\"), TEXT("jinkouchinou") },{ TEXT("‹@ŠBŠwK"), TEXT("kikaigakushuu") },{ TEXT("[‘wŠwK"), TEXT("shinsougakushuu") },{ TEXT("“dqî•ñ"), TEXT("denshijouhou") },
-	{ TEXT("î•ñˆ—"), TEXT("jouhoushori") },{ TEXT("ŒvZ‰ÈŠw"), TEXT("keisankagaku") },{ TEXT("î•ñŠÇ—"), TEXT("jouhoukanri") },{ TEXT("‘Û‹¦—Í"), TEXT("kokusaikyouryoku") },
-	{ TEXT("Ğ‰ï”­“W"), TEXT("shakaihatten") },{ TEXT("Y‹Æ”­“W"), TEXT("sangyouhatten") }
+	{TEXT("î•ñ‹Zp"), TEXT("jouhougijutsu")}, { TEXT("‘ÛĞ‰ï"), TEXT("kokusaishakai")}, { TEXT("ŠÂ‹«–â‘è"), TEXT("kankyoumondai")}, { TEXT("ŒoÏ¬’·"), TEXT("keizaiseichou")},
+    {TEXT("‰ÈŠw‹Zp"), TEXT("kagakugijutsu")},{TEXT("‹ZpŠvV"), TEXT("gijutsukakushin")},{TEXT("î•ñĞ‰ï"), TEXT("jouhoushakai")},{TEXT("Y‹ÆŠv–½"), TEXT("sangyoukakumei")},
+	{TEXT("Œo‰cí—ª"), TEXT("keieisenryaku")},{ TEXT("Šé‹ÆŠˆ“®"), TEXT("kigyoukatsudou")},{TEXT("Œ¤‹†ŠJ”­"), TEXT("kenkyuukaihatsu")},{TEXT("‘ÛŠÖŒW"), TEXT("kokusaikankei")},
+	{TEXT("î•ñ’ÊM"), TEXT("jouhoutsuushin")},{TEXT("ŠÂ‹«•ÛŒì"), TEXT("kankyouhogo")},{TEXT("Ğ‰ï–â‘è"), TEXT("shakaimondai")},{TEXT("‹³ˆç§“x"), TEXT("kyouikuseido")},
+	{TEXT("‘ÛŒğ—¬"), TEXT("kokusaikouryuu")},{ TEXT("ŒoÏ­ô"), TEXT("keizaiseisaku")},{ TEXT("“ssŠJ”­"), TEXT("toshikaihatsu")},{TEXT("î•ñ•ªÍ"), TEXT("jouhoubunseki")},
+	{TEXT("lH’m”\"), TEXT("jinkouchinou")},{TEXT("‹@ŠBŠwK"), TEXT("kikaigakushuu")},{TEXT("[‘wŠwK"), TEXT("shinsougakushuu")},{TEXT("“dqî•ñ"), TEXT("denshijouhou")},
+	{TEXT("î•ñˆ—"), TEXT("jouhoushori")},{TEXT("ŒvZ‰ÈŠw"), TEXT("keisankagaku")},{TEXT("î•ñŠÇ—"), TEXT("jouhoukanri")},{TEXT("‘Û‹¦—Í"), TEXT("kokusaikyouryoku")},
+	{TEXT("Ğ‰ï”­“W"), TEXT("shakaihatten")},{TEXT("Y‹Æ”­“W"),TEXT("sangyouhatten")}
 };
 
 //============================================================

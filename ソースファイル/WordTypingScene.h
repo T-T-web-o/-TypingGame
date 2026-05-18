@@ -11,7 +11,7 @@
 //============================================================
 struct WordData_1
 {
-	const TCHAR* display; // 表示用（日本語）
+	const TCHAR* display;    // 表示用（日本語）
 	const TCHAR* input;   // 判定用（ローマ字）
 };
 
@@ -36,7 +36,7 @@ private:
 	int wordCount;         
 
 	// 何文字目まで入力したか
-	int charIndex;          
+	int charIndex;      
 
 	// 単語の最大数
 	static const int MAX_WORDS = 30;
