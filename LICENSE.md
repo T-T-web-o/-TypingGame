@@ -1,0 +1,1 @@
+ libpng Copyright (C) 2004, 2006-2012 Glenn Randers-Pehrson.
