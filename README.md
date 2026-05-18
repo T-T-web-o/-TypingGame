@@ -47,4 +47,4 @@
 
 ## Gameplay Video
 プレイ動画URL
-
+https://youtu.be/35VVaOMU4b8
