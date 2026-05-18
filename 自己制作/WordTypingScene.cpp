@@ -47,6 +47,7 @@ const int COLOR_MISS = GetColor(255, 0, 0);       // ミス用（警告・エラー）
 const int COLOR_HARD = GetColor(255, 100, 100);   // 難易度用（少し柔らかい赤）
 const int COLOR_EASY = GetColor(100, 200, 255);   //青
 const int COLOR_NORMAL = GetColor(255, 255, 100); //黄
+
 //難易度[かんたん]の単語リスト
 WordData_1 easyWords[] = {
 	{ TEXT("犬"), TEXT("inu") },{ TEXT("猫"), TEXT("neko") },{ TEXT("山"), TEXT("yama") },{ TEXT("海"), TEXT("umi") },{ TEXT("空"), TEXT("sora") },
