@@ -71,7 +71,7 @@ WordData_1 normalWords[] = {
 //“ïˆÕ“x[‚Ş‚¸‚©‚µ‚¢]‚Ì’PŒêƒŠƒXƒg
 WordData_1 hardWords[] = {
 	{TEXT("î•ñ‹Zp"), TEXT("jouhougijutsu")}, { TEXT("‘ÛĞ‰ï"), TEXT("kokusaishakai")}, { TEXT("ŠÂ‹«–â‘è"), TEXT("kankyoumondai")}, { TEXT("ŒoÏ¬’·"), TEXT("keizaiseichou")},
-    {TEXT("‰ÈŠw‹Zp"), TEXT("kagakugijutsu")},{TEXT("‹ZpŠvV"), TEXT("gijutsukakushin")},{TEXT("î•ñĞ‰ï"), TEXT("jouhoushakai")},{TEXT("Y‹ÆŠv–½"), TEXT("sangyoukakumei")},
+	{TEXT("‰ÈŠw‹Zp"), TEXT("kagakugijutsu")},{TEXT("‹ZpŠvV"), TEXT("gijutsukakushin")},{TEXT("î•ñĞ‰ï"), TEXT("jouhoushakai")},{TEXT("Y‹ÆŠv–½"), TEXT("sangyoukakumei")},
 	{TEXT("Œo‰cí—ª"), TEXT("keieisenryaku")},{ TEXT("Šé‹ÆŠˆ“®"), TEXT("kigyoukatsudou")},{TEXT("Œ¤‹†ŠJ”­"), TEXT("kenkyuukaihatsu")},{TEXT("‘ÛŠÖŒW"), TEXT("kokusaikankei")},
 	{TEXT("î•ñ’ÊM"), TEXT("jouhoutsuushin")},{TEXT("ŠÂ‹«•ÛŒì"), TEXT("kankyouhogo")},{TEXT("Ğ‰ï–â‘è"), TEXT("shakaimondai")},{TEXT("‹³ˆç§“x"), TEXT("kyouikuseido")},
 	{TEXT("‘ÛŒğ—¬"), TEXT("kokusaikouryuu")},{ TEXT("ŒoÏ­ô"), TEXT("keizaiseisaku")},{ TEXT("“ssŠJ”­"), TEXT("toshikaihatsu")},{TEXT("î•ñ•ªÍ"), TEXT("jouhoubunseki")},
