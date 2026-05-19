@@ -34,6 +34,10 @@ private:
 	bool useRanking;
 
 	bool isAdded;
+
+	bool prevShift;
+	bool nowShift;
+
 public:
 	//------------------------------------------------------------
 	// コンストラクタ

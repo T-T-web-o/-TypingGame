@@ -6,6 +6,7 @@
 #include "KeyTable.h"
 #include "Ranking.h"
 #include "SoundManager.h"
+#include "SelectScene.h"
 
 //============================================================
 // 描画用定数
@@ -24,8 +25,15 @@ const int LINE_SPACE = 55;          // スコアごとのスペース
 const int RANK_TEXT_Y = 320;        // ランクのY座標
 
 // ランキング（右側）
-const int RANKING_X = 650;      // ランキングのX座標
-const int RANKING_Y = 120;      // ランキングのY座標
+const int RANKING_X = 650;          // ランキングのX座標
+const int RANKING_Y = 120;          // ランキングのY座標
+
+// 操作案内
+const int PRACTICE_TEXT_X = 270;    // 練習モード用文字のX座標 
+const int PRACTICE_TEXT_Y = 60;     // 練習モード用文字のY座標
+const int GUIDE_TEXT_X = 450;       // 操作案内文字のX座標
+const int GUIDE_TEXT_Y = 430;       // 操作案内文字のY座標
+const int SELECT_TEXT_X = 20;       // ゲーム選択に戻るのX座標
 
 const int TEXT_COLOR = GetColor(230, 230, 230);  //白
 
@@ -126,6 +134,16 @@ void ResultScene::Update()
 		// タイトルシーンへ切り替え
 		GameManager::GetInstance().ChangeScene(new TitleScene());
 	}
+
+	if (CheckHitKey(KEY_INPUT_LSHIFT))
+	{
+		// 効果音再生
+		PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
+
+		// セレクトシーンへ切り替え
+		GameManager::GetInstance().ChangeScene(new SelectScene());
+	}
+
 }
 
 //============================================================
@@ -207,9 +225,11 @@ void ResultScene::Draw()
 	SetFontSize(20);
 	if (!useRanking)
 	{
-		DrawString(270, 60, TEXT("※練習モードのためランキングなし"), TEXT_COLOR);
+		DrawString(PRACTICE_TEXT_X, PRACTICE_TEXT_Y, TEXT("※練習モードのためランキングなし"), TEXT_COLOR);
 	}
 
 	// 操作案内
-	DrawString(screenW - 220, screenH - 60, TEXT("Spaceでタイトル"), TEXT_COLOR);
+	DrawString(GUIDE_TEXT_X, GUIDE_TEXT_Y, TEXT("Spaceでタイトル"), TEXT_COLOR);
+
+	DrawString(SELECT_TEXT_X, GUIDE_TEXT_Y,TEXT("左SHIFTゲーム選択に戻る"), TEXT_COLOR);
 }
