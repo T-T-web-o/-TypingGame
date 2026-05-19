@@ -45,6 +45,8 @@
 - 単語のローマ字入力が1パターンのみの対応にしています。
 - 例： 「し」は shi、「つ」は tsu のみ認識されるため、si や tu など一般的な別入力はミス判定になります。
 
+## Portfolio
+https://drive.google.com/file/d/1IdMafgDVxxM5E5YZ0G2zzIBvu6sAUSTJ/view?usp=sharing
+
 ## Gameplay Video
-プレイ動画URL
 https://youtu.be/35VVaOMU4b8
