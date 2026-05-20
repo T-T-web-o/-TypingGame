@@ -41,11 +41,16 @@ public:
     // 現在の難易度取得
 	Difficulty GetDifficulty() const;
 
+	// 現在の難易度のランキング取得
 	Ranking& GetRanking();
 
+	// プレイヤー名
 	TCHAR playerName[16];
 
+	// プレイヤー名を設定
 	void SetPlayerName(const TCHAR* name);
+
+	// プレイヤー名を取得
 	const TCHAR* GetPlayerName() const;
 
 	// 更新処理

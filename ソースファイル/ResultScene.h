@@ -31,10 +31,13 @@ private:
 	// スコアボード描画管理
 	Scoreboard scoreboard;
 
+	// ランキング表示
 	bool useRanking;
 
+	// 追加されたかどうか
 	bool isAdded;
 
+	// 入力管理
 	bool prevShift;
 	bool nowShift;
 
