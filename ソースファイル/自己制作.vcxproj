@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\sqlite3.h" />
     <ClInclude Include="ChalkEffect.h" />
     <ClInclude Include="CountDown.h" />
     <ClInclude Include="Difficulty.h" />
@@ -150,6 +151,7 @@
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\sqlite3.c" />
     <ClCompile Include="ChalkEffect.cpp" />
     <ClCompile Include="CountDown.cpp" />
     <ClCompile Include="ExplanationScene.cpp" />

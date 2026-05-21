@@ -1,5 +1,6 @@
 #pragma once
 #include <tchar.h>
+#include "Difficulty.h"
 
 // スコアデータの管理
 struct ScoreData 
@@ -28,7 +29,7 @@ private:
 	
 public:
 	// ファイルからランキングを読み込む
-	Ranking(const char* fileName);
+	Ranking(Difficulty difficulty);
 
 	// 登録数の取得
 	int GetCount()const;
@@ -42,8 +43,6 @@ public:
 	// rank ; ランク
 	void Add(const TCHAR* name, int score, int rank);
 
-	// ランキングに保存
-	void SaveRanking();
 
 	// 名前の重複をチェック
 	bool IsNameExists(const TCHAR* name);

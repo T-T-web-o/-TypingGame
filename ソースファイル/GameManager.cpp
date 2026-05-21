@@ -12,9 +12,9 @@ GameManager::GameManager()
 	//@ˆÀ‘S‚Ì‚½‚ß‰Šú‰»
 	selectedDifficulty = EASY;
 
-	rankings[0] = new Ranking("ranking_easy.txt");
-	rankings[1] = new Ranking("ranking_normal.txt");
-	rankings[2] = new Ranking("ranking_hard.txt");
+	rankings[0] = new Ranking(EASY);
+	rankings[1] = new Ranking(NORMAL);
+	rankings[2] = new Ranking(HARD);
 }
 
 //============================================================

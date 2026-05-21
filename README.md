@@ -39,12 +39,14 @@
 ## 工夫した点
 -  タイトル、ゲーム、リザルト画面などをSceneクラスで共通化し、GameManagerですべてのシーンの移行を管理するようにしました。
 - keyNow / keyOldを使いキーが押された瞬間のみを判定することで、キーの誤爆を防げるようにしました。
-- ランキングのデータをファイルに保存することで、ゲーム終了後もランキングのスコアを保持できるようにしました。
+- SQLiteを使用してランキングデータをデータベースに保存し、ゲーム終了後もスコアを保持できるようにしました。
 
 ## 既知の不具合
 - 単語のローマ字入力が1パターンのみの対応にしています。
 - 例： 「し」は shi、「つ」は tsu のみ認識されるため、si や tu など一般的な別入力はミス判定になります。
 
+## Portfolio
+https://drive.google.com/file/d/1dYoy7tGfkpze-8Rn0Z0iFC_V1FPqSFzW/view?usp=sharing
+
 ## Gameplay Video
-プレイ動画URL
 https://youtu.be/35VVaOMU4b8
