@@ -1,7 +1,9 @@
 #include "Ranking.h"
 #include "DxLib.h"
+#include "GameManager.h"
 #include <cstring> 
 #include <fstream>
+#include "../sqlite3.h"
 
 //============================================================
 // 登録されているランキング数を取得
@@ -23,44 +25,71 @@ ScoreData Ranking::GetData(int index) const
 // コンストラクタ
 // ファイルからランキングデータを取得
 //===========================================================
-Ranking::Ranking(const char* fileName)
+Ranking::Ranking(Difficulty difficulty)
 {
-	// ファイル名をコピー
-	strcpy_s(this->fileName, fileName);
-
 	// ランキング数を初期化
 	rankingCount = 0;
 
-	// ファイルを開く
-	std::ifstream file(fileName);
+	sqlite3* db;
+
+	// データベースを開く
+	sqlite3_open("ranking.db", &db);
+
+	// ranking テーブルを作成
+	const char* sql =
+		"CREATE TABLE IF NOT EXISTS ranking ("
+		"id INTEGER PRIMARY KEY AUTOINCREMENT,"
+		"name TEXT,"
+		"score INTEGER,"
+		"rank INTEGER,"
+		"difficulty INTEGER);";
+
+	sqlite3_exec(db, sql, nullptr, nullptr, nullptr);
 
 	ScoreData data;
 
-	char name[16];
-	int score;
-	int rank;
+	// ランキング取得SQL
+	const char* selectSQL =
+		"SELECT name, score, rank "
+		"FROM ranking "
+		"WHERE difficulty = ? "
+		"ORDER BY score DESC, rank DESC "
+		"LIMIT 8;";
 
-	// 名前・スコア・ランクをファイルから読み込む
-	while (file >> name >> score >> rank)
+	sqlite3_stmt* stmt;
+
+	// SQL文を準備
+	int result =
+		sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nullptr);
+
+	sqlite3_bind_int(stmt, 1, difficulty);
+	
+	// データベースから一行ずつ取得
+	while (sqlite3_step(stmt) == SQLITE_ROW)
 	{
-		// 長すぎたら無視
-		if (strlen(name) >= 16) continue; 
+		// 名前取得
+		const unsigned char* name = sqlite3_column_text(stmt, 0);
 
-		// charからTCHARへ変換
-		mbstowcs_s(NULL, data.name, 16, name, _TRUNCATE);
+		// スコア取得
+		data.score = sqlite3_column_int(stmt, 1);
 
-		// スコアをセット
-		data.score = score;
+		// ランク取得
+		data.rank = sqlite3_column_int(stmt, 2);
 
-		// ランクをセット
-		data.rank = rank;
+		// char から　TCHAR に変換
+		mbstowcs_s(NULL, data.name, 16, (const char*)name, _TRUNCATE);
 
-		// 最大数を超えない範囲で追加
 		if (rankingCount < MAX_RANKING)
 		{
 			ranking[rankingCount++] = data;
 		}
 	}
+
+	// SQL終了
+	sqlite3_finalize(stmt);
+
+	// データベースを閉じる
+	sqlite3_close(db);
 }
 
 //===============================================
@@ -105,6 +134,7 @@ void Ranking::Add(const TCHAR* name, int score, int rank)
 		{
 			_tcscpy_s(ranking[rankingCount - 1].name, name);
 			ranking[rankingCount - 1].score = score;
+			ranking[rankingCount - 1].rank = rank;
 		}
 		else
 		{
@@ -129,28 +159,37 @@ void Ranking::Add(const TCHAR* name, int score, int rank)
 			}
 		}
 	}
-	// ファイルに保存
-	SaveRanking();
-}
+	// SQLiteへ保存
+	sqlite3* db;
 
-//============================================================
-// ランキングをファイルに保存
-//============================================================
-void Ranking::SaveRanking()
-{
-	// ファイルを開く
-	std::ofstream file(fileName);
+	// データベースを開く
+	sqlite3_open("ranking.db", &db);
 
-	for (int i = 0; i < rankingCount; i++)
-	{
-		char name[16];
+	// 現在の難易度取得
+	Difficulty d = GameManager::GetInstance().GetDifficulty();
 
-		// TCHAR を char に変更
-		wcstombs_s(NULL, name, 16, ranking[i].name, _TRUNCATE); 
+	// SQL文作成
+	char sql[256];
 
-		// 名前・スコアを保存
-		file << name << " " << ranking[i].score << " " << ranking[i].rank << std::endl;
-	}
+	char charName[16];
+
+	// char からTCHARへ
+	wcstombs_s(nullptr, charName, name, _TRUNCATE);
+
+	sprintf_s(
+		sql,
+		"INSERT INTO ranking(name, score, rank, difficulty) VALUES('%s', %d, %d, %d);",
+		charName,
+		score,
+		rank,
+		d
+	);
+
+	// SQL実行
+	sqlite3_exec(db, sql, nullptr, nullptr, nullptr);
+
+	// データベースを閉じる
+	sqlite3_close(db);
 }
 
 //===========================================================
