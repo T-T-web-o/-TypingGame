@@ -62,6 +62,17 @@ Ranking::Ranking(Difficulty difficulty)
 	int result =
 		sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nullptr);
 
+	// エラーチェック
+	if (result != SQLITE_OK)
+	{
+		DrawString(100, 100, TEXT("SQL準備エラー"), GetColor(255, 0, 0));
+
+		sqlite3_close(db);
+
+		return;
+	}
+
+	// difficultyの値を？にセット
 	sqlite3_bind_int(stmt, 1, difficulty);
 	
 	// データベースから一行ずつ取得
