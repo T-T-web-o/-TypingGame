@@ -2,33 +2,33 @@
 #include "Scene.h"
 #include <tchar.h>
 
-// å…¥åŠ›çŠ¶æ…‹ã®ç®¡ç†
+// “ü—Íó‘Ô‚ÌŠÇ—
 enum InputState
 { 
-	STATE_INPUT,    // å…¥åŠ›ä¸­ã®çŠ¶æ…‹
-	STATE_CONFIRM   // å…¥åŠ›å†…å®¹ã®ç¢ºèªçŠ¶æ…‹ ã€€
+	STATE_INPUT,    // “ü—Í’†‚Ìó‘Ô
+	STATE_CONFIRM   // “ü—Í“à—e‚ÌŠm”Fó‘Ô @
 };
 
-// åå‰å…¥åŠ›ã‚·ãƒ¼ãƒ³
+// –¼‘O“ü—ÍƒV[ƒ“
 class NameInputScene : public Scene
 {
 private:
 	//------------------------------------------------------------
-	// èƒŒæ™¯ç”»åƒ
+	// ”wŒi‰æ‘œ
 	//------------------------------------------------------------
 	int NameInputImage;
-	int screenW;    //ç”»é¢å¹…
-	int screenH;    //ç”»é¢é«˜ã•
+	int screenW;    //‰æ–Ê•
+	int screenH;    //‰æ–Ê‚‚³
 
-	// åå‰ã®ãƒ‡ãƒ¼ã‚¿
-	TCHAR name[16]; //ã€€å…¥åŠ›ã•ã‚ŒãŸåå‰
-	int length;     //  åå‰ã®é•·ã•
+	// –¼‘O‚Ìƒf[ƒ^
+	TCHAR name[16]; //@“ü—Í‚³‚ê‚½–¼‘O
+	int length;     //  –¼‘O‚Ì’·‚³
 
-	InputState state; // ç¾åœ¨ã®å…¥åŠ›çŠ¶æ…‹(å…¥åŠ›ä¸­ or ç¢ºèªä¸­)
+	InputState state; // Œ»İ‚Ì“ü—Íó‘Ô(“ü—Í’† or Šm”F’†)
 
-	bool isDuplicate; // åŒã˜åå‰ãŒå­˜åœ¨ã™ã‚‹ã‹
+	bool isDuplicate; // “¯‚¶–¼‘O‚ª‘¶İ‚·‚é‚©
 
-	// ã‚­ãƒ¼å…¥åŠ›ç®¡ç†
+	// ƒL[“ü—ÍŠÇ—
 	char keyNow[256];
 	char keyOld[256];
 
@@ -37,10 +37,10 @@ private:
 public:
 	NameInputScene();
 
-	// æ›´æ–°å‡¦ç†
+	// XVˆ—
 	void Update() override;
 
-	// æç”»å‡¦ç†
+	// •`‰æˆ—
 	void Draw() override;
 };
 
