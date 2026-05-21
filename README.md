@@ -46,7 +46,7 @@
 - 例： 「し」は shi、「つ」は tsu のみ認識されるため、si や tu など一般的な別入力はミス判定になります。
 
 ## Portfolio
-https://drive.google.com/file/d/1Xfn95wZDumKh2D3jt7iK2br-s_rannjb/view?usp=sharing
+https://drive.google.com/file/d/1dYoy7tGfkpze-8Rn0Z0iFC_V1FPqSFzW/view?usp=sharing
 
 ## Gameplay Video
 https://youtu.be/35VVaOMU4b8
