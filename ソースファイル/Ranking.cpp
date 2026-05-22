@@ -6,7 +6,7 @@
 #include "../sqlite3.h"
 
 //============================================================
-// ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ãƒ©ãƒ³ã‚­ãƒ³ã‚°æ•°ã‚’å–å¾—
+// “o˜^‚³‚ê‚Ä‚¢‚éƒ‰ƒ“ƒLƒ“ƒO”‚ğæ“¾
 //============================================================
 int Ranking::GetCount() const
 {
@@ -14,7 +14,7 @@ int Ranking::GetCount() const
 }
 
 //============================================================
-// æŒ‡å®šã—ãŸé †ä½ã®ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
+// w’è‚µ‚½‡ˆÊ‚Ìƒf[ƒ^‚ğæ“¾
 //============================================================
 ScoreData Ranking::GetData(int index) const
 {
@@ -22,20 +22,20 @@ ScoreData Ranking::GetData(int index) const
 }
 
 //===========================================================
-// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
-// ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
+// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+// ƒtƒ@ƒCƒ‹‚©‚çƒ‰ƒ“ƒLƒ“ƒOƒf[ƒ^‚ğæ“¾
 //===========================================================
 Ranking::Ranking(Difficulty difficulty)
 {
-	// ãƒ©ãƒ³ã‚­ãƒ³ã‚°æ•°ã‚’åˆæœŸåŒ–
+	// ƒ‰ƒ“ƒLƒ“ƒO”‚ğ‰Šú‰»
 	rankingCount = 0;
 
 	sqlite3* db;
 
-	// ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚’é–‹ã
+	// ƒf[ƒ^ƒx[ƒX‚ğŠJ‚­
 	sqlite3_open("ranking.db", &db);
 
-	// ranking ãƒ†ãƒ¼ãƒ–ãƒ«ã‚’ä½œæˆ
+	// ranking ƒe[ƒuƒ‹‚ğì¬
 	const char* sql =
 		"CREATE TABLE IF NOT EXISTS ranking ("
 		"id INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -48,7 +48,7 @@ Ranking::Ranking(Difficulty difficulty)
 
 	ScoreData data;
 
-	// ãƒ©ãƒ³ã‚­ãƒ³ã‚°å–å¾—SQL
+	// ƒ‰ƒ“ƒLƒ“ƒOæ“¾SQL
 	const char* selectSQL =
 		"SELECT name, score, rank "
 		"FROM ranking "
@@ -58,36 +58,36 @@ Ranking::Ranking(Difficulty difficulty)
 
 	sqlite3_stmt* stmt;
 
-	// SQLæ–‡ã‚’æº–å‚™
+	// SQL•¶‚ğ€”õ
 	int result =
 		sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nullptr);
 
-	// ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯
+	// ƒGƒ‰[ƒ`ƒFƒbƒN
 	if (result != SQLITE_OK)
 	{
-		DrawString(100, 100, TEXT("SQLæº–å‚™ã‚¨ãƒ©ãƒ¼"), GetColor(255, 0, 0));
+		DrawString(100, 100, TEXT("SQL€”õƒGƒ‰["), GetColor(255, 0, 0));
 
 		sqlite3_close(db);
 
 		return;
 	}
 
-	// difficultyã®å€¤ã‚’ï¼Ÿã«ã‚»ãƒƒãƒˆ
+	// difficulty‚Ì’l‚ğH‚ÉƒZƒbƒg
 	sqlite3_bind_int(stmt, 1, difficulty);
 	
-	// ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‹ã‚‰ä¸€è¡Œãšã¤å–å¾—
+	// ƒf[ƒ^ƒx[ƒX‚©‚çˆês‚¸‚Âæ“¾
 	while (sqlite3_step(stmt) == SQLITE_ROW)
 	{
-		// åå‰å–å¾—
+		// –¼‘Oæ“¾
 		const unsigned char* name = sqlite3_column_text(stmt, 0);
 
-		// ã‚¹ã‚³ã‚¢å–å¾—
+		// ƒXƒRƒAæ“¾
 		data.score = sqlite3_column_int(stmt, 1);
 
-		// ãƒ©ãƒ³ã‚¯å–å¾—
+		// ƒ‰ƒ“ƒNæ“¾
 		data.rank = sqlite3_column_int(stmt, 2);
 
-		// char ã‹ã‚‰ã€€TCHAR ã«å¤‰æ›
+		// char ‚©‚ç@TCHAR ‚É•ÏŠ·
 		mbstowcs_s(NULL, data.name, 16, (const char*)name, _TRUNCATE);
 
 		if (rankingCount < MAX_RANKING)
@@ -96,51 +96,51 @@ Ranking::Ranking(Difficulty difficulty)
 		}
 	}
 
-	// SQLçµ‚äº†
+	// SQLI—¹
 	sqlite3_finalize(stmt);
 
-	// ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚’é–‰ã˜ã‚‹
+	// ƒf[ƒ^ƒx[ƒX‚ğ•Â‚¶‚é
 	sqlite3_close(db);
 }
 
 //===============================================
-// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã«æ–°ã—ã„ã‚¹ã‚³ã‚¢ã‚’è¿½åŠ 
+// ƒ‰ƒ“ƒLƒ“ƒO‚ÉV‚µ‚¢ƒXƒRƒA‚ğ’Ç‰Á
 //===============================================
 void Ranking::Add(const TCHAR* name, int score, int rank)
 {
-	// åŒã˜åå‰ãŒã‚ã‚‹ã‹ã‚’ãƒã‚§ãƒƒã‚¯
+	// “¯‚¶–¼‘O‚ª‚ ‚é‚©‚ğƒ`ƒFƒbƒN
 	for (int i = 0; i < rankingCount; i++)
 	{
 		if (_tcscmp(ranking[i].name, name) == 0)
 		{
-			// ã‚¹ã‚³ã‚¢ã‚’æ¯”ã¹é«˜ã‘ã‚Œã°æ›´æ–°
+			// ƒXƒRƒA‚ğ”ä‚×‚‚¯‚ê‚ÎXV
 			if (score > ranking[i].score)
 			{
 				ranking[i].score = score;
 			}
-			// ä½ã‹ã£ãŸã‚‰æ›´æ–°ã—ãªã„
+			// ’á‚©‚Á‚½‚çXV‚µ‚È‚¢
 			return;
 		}
 	}
 
-	// ä¸€æ—¦è¿½åŠ 
+	// ˆê’U’Ç‰Á
 	if (rankingCount < MAX_RANKING)
 	{
-		// åå‰ã‚’ã‚³ãƒ”ãƒ¼
+		// –¼‘O‚ğƒRƒs[
 		_tcscpy_s(ranking[rankingCount].name, name);
 
-		// ã‚¹ã‚³ã‚¢ã‚’ã‚»ãƒƒãƒˆ
+		// ƒXƒRƒA‚ğƒZƒbƒg
 		ranking[rankingCount].score = score;
 
-		// ãƒ©ãƒ³ã‚¯ã‚’ã‚»ãƒƒãƒˆ
+		// ƒ‰ƒ“ƒN‚ğƒZƒbƒg
 		ranking[rankingCount].rank = rank;
 		
-		// ãƒ©ãƒ³ã‚­ãƒ³ã‚°æ•°ã‚’å¢—ã‚„ã™
+		// ƒ‰ƒ“ƒLƒ“ƒO”‚ğ‘‚â‚·
 		rankingCount++;
 	}
 	else
 	{
-		// ã‚¹ã‚³ã‚¢ãŒæœ€ä¸‹ä½ã‚ˆã‚Šé«˜ã„ãªã‚‰å…¥ã‚Œæ›¿ãˆ
+		// ƒXƒRƒA‚ªÅ‰ºˆÊ‚æ‚è‚‚¢‚È‚ç“ü‚ê‘Ö‚¦
 		if (score > ranking[rankingCount - 1].score)
 		{
 			_tcscpy_s(ranking[rankingCount - 1].name, name);
@@ -149,17 +149,17 @@ void Ranking::Add(const TCHAR* name, int score, int rank)
 		}
 		else
 		{
-			// ä½ã„ãªã‚‰è¿½åŠ ã—ãªã„
+			// ’á‚¢‚È‚ç’Ç‰Á‚µ‚È‚¢
 			return; 
 		}
 	}
 	
-	// ã‚¹ã‚³ã‚¢ãŒé«˜ã„é †ã«å…¥ã‚Œæ›¿ãˆã‚‹
+	// ƒXƒRƒA‚ª‚‚¢‡‚É“ü‚ê‘Ö‚¦‚é
 	for (int i = 0; i < rankingCount - 1; i++)
 	{
 		for (int j = i + 1; j < rankingCount; j++)
 		{
-			// å…¥ã‚Œæ›¿ãˆ
+			// “ü‚ê‘Ö‚¦
 			if (ranking[i].score < ranking[j].score ||
 				(ranking[i].score == ranking[j].score
 					&& ranking[i].rank < ranking[j].rank))
@@ -170,21 +170,21 @@ void Ranking::Add(const TCHAR* name, int score, int rank)
 			}
 		}
 	}
-	// SQLiteã¸ä¿å­˜
+	// SQLite‚Ö•Û‘¶
 	sqlite3* db;
 
-	// ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚’é–‹ã
+	// ƒf[ƒ^ƒx[ƒX‚ğŠJ‚­
 	sqlite3_open("ranking.db", &db);
 
-	// ç¾åœ¨ã®é›£æ˜“åº¦å–å¾—
+	// Œ»İ‚Ì“ïˆÕ“xæ“¾
 	Difficulty d = GameManager::GetInstance().GetDifficulty();
 
-	// SQLæ–‡ä½œæˆ
+	// SQL•¶ì¬
 	char sql[256];
 
 	char charName[16];
 
-	// char ã‹ã‚‰TCHARã¸
+	// char ‚©‚çTCHAR‚Ö
 	wcstombs_s(nullptr, charName, name, _TRUNCATE);
 
 	sprintf_s(
@@ -196,15 +196,15 @@ void Ranking::Add(const TCHAR* name, int score, int rank)
 		d
 	);
 
-	// SQLå®Ÿè¡Œ
+	// SQLÀs
 	sqlite3_exec(db, sql, nullptr, nullptr, nullptr);
 
-	// ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‚’é–‰ã˜ã‚‹
+	// ƒf[ƒ^ƒx[ƒX‚ğ•Â‚¶‚é
 	sqlite3_close(db);
 }
 
 //===========================================================
-// åå‰ã®é‡è¤‡ã‚’ãƒã‚§ãƒƒã‚¯
+// –¼‘O‚Ìd•¡‚ğƒ`ƒFƒbƒN
 //===========================================================
 bool Ranking::IsNameExists(const TCHAR* name)
 {
@@ -212,10 +212,10 @@ bool Ranking::IsNameExists(const TCHAR* name)
 	{
 		if (_tcscmp(ranking[i].name, name) == 0)
 		{
-			return true; // è¦‹ã¤ã‹ã£ãŸ
+			return true; // Œ©‚Â‚©‚Á‚½
 		}
 	}
-	return false; // è¦‹ã¤ã‹ã‚‰ãªã„
+	return false; // Œ©‚Â‚©‚ç‚È‚¢
 }
 
 
