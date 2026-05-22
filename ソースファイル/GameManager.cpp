@@ -16,7 +16,7 @@ GameManager::GameManager()
 	playerName[0] = '\0';
 
 	rankings[0] = new Ranking(EASY);
-	rankings[1] = new Ranking(NORMAL);
+	rankings[1] = new Ranking(NORMAL); 
 	rankings[2] = new Ranking(HARD);
 }
 
