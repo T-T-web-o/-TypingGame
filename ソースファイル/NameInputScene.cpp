@@ -75,7 +75,7 @@ NameInputScene::NameInputScene()
 
 	// “ü—ÍŠÇ—‰Šú‰»
 	nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
-	prevShift = false;
+	prevShift = true;
 }
 
 // XVˆ—
