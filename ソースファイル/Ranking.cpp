@@ -30,6 +30,14 @@ Ranking::Ranking(Difficulty difficulty)
 	// ランキング数を初期化
 	rankingCount = 0;
 
+	// ranking初期化
+	for (int i = 0; i < MAX_RANKING; i++)
+	{
+		ranking[i].name[0] = '\0';
+		ranking[i].score = 0;
+		ranking[i].rank = 0;
+	}
+
 	sqlite3* db;
 
 	// データベースを開く

@@ -50,6 +50,17 @@ SelectScene::SelectScene()
     cursor = 0;
     maxcursor = 2;
 
+    // 入力管理初期化
+    nowSpace = CheckHitKey(KEY_INPUT_SPACE);
+    nowUp = CheckHitKey(KEY_INPUT_UP);
+    nowDown = CheckHitKey(KEY_INPUT_DOWN);
+    nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
+
+    prevSpace = false;
+    prevUp = false;
+    prevDown = false;
+    prevShift = false;
+
     //画面サイズ取得
     GetDrawScreenSize(&screenW, &screenH);
 
@@ -71,6 +82,8 @@ SelectScene::~SelectScene()
 //============================================================
 void SelectScene::Update()
 {
+  
+    // 最新の入力に更新
     nowSpace = CheckHitKey(KEY_INPUT_SPACE);
     nowUp = CheckHitKey(KEY_INPUT_UP);
     nowDown = CheckHitKey(KEY_INPUT_DOWN);
@@ -278,7 +291,7 @@ void SelectScene::Draw()
         DrawString(DIFFICULTY_TEXT_X, DIFFICULTY_Y2, TEXT(" ふつう"), COLOR_NORMAL);
         DrawString(DIFFICULTY_TEXT_X, DIFFICULTY_Y3, TEXT(" むずかしい"), COLOR_HARD);
 
-        int y;
+        int y=DIFFICULTY_Y1;
 
         switch (cursor)
         {
@@ -300,5 +313,5 @@ void SelectScene::Draw()
     SetFontSize(18);
     DrawString(SELECT_TEXT_X, SELECT_TEXT_Y, TEXT("Spaceで選択"), COLOR_TEXT);
 
-    DrawString(20, SELECT_TEXT_Y, TEXT("左SHIFTで戻る"), COLOR_TEXT);
+    DrawString(20, SELECT_TEXT_Y, TEXT("左SHIFTで戻る"), COLOR_TEXT); 
 }

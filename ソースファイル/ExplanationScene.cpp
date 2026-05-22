@@ -102,6 +102,9 @@ ExplanationScene::ExplanationScene()
 	//”wŒi‰æ‘œ(•”Â)“Ç‚İ‚İ
 	ExplanationImage = LoadGraph(TEXT("Resource/Model/blackboard.png"));
 
+	// “ü—ÍŠÇ—‰Šú‰»
+	nowEnter = CheckHitKey(KEY_INPUT_RETURN);
+	prevEnter = false;
 }
 
 

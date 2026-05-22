@@ -23,12 +23,8 @@ private:
 
 	// 現在のランキング数
 	int rankingCount;
-
-	// 保存・読み込みに使用するファイル名
-	char fileName[64];
-	
 public:
-	// ファイルからランキングを読み込む
+	// ランキングを読み込む
 	Ranking(Difficulty difficulty);
 
 	// 登録数の取得

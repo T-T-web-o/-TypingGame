@@ -26,6 +26,10 @@ TitleScene::TitleScene()
 
 	//ƒ^ƒCƒgƒ‹‰æ‘œ“Ç‚İ‚İ
 	titleImage = LoadGraph(TEXT("Resource/Model/Title.png"));
+
+	// “ü—ÍŠÇ—‰Šú‰»
+	nowEnter = (CheckHitKey(KEY_INPUT_RETURN));
+	prevEnter = false;
 }
 
 //============================================================

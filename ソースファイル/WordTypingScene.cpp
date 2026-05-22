@@ -135,7 +135,9 @@ WordTypingScene::WordTypingScene()
 	currentWord = wordList[order[wordIndex]];
 
 
-	// スコアや入力状態の初期化
+	// 難易度ごとのテキスト・色を初期化
+	diffText = TEXT("");
+	diffColor = 0;
 
 	//入力文字初期化
 	charIndex = 0;

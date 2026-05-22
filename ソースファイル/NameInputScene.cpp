@@ -72,6 +72,10 @@ NameInputScene::NameInputScene()
 	memset(keyOld, 0, sizeof(keyOld));
 
 	GetHitKeyStateAll(keyOld);
+
+	// “ü—ÍŠÇ—‰Šú‰»
+	nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
+	prevShift = false;
 }
 
 // XVˆ—
