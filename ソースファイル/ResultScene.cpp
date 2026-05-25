@@ -54,6 +54,11 @@ ResultScene::ResultScene(int score ,int miss ,int maxCombo,bool useRanking)
 
 	isAdded = false;
 
+	// 入力管理初期化
+	nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
+	prevShift = true;
+
+
 	// 画面サイズ取得
 	GetDrawScreenSize(&screenW, &screenH);
 
@@ -135,7 +140,11 @@ void ResultScene::Update()
 		GameManager::GetInstance().ChangeScene(new TitleScene());
 	}
 
-	if (CheckHitKey(KEY_INPUT_LSHIFT))
+	// 最新の入力に更新
+	nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
+
+	// シフトキーでセレクトシーンへ
+	if (nowShift && !prevShift)
 	{
 		// 効果音再生
 		PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
@@ -143,7 +152,8 @@ void ResultScene::Update()
 		// セレクトシーンへ切り替え
 		GameManager::GetInstance().ChangeScene(new SelectScene());
 	}
-
+	// 前フレームの入力状態を保存
+	prevShift = nowShift;
 }
 
 //============================================================

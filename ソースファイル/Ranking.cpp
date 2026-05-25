@@ -149,7 +149,9 @@ void Ranking::Add(const TCHAR* name, int score, int rank)
 	else
 	{
 		// ƒXƒRƒA‚ªÅ‰ºˆÊ‚æ‚è‚‚¢‚È‚ç“ü‚ê‘Ö‚¦
-		if (score > ranking[rankingCount - 1].score)
+		if (score > ranking[rankingCount - 1].score ||
+			(score == ranking[rankingCount - 1].score &&
+				rank > ranking[rankingCount - 1].rank))
 		{
 			_tcscpy_s(ranking[rankingCount - 1].name, name);
 			ranking[rankingCount - 1].score = score;

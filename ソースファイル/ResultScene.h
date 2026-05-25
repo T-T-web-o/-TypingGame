@@ -37,6 +37,10 @@ private:
 	// 追加されたかどうか
 	bool isAdded;
 
+	// 入力管理
+	bool prevShift;
+	bool nowShift;
+
 public:
 	//------------------------------------------------------------
 	// コンストラクタ

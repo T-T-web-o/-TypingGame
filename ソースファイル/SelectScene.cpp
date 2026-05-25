@@ -59,7 +59,7 @@ SelectScene::SelectScene()
     prevSpace = false;
     prevUp = false;
     prevDown = false;
-    prevShift = false;
+    prevShift = true;
 
     //‰æ–ÊƒTƒCƒYŽæ“¾
     GetDrawScreenSize(&screenW, &screenH);
