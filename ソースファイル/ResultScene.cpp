@@ -36,8 +36,19 @@ const int GUIDE_TEXT_X = 450;       // 操作案内文字のX座標
 const int GUIDE_TEXT_Y = 430;       // 操作案内文字のY座標
 const int SELECT_TEXT_X = 20;       // ゲーム選択に戻るのX座標
 
+// スコアごとのランク
+const TCHAR* RANK_SS = TEXT("SS");
+const TCHAR* RANK_S = TEXT("S");
+const TCHAR* RANK_A = TEXT("A");
+const TCHAR* RANK_B = TEXT("B");
+const TCHAR* RANK_C = TEXT("C");
+const TCHAR* RANK_D = TEXT("D");
+
+// 色
 const int TEXT_COLOR = GetColor(230, 230, 230);  //白
 
+// 描画位置
+const int RESULT_OFFSET_X = 110;
 
 //============================================================
 // コンストラクタ
@@ -64,32 +75,32 @@ ResultScene::ResultScene(int score ,int miss ,int maxCombo,bool useRanking)
 	// スコアによるランク判定
 	if (miss == 0 && score == 30)
 	{
-		rank = TEXT("SS");
+		rank = RANK_SS;
 		rankColor = GetColor(0, 0, 0);       // 黒
 	}
 	else if (score == 30)
 	{
-		rank = TEXT("S");
+		rank = RANK_S;
 		rankColor = GetColor(0, 0, 255);     // 青
 	}
 	else if (score >= 25)
 	{
-		rank = TEXT("A");
+		rank = RANK_A;
 		rankColor = GetColor(255, 255, 0);   // 黄
 	}
 	else if (score >= 20)
 	{
-		rank = TEXT("B");
+		rank = RANK_B;
 		rankColor = GetColor(255, 0, 0);     // 赤
 	}
 	else if (score >= 15)
 	{
-		rank = TEXT("C");
+		rank = RANK_C;
 		rankColor = GetColor(0, 255, 0);     // 緑
 	}
 	else
 	{
-		rank = TEXT("D");
+		rank = RANK_D;
 		rankColor = GetColor(0, 255, 255);   // 水色
 	}
 }
@@ -114,11 +125,11 @@ void ResultScene::Update()
 
 		int rankValue = 0;
 
-		if (_tcscmp(rank, TEXT("SS")) == 0)rankValue = 5;
-		else if (_tcscmp(rank, TEXT("S")) == 0)rankValue = 4;
-		else if (_tcscmp(rank, TEXT("A")) == 0)rankValue = 3;
-		else if (_tcscmp(rank, TEXT("B")) == 0)rankValue = 2;
-		else if (_tcscmp(rank, TEXT("C")) == 0)rankValue = 1;
+		if (_tcscmp(rank,RANK_SS) == 0)rankValue = 5;
+		else if (_tcscmp(rank, RANK_S) == 0)rankValue = 4;
+		else if (_tcscmp(rank, RANK_A) == 0)rankValue = 3;
+		else if (_tcscmp(rank, RANK_B) == 0)rankValue = 2;
+		else if (_tcscmp(rank, RANK_C) == 0)rankValue = 1;
 		else rankValue = 0;
 
 		GameManager::GetInstance().GetRanking().Add(name, finalScore, rankValue);
@@ -152,13 +163,12 @@ void ResultScene::Update()
 //============================================================
 void ResultScene::Draw()
 {
-	int centerX = screenW / 2;
 
 	// 左側（リザルト）
-	int leftX = screenW / 4 - 110;
+	int leftX = screenW / 4 - RESULT_OFFSET_X;
 
 	// 右側（ランキング）
-	int rightX = screenW * 3 / 4 - 110;
+	int rightX = screenW * 3 / 4 - RESULT_OFFSET_X;
 
 	//背景画像を画面全体に表示
 	DrawExtendGraph(0, 0, screenW, screenH,resultImage, TRUE);
@@ -210,12 +220,12 @@ void ResultScene::Draw()
 
 			switch (data.rank)
 			{
-			case 5: rankText = TEXT("SS"); break;
-			case 4: rankText = TEXT("S"); break;
-			case 3: rankText = TEXT("A"); break;
-			case 2: rankText = TEXT("B"); break;
-			case 1: rankText = TEXT("C"); break;
-			default: rankText = TEXT("D"); break;
+			case 5: rankText = RANK_SS; break;
+			case 4: rankText = RANK_S; break;
+			case 3: rankText = RANK_A; break;
+			case 2: rankText = RANK_B; break;
+			case 1: rankText = RANK_C; break;
+			default: rankText = RANK_D; break;
 			}
 
 			DrawFormatString(rightX+10, 100 + i * 40, TEXT_COLOR, TEXT("%d位 %s %d %s"), i + 1, data.name, data.score, rankText);

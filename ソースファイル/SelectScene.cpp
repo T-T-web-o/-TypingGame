@@ -31,10 +31,13 @@ const int DIFFICULTY_Y2 = 250;         // 難易度(ふつう)のY座標
 const int DIFFICULTY_Y3 = 350;         // 難易度(むずかしい)のY座標
 
 const int SELECT_TEXT_X = 500;    // 選択テキストのX座標
-const int SELECT_TEXT_Y = 400;    // 選択テキストのY座標
-
 const int BACK_TEXT_X = 20;       // 戻るテキストのX座標
-const int BACK_TEXT_Y = 400;      // 戻るテキストのY座標
+const int CURSOR_TEXT_X = 220;    // カーソルテキストのX座標
+const int GUIDE_TEXT_Y = 420;     // 操作説明のY座標
+
+const int EXPLANATION_X = 230;          // 説明X座標
+const int PRACTICE_EXPLANATION_Y = 230; // 練習説明Y座標
+const int GAME_EXPLANATION_Y = 330;     // ゲーム説明Y座標
 
 const int COLOR_TEXT = GetColor(230, 230, 230);   //白
 const int COLOR_EASY = GetColor(100, 200, 255);   //青
@@ -252,6 +255,17 @@ void SelectScene::Draw()
 
         int y = (cursor == 0) ? GAME_Y1 : GAME_Y2;
         DrawString(GAME_CURSOR_X, y, TEXT("→"), COLOR_TEXT);
+
+        if (cursor == 0)
+        {
+            SetFontSize(15);
+            DrawString(EXPLANATION_X, PRACTICE_EXPLANATION_Y, TEXT("タイピングの練習用モードです。"), COLOR_TEXT);
+        }
+        else if (cursor == 1)
+        {
+            SetFontSize(15);
+            DrawString(EXPLANATION_X, GAME_EXPLANATION_Y, TEXT("単語を打ってスコアを争うゲームモードです。"), COLOR_TEXT);
+        }
     }
 
     SetFontSize(27);
@@ -262,7 +276,7 @@ void SelectScene::Draw()
         DrawString(MODE_TEXT_X, MODE_Y2, TEXT(" アルファベットタイピング練習"), COLOR_TEXT);
 
         int y = (cursor == 0) ? MODE_Y1 : MODE_Y2;
-        DrawString(MODE_CURSOR_X, y, TEXT("→"), GetColor(230, 230, 230));
+        DrawString(MODE_CURSOR_X, y, TEXT("→"), COLOR_TEXT);
     }
     
     SetFontSize(50);
@@ -293,7 +307,9 @@ void SelectScene::Draw()
 
     // 選択案内
     SetFontSize(18);
-    DrawString(SELECT_TEXT_X, SELECT_TEXT_Y, TEXT("Spaceで選択"), COLOR_TEXT);
+    DrawString(SELECT_TEXT_X, GUIDE_TEXT_Y, TEXT("Spaceで選択"), COLOR_TEXT);
 
-    DrawString(BACK_TEXT_X, BACK_TEXT_Y, TEXT("左SHIFTで戻る"), COLOR_TEXT);
+    DrawString(BACK_TEXT_X, GUIDE_TEXT_Y, TEXT("左SHIFTで戻る"), COLOR_TEXT);
+
+    DrawString(CURSOR_TEXT_X, GUIDE_TEXT_Y, TEXT("▲▼で→カーソルを移動"), COLOR_TEXT);
 }

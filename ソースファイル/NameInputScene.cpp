@@ -35,6 +35,11 @@ const int MESSAGE_Y1 = 270;
 const int MESSAGE_Y2 = 300;
 const int MESSAGE_Y3 = 330;
 
+// 操作案内
+const int BACK_TEXT_X = 20;     
+const int BACK_TEXT_Y = 420;   
+
+
 //============================================================
 // フォントサイズ
 //============================================================
@@ -205,5 +210,5 @@ void NameInputScene::Draw()
 		DrawString(MESSAGE_X2, 360, TEXT("これ以上入力できません"), COLOR_RED);
 	}
 
-	DrawString(20, 400, TEXT("左SHIFTで戻る"),COLOR_WHITE);
+	DrawString(BACK_TEXT_X, BACK_TEXT_Y, TEXT("左SHIFTで戻る"),COLOR_WHITE);
 }
