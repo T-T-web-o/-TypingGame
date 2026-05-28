@@ -7,6 +7,7 @@
 #include "CountDown.h"
 #include "Scoreboard.h"
 #include "ChalkEffect.h"
+#include "Input.h"
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
@@ -40,6 +41,9 @@ const int KEYBOARD_Y = 300;    // キーボード描画のY座標
 
 const int SCOREBOARD_X = 480;  // スコアボードのX座標
 const int SCOREBOARD_Y = 10;   // スコアボードのY座標
+
+const int END_TEXT_X = 550;  // 終了案内のX座標
+const int END_TEXT_Y = 430;  // 終了案内のY座標
 
 const int COLOR_TEXT = GetColor(230, 230, 230);   //白
 const int COLOR_TYPED = GetColor(100, 255, 100);  //緑
@@ -182,6 +186,15 @@ void WordTypingScene::Update()
 	{
 		GameManager::GetInstance().ChangeScene(
 			new ResultScene(score, miss,maxCombo,true)
+		);
+		return;
+	}
+
+	// ESCキーが押されたらリザルト画面に切り替え
+	if (Input::IsTriggerEsc())
+	{
+		GameManager::GetInstance().ChangeScene(
+			new ResultScene(score, miss, maxCombo, true)
 		);
 		return;
 	}
@@ -386,6 +399,9 @@ void WordTypingScene::Draw()
 	// 制限時間表示
 	DrawFormatString(UI_X, UI_START_Y + UI_SPACE * 2, COLOR_TEXT, TEXT("残り時間:%d"), timeLimit / 60);
 
+	SetFontSize(16);
+	// 終了案内
+	DrawString(END_TEXT_X, END_TEXT_Y, TEXT("ESCで終了"), COLOR_TEXT);
 
 	// コンボ表示
 	DrawString(UI_X, UI_START_Y + UI_SPACE * 3, TEXT("コンボ:"), COLOR_TEXT);

@@ -5,6 +5,7 @@
 #include "KeyTable.h"
 #include "Scoreboard.h"
 #include "ChalkEffect.h"
+#include "Input.h"
 #include <cstdlib>
 
 //============================================================
@@ -75,8 +76,8 @@ void PracticeTypingScene_1::Update()
     // チョークエフェクト更新
     chalk.Update();
 
-    // Tabキーでリザルト画面へ
-    if (CheckHitKey(KEY_INPUT_TAB))
+    // ESCキーでリザルト画面へ
+    if (Input::IsTriggerEsc())
     {
         GameManager::GetInstance().ChangeScene(new ResultScene(score, miss,maxCombo,false));
         return;
@@ -172,7 +173,7 @@ void PracticeTypingScene_1::Draw()
 
     SetFontSize(16);
     // 終了案内
-    DrawString(END_TEXT_X, END_TEXT_Y, TEXT("Tabで終了"), COLOR_TEXT);
+    DrawString(END_TEXT_X, END_TEXT_Y, TEXT("ESCで終了"), COLOR_TEXT);
 
     // スコアボード表示
     scoreboard.Draw(SCOREBOARD_X, SCOREBOARD_Y);

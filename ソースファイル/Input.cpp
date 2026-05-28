@@ -6,11 +6,13 @@ int Input::nowSpace = 0;
 int Input::nowUp = 0;
 int Input::nowDown = 0;
 int Input::nowShift = 0;
+int Input::nowEsc = 0;
 
 int Input::prevSpace = 0;
 int Input::prevUp = 0;
 int Input::prevDown = 0;
 int Input::prevShift = 0;
+int Input::prevEsc = 0;
 
 
 void Input::Update()
@@ -20,12 +22,14 @@ void Input::Update()
 	prevUp = nowUp;
 	prevDown = nowDown;
 	prevShift = nowShift;
+	prevEsc = nowEsc;
 
 	// ç°ÇÃì¸óÕÇï€ë∂
 	nowSpace = CheckHitKey(KEY_INPUT_SPACE);
 	nowUp = CheckHitKey(KEY_INPUT_UP);
 	nowDown = CheckHitKey(KEY_INPUT_DOWN);
 	nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
+	nowEsc = CheckHitKey(KEY_INPUT_ESCAPE);
 }
 
 bool Input::IsTriggerSpace()
@@ -46,4 +50,9 @@ bool Input::IsTriggerDown()
 bool Input::IsTriggerShift()
 {
 	return nowShift && !prevShift;
+}
+
+bool Input::IsTriggerEsc()
+{
+	return nowEsc && !prevEsc;
 }

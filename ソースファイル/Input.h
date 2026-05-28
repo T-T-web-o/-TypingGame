@@ -8,12 +8,14 @@ private:
     static int nowUp;
 	static int nowDown;
 	static int nowShift;
+	static int nowEsc;
 
 	// ‘O‚Ì“ü—Íó‘Ô
 	static int prevSpace;
 	static int prevUp;
 	static int prevDown;
 	static int prevShift;
+	static int prevEsc;
 public:
 	static void Update();
 
@@ -22,5 +24,6 @@ public:
 	static bool IsTriggerUp();
 	static bool IsTriggerDown();
 	static bool IsTriggerShift();
+	static bool IsTriggerEsc();
 };
 

@@ -113,7 +113,7 @@ void NameInputScene::Update()
 		}
 
 		// 名前決定
-		if (keyNow[KEY_INPUT_RETURN] && !keyOld[KEY_INPUT_RETURN])
+		if (Input::IsTriggerSpace())
 		{
 			// タイピング音
 			PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
@@ -195,7 +195,7 @@ void NameInputScene::Draw()
 	{
 		SetFontSize(FONT_SMALL);
 
-		DrawString(MESSAGE_X2, MESSAGE_Y2, TEXT("Enterで決定"), COLOR_WHITE);
+		DrawString(MESSAGE_X2, MESSAGE_Y2, TEXT("Spaceで決定"), COLOR_WHITE);
 		DrawString(MESSAGE_X2, MESSAGE_Y3, TEXT("BackSpaceで消去"), COLOR_WHITE);
 	}
 

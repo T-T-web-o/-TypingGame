@@ -6,6 +6,7 @@
 #include "CountDown.h"
 #include "Scoreboard.h"
 #include "ChalkEffect.h"
+#include "Input.h"
 
 //============================================================
 // 描画用定数
@@ -123,8 +124,8 @@ PracticeTypingScene_2::~PracticeTypingScene_2()
 //============================================================
 void PracticeTypingScene_2::Update()
 {
-	//Tabキーで結果画面へ
-	if (CheckHitKey(KEY_INPUT_TAB))
+	//ESCキーで結果画面へ
+	if (Input::IsTriggerEsc())
 	{
 		GameManager::GetInstance().ChangeScene(new ResultScene(score, miss,maxCombo,false));
 		return;
@@ -295,7 +296,7 @@ void PracticeTypingScene_2::Draw()
 
 	SetFontSize(16);
 	// 終了案内
-	DrawString(END_TEXT_X, END_TEXT_Y, TEXT("Tabで終了"), COLOR_TEXT);
+	DrawString(END_TEXT_X, END_TEXT_Y, TEXT("ESCで終了"), COLOR_TEXT);
 
 
 	// キーボード表示
