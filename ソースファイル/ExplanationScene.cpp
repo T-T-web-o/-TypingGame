@@ -3,6 +3,7 @@
 #include "SoundManager.h"
 #include "SelectScene.h"
 #include "NameInputScene.h"
+#include "Input.h"
 #include "DxLib.h"
 
 //============================================================
@@ -102,9 +103,6 @@ ExplanationScene::ExplanationScene()
 	//背景画像(黒板)読み込み
 	ExplanationImage = LoadGraph(TEXT("Resource/Model/blackboard.png"));
 
-		// 入力管理初期化
-	nowEnter = CheckHitKey(KEY_INPUT_RETURN);
-	prevEnter = true;
 }
 
 
@@ -120,13 +118,9 @@ ExplanationScene::~ExplanationScene()
 // 説明画面の更新処理
 //============================================================
 void ExplanationScene::Update()
-{
-	//ENTERキーの入力状況を取得
-	nowEnter = CheckHitKey(KEY_INPUT_RETURN);
-
-	
+{	
 	// ENTERキーが押されたら
-	if (nowEnter && !prevEnter)
+	if (Input::IsTriggerSpace())
 	{
 		//効果音再生
 		PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
@@ -134,8 +128,7 @@ void ExplanationScene::Update()
 		// ゲーム選択シーンに切り替え
 		GameManager::GetInstance().ChangeScene(new NameInputScene());
 	}
-	// 前フレームの入力状態を保存
-	prevEnter = nowEnter;
+
 }
 
 //============================================================
@@ -175,6 +168,6 @@ void ExplanationScene::Draw()
 	}
 
 	//  スタート案内
-	DrawString(START_TEXT_X, START_TEXT_Y, TEXT("Enterでスタート"), GetColor(230, 230, 230));
+	DrawString(START_TEXT_X, START_TEXT_Y, TEXT("Spaceでスタート"), GetColor(230, 230, 230));
 	
 }

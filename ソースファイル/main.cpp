@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "GameManager.h"
 #include "SoundManager.h"
+#include "Input.h"
 #include <ctime>
 
 //============================================================
@@ -27,6 +28,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	{
 		// 画面のクリア
 		ClearDrawScreen();
+
+		// 入力管理の更新
+		Input::Update();
 
 		// 現在のシーンの更新
 		GameManager::GetInstance().Update();

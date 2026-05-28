@@ -1,16 +1,22 @@
 #include "CountDown.h"
 #include "SoundManager.h"
+#include "Input.h"
+#include "SelectScene.h"
+#include "GameManager.h"
 #include "DxLib.h"
 
 //============================================================
 // 描画用定数
 //============================================================
 
-const int TITLE_TEXT_X = 200;   // タイトル座標X
-const int TITLE_TEXT_Y = 10;    // タイトル座標Y
+const int TITLE_TEXT_X = 200;   // タイトルのX座標
+const int TITLE_TEXT_Y = 10;    // タイトルのY座標
 
-const int START_TEXT_X = 200;   // 操作案内座標X
-const int START_TEXT_Y = 240;   // 操作案内座標Y
+const int START_TEXT_X = 200;   // 操作案内のX座標
+const int START_TEXT_Y = 240;   // 操作案内のY座標
+
+const int BACK_TEXT_X = 20;     // 戻るテキストのX座標
+const int BACK_TEXT_Y = 400;    // 戻るテキストのY座標
 
 const int COUNTDOWN_TEXT_X = 300;   // カウントダウン座標X
 const int COUNTDOWN_TEXT_Y = 200;   // カウントダウン座標Y
@@ -31,11 +37,21 @@ CountDown::CountDown()
 //============================================================
 void CountDown::Update()
 {
+	//SHIFTキーが押されたら
+	if (Input::IsTriggerShift())
+	{
+		//効果音再生
+		PlaySoundMem(SoundManager::titleSE, DX_PLAYTYPE_BACK);
+
+		// 説明シーンに切り替え
+		GameManager::GetInstance().ChangeScene(new SelectScene());
+	}
+
 	// ゲーム開始待ち状態
 	if (state == WAIT_START)
 	{
 		//ENTERキーが押されたらカウントダウン開始
-		if (CheckHitKey(KEY_INPUT_RETURN))
+		if (Input::IsTriggerSpace())
 		{
 			//効果音再生
 			PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
@@ -59,6 +75,8 @@ void CountDown::Update()
 		}
 		return;
 	}
+
+	
 }
 
 //============================================================
@@ -73,7 +91,9 @@ void CountDown::Draw(int x, int y)
 
 		DrawString(TITLE_TEXT_X, TITLE_TEXT_Y, TEXT("タイピングゲーム"), COLOR_TEXT);
 
-		DrawString(START_TEXT_X, START_TEXT_Y, TEXT("ENTERキーでスタート"), COLOR_TEXT);
+		DrawString(START_TEXT_X, START_TEXT_Y, TEXT("SPACEキーでスタート"), COLOR_TEXT);
+
+		DrawString(BACK_TEXT_X, BACK_TEXT_Y, TEXT("左SHIFTで戻る"), COLOR_TEXT);
 
 		return;
 	}

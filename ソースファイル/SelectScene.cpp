@@ -5,6 +5,7 @@
 #include "PracticeTypingScene_2.h"
 #include "WordTypingScene.h"
 #include "NameInputScene.h"
+#include "Input.h"
 
 //============================================================
 // 描画用定数
@@ -32,6 +33,9 @@ const int DIFFICULTY_Y3 = 350;         // 難易度(むずかしい)のY座標
 const int SELECT_TEXT_X = 500;    // 選択テキストのX座標
 const int SELECT_TEXT_Y = 400;    // 選択テキストのY座標
 
+const int BACK_TEXT_X = 20;       // 戻るテキストのX座標
+const int BACK_TEXT_Y = 400;      // 戻るテキストのY座標
+
 const int COLOR_TEXT = GetColor(230, 230, 230);   //白
 const int COLOR_EASY = GetColor(100, 200, 255);   //青
 const int COLOR_NORMAL = GetColor(255, 255, 100); //黄
@@ -49,17 +53,6 @@ SelectScene::SelectScene()
     //カーソル初期位置
     cursor = 0;
     maxcursor = 2;
-
-    // 入力管理初期化
-    nowSpace = CheckHitKey(KEY_INPUT_SPACE);
-    nowUp = CheckHitKey(KEY_INPUT_UP);
-    nowDown = CheckHitKey(KEY_INPUT_DOWN);
-    nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
-
-    prevSpace = false;
-    prevUp = false;
-    prevDown = false;
-    prevShift = true;
 
     //画面サイズ取得
     GetDrawScreenSize(&screenW, &screenH);
@@ -83,17 +76,11 @@ SelectScene::~SelectScene()
 void SelectScene::Update()
 {
   
-    // 最新の入力に更新
-    nowSpace = CheckHitKey(KEY_INPUT_SPACE);
-    nowUp = CheckHitKey(KEY_INPUT_UP);
-    nowDown = CheckHitKey(KEY_INPUT_DOWN);
-    nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
-
     // ====== ゲーム選択フェーズ ======
     if (state == SELECT_GAME)
     {
         // ↓キーでカーソルを下へ移動
-        if (nowDown && !prevDown)
+        if (Input::IsTriggerDown())
         {
             if (cursor == 0) {
                 cursor++;
@@ -101,7 +88,7 @@ void SelectScene::Update()
         }
 
         // ↑キーでカーソルを上へ移動
-        if (nowUp && !prevUp)
+        if (Input::IsTriggerUp())
         {
             if (cursor == 1) {
                 cursor--;
@@ -109,7 +96,7 @@ void SelectScene::Update()
         }
 
         // スペースキーで決定
-        if (nowSpace && !prevSpace)
+        if (Input::IsTriggerSpace())
         {
             //選択SE再生
             PlaySoundMem(SoundManager::selectSE, DX_PLAYTYPE_BACK);
@@ -136,7 +123,7 @@ void SelectScene::Update()
     else if (state == SELECT_MODE)
     {
         // ↓キー
-        if (nowDown && !prevDown)
+        if (Input::IsTriggerDown())
         {
             if (cursor < 1) {
                 cursor++;
@@ -144,7 +131,7 @@ void SelectScene::Update()
         }
 
         // ↑キー
-        if (nowUp && !prevUp)
+        if (Input::IsTriggerUp())
         {
             if (cursor > 0) {
                 cursor--;
@@ -152,7 +139,7 @@ void SelectScene::Update()
         }
 
         // モード決定
-        if (nowSpace && !prevSpace)
+        if (Input::IsTriggerSpace())
         {
             //選択SE再生
             PlaySoundMem(SoundManager::selectSE, DX_PLAYTYPE_BACK);
@@ -177,7 +164,7 @@ void SelectScene::Update()
     else if (state == SELECT_DIFFICULTY)
     {
         //↓キー
-        if (nowDown && !prevDown)
+        if (Input::IsTriggerDown())
         {
             if (cursor<maxcursor) {
                 cursor++;
@@ -185,7 +172,7 @@ void SelectScene::Update()
         }
 
         // ↑キー
-        if (nowUp && !prevUp)
+        if (Input::IsTriggerUp())
         {
             if (cursor>0) {
                 cursor--;
@@ -194,7 +181,7 @@ void SelectScene::Update()
 
  
         // 難易度決定
-        if (nowSpace && !prevSpace)
+        if (Input::IsTriggerSpace())
         {
             //選択SE再生
             PlaySoundMem(SoundManager::selectSE, DX_PLAYTYPE_BACK);
@@ -222,7 +209,7 @@ void SelectScene::Update()
     //============================================================
     // 一つ前に戻る処理
     //============================================================
-    if (nowShift && !prevShift)
+    if (Input::IsTriggerShift())
     {
         //選択SE再生
         PlaySoundMem(SoundManager::selectSE, DX_PLAYTYPE_BACK);
@@ -240,11 +227,6 @@ void SelectScene::Update()
             GameManager::GetInstance().ChangeScene(new NameInputScene());
         }
     }
-    // 前フレームの入力状態を保存
-    prevSpace = nowSpace;
-    prevUp = nowUp;
-    prevDown = nowDown;
-    prevShift = nowShift;
 }
 
 //============================================================
@@ -313,5 +295,5 @@ void SelectScene::Draw()
     SetFontSize(18);
     DrawString(SELECT_TEXT_X, SELECT_TEXT_Y, TEXT("Spaceで選択"), COLOR_TEXT);
 
-    DrawString(20, SELECT_TEXT_Y, TEXT("左SHIFTで戻る"), COLOR_TEXT); 
+    DrawString(BACK_TEXT_X, BACK_TEXT_Y, TEXT("左SHIFTで戻る"), COLOR_TEXT);
 }

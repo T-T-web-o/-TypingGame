@@ -5,6 +5,7 @@
 #include "PracticeTypingScene_1.h"
 #include "SelectScene.h"
 #include "ExplanationScene.h"
+#include "Input.h"
 
 //============================================================
 // 描画用定数
@@ -26,14 +27,10 @@ TitleScene::TitleScene()
 
 	//タイトル画像読み込み
 	titleImage = LoadGraph(TEXT("Resource/Model/Title.png"));
-
-	// 入力管理初期化
-	nowEnter = (CheckHitKey(KEY_INPUT_RETURN));
-	prevEnter = false;
 }
 
 //============================================================
-// デストラクタ
+// デストラクタ   
 //============================================================
 TitleScene::~TitleScene()
 {
@@ -45,11 +42,8 @@ TitleScene::~TitleScene()
 //============================================================
 void TitleScene::Update()
 {
-	// Enterキー入力取得
-	nowEnter = (CheckHitKey(KEY_INPUT_RETURN));
-
 	// Enterキーが押されたか判定
-	if (nowEnter && !prevEnter)
+	if (Input::IsTriggerSpace())
 	{
 		// 決定音を再生
 		PlaySoundMem(SoundManager::titleSE, DX_PLAYTYPE_BACK);
@@ -57,8 +51,6 @@ void TitleScene::Update()
 		// 説明画面へシーン切り替え
 		GameManager::GetInstance().ChangeScene(new ExplanationScene());
 	}
-	// 前フレームの入力を保存
-	prevEnter = nowEnter;
 }
 
 //============================================================
@@ -71,7 +63,7 @@ void TitleScene::Draw()
 
 	SetFontSize(START_FONT_SIZE);
 	// スタート案内
-	DrawString(START_TEXT_X, START_TEXT_Y, TEXT("Enterでスタート"), COLOR_TEXT);
+	DrawString(START_TEXT_X, START_TEXT_Y, TEXT("Spaceでスタート"), COLOR_TEXT);
 }
 
 

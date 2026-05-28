@@ -5,6 +5,7 @@
 #include "SelectScene.h"
 #include "SoundManager.h"
 #include "ExplanationScene.h"
+#include "Input.h"
 
 //============================================================
 // レイアウト定数
@@ -73,9 +74,6 @@ NameInputScene::NameInputScene()
 
 	GetHitKeyStateAll(keyOld);
 
-	// 入力管理初期化
-	nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
-	prevShift = true;
 }
 
 // 更新処理
@@ -155,12 +153,8 @@ void NameInputScene::Update()
 	}
 	memcpy(keyOld, keyNow, sizeof(keyNow));
 
-
-	//左SHIFTキーの入力状態を取得
-	nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
-
 	//SHIFTキーが押されたら
-	if (nowShift && !prevShift)
+	if (Input::IsTriggerShift())
 	{
 		//効果音再生
 		PlaySoundMem(SoundManager::titleSE, DX_PLAYTYPE_BACK);
@@ -168,8 +162,6 @@ void NameInputScene::Update()
 		// 説明シーンに切り替え
 		GameManager::GetInstance().ChangeScene(new ExplanationScene());
 	}
-	// 前フレームの入力状態を保存
-	prevShift = nowShift;
 }
 
 // 描画処理

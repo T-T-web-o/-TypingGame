@@ -37,21 +37,6 @@ private:
 	int cursor;     // 現在選択中の項目
 	int maxcursor;  // カーソルの最大値
 
-	//------------------------------------------------------------
-	// 入力管理（前フレームと現在フレーム）
-	// 連続入力を防ぐために使用
-	//------------------------------------------------------------
-    bool prevSpace;
-	bool nowSpace;
-
-	bool prevUp;
-	bool nowUp;
-
-	bool prevDown;
-	bool nowDown;
-
-	bool prevShift;
-	bool nowShift;
 public:
 	// コンストラクタ
 	SelectScene();

@@ -7,6 +7,7 @@
 #include "Ranking.h"
 #include "SoundManager.h"
 #include "SelectScene.h"
+#include "Input.h"
 
 //============================================================
 // 描画用定数
@@ -53,11 +54,6 @@ ResultScene::ResultScene(int score ,int miss ,int maxCombo,bool useRanking)
 	this->useRanking = useRanking; //ランキング表示
 
 	isAdded = false;
-
-	// 入力管理初期化
-	nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
-	prevShift = true;
-
 
 	// 画面サイズ取得
 	GetDrawScreenSize(&screenW, &screenH);
@@ -131,7 +127,7 @@ void ResultScene::Update()
 	}
 
 	// スペースキーでタイトル画面へ
-	if (CheckHitKey(KEY_INPUT_SPACE))
+	if (Input::IsTriggerSpace())
 	{
 		// 効果音再生
 		PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
@@ -140,11 +136,8 @@ void ResultScene::Update()
 		GameManager::GetInstance().ChangeScene(new TitleScene());
 	}
 
-	// 最新の入力に更新
-	nowShift = CheckHitKey(KEY_INPUT_LSHIFT);
-
 	// シフトキーでセレクトシーンへ
-	if (nowShift && !prevShift)
+	if (Input::IsTriggerShift())
 	{
 		// 効果音再生
 		PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
@@ -152,8 +145,6 @@ void ResultScene::Update()
 		// セレクトシーンへ切り替え
 		GameManager::GetInstance().ChangeScene(new SelectScene());
 	}
-	// 前フレームの入力状態を保存
-	prevShift = nowShift;
 }
 
 //============================================================
