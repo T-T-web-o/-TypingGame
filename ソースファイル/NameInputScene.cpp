@@ -126,7 +126,7 @@ void NameInputScene::Update()
 			Ranking& ranking = GameManager::GetInstance().GetRanking();
 
 			// 名前が重複しているか確認
-			if (ranking.IsNameExists(name))
+			if (GameManager::GetInstance().IsNameExists(name))
 			{
 				// 重複したので確認
 				state = STATE_CONFIRM;

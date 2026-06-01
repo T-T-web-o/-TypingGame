@@ -121,3 +121,20 @@ const TCHAR* GameManager::GetPlayerName() const
 }
 
 
+//==========================================================
+// ƒvƒŒƒCƒ„[–¼‚Ì”»’è
+//==========================================================
+bool GameManager::IsNameExists(const TCHAR* name)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		if (rankings[i]->IsNameExists(name))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+

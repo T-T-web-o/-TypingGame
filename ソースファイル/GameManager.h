@@ -53,6 +53,9 @@ public:
 	// プレイヤー名を取得
 	const TCHAR* GetPlayerName() const;
 
+	// 名前の重複チェック
+	bool IsNameExists(const TCHAR* name);
+
 	// 更新処理
 	void Update();
 

@@ -272,8 +272,8 @@ void SelectScene::Draw()
     // モード選択表示
     if (state == SELECT_MODE)
     {
-        DrawString(MODE_TEXT_X, MODE_Y1, TEXT(" 1文字タイピング練習"), COLOR_TEXT);
-        DrawString(MODE_TEXT_X, MODE_Y2, TEXT(" アルファベットタイピング練習"), COLOR_TEXT);
+        DrawString(MODE_TEXT_X, MODE_Y1, TEXT(" アルファベットタイピング練習"), COLOR_TEXT);
+        DrawString(MODE_TEXT_X, MODE_Y2, TEXT(" ローマ字タイピング練習"), COLOR_TEXT);
 
         int y = (cursor == 0) ? MODE_Y1 : MODE_Y2;
         DrawString(MODE_CURSOR_X, y, TEXT("→"), COLOR_TEXT);

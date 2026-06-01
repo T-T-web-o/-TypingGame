@@ -64,8 +64,8 @@ const int CONTROL_COUNT = sizeof(controlText) / sizeof(controlText[0]);
 const TCHAR* modeText[] =
 {
 	TEXT("[ゲームモード]"),                   // タイトル
-	TEXT("・一文字タイピング練習"),           // モード１
-	TEXT("・アルファベットタイピング練習"),   // モード２
+	TEXT("・アルファベットタイピング練習"),   // モード１
+	TEXT("・ローマ字タイピング練習"),         // モード２
 	TEXT("・単語タイピング")                  // モード３
 };
 
