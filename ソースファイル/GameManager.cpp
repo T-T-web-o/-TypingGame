@@ -133,7 +133,6 @@ bool GameManager::IsNameExists(const TCHAR* name)
 			return true;
 		}
 	}
-
 	return false;
 }
 

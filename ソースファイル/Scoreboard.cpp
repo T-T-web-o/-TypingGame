@@ -59,7 +59,6 @@ const int RANK_COUNT = sizeof(rankText) / sizeof(rankText[0]);
 
 void Scoreboard::Draw(int x, int y)
 {
-
     // ボードサイズ
     int width = 150;
     int height = 240;

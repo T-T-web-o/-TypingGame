@@ -84,7 +84,6 @@ void ChalkEffect::Draw()
 			DrawCircle((int)chalkdust[i].x, (int)chalkdust[i].y, 1, GetColor(240, 240, 240), TRUE);
 		}
 	}
-
 	// •`‰æİ’è‚ğŒ³‚É–ß‚·
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

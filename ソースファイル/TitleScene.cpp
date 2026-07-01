@@ -42,7 +42,7 @@ TitleScene::~TitleScene()
 //============================================================
 void TitleScene::Update()
 {
-	// Enterキーが押されたか判定
+	// Spaceキーが押されたか判定
 	if (Input::IsTriggerSpace())
 	{
 		// 決定音を再生

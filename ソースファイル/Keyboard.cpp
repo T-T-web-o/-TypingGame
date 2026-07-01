@@ -130,5 +130,4 @@ void Keyboard::Draw(TCHAR target, TCHAR missKey, int startX, int startY)
 
         DrawString(x + KEY_SIZE / 2 - 5 ,y + KEY_SIZE / 2 - 5,str, COLOR_KEY);
     }
-  
 }

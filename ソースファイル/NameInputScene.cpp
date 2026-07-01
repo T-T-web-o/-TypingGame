@@ -78,7 +78,6 @@ NameInputScene::NameInputScene()
 	memset(keyOld, 0, sizeof(keyOld));
 
 	GetHitKeyStateAll(keyOld);
-
 }
 
 // 更新処理
@@ -122,8 +121,6 @@ void NameInputScene::Update()
 		{
 			// タイピング音
 			PlaySoundMem(SoundManager::typeSE, DX_PLAYTYPE_BACK);
-
-			Ranking& ranking = GameManager::GetInstance().GetRanking();
 
 			// 名前が重複しているか確認
 			if (GameManager::GetInstance().IsNameExists(name))

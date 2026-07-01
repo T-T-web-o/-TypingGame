@@ -105,7 +105,6 @@ ExplanationScene::ExplanationScene()
 
 }
 
-
 //============================================================
 // デストラクタ（使用した画像の解放）
 //============================================================
@@ -128,7 +127,6 @@ void ExplanationScene::Update()
 		// ゲーム選択シーンに切り替え
 		GameManager::GetInstance().ChangeScene(new NameInputScene());
 	}
-
 }
 
 //============================================================
@@ -169,5 +167,4 @@ void ExplanationScene::Draw()
 
 	//  スタート案内
 	DrawString(START_TEXT_X, START_TEXT_Y, TEXT("Spaceでスタート"), GetColor(230, 230, 230));
-	
 }
