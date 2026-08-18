@@ -62,7 +62,7 @@ DxLib\_VCをファイルに追加
 
 ## Portfolio
 
-https://drive.google.com/file/d/1dYoy7tGfkpze-8Rn0Z0iFC\_V1FPqSFzW/view?usp=sharing
+https://drive.google.com/file/d/1KJEuHPLxvxt7XPns118wp3pS02fLz08z/view?usp=sharing
 
 ## Gameplay Video
 

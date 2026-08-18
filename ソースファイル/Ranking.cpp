@@ -190,11 +190,11 @@ void Ranking::Add(const TCHAR* name, int score, int rank)
 	Difficulty d = GameManager::GetInstance().GetDifficulty();
 
 	// SQLï∂çÏê¨
-	char sql[256];
+	char sql[256]; 
 
 	char charName[16];
 
-	// char Ç©ÇÁTCHARÇ÷
+	// TCHARÇ©ÇÁcharÇ÷
 	wcstombs_s(nullptr, charName, name, _TRUNCATE);
 
 	sprintf_s(
@@ -227,6 +227,3 @@ bool Ranking::IsNameExists(const TCHAR* name)
 	}
 	return false; // å©Ç¬Ç©ÇÁÇ»Ç¢
 }
-
-
-
